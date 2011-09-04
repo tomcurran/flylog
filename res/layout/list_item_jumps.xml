@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_jumps_layout"
+    style="@style/LisItemJumps">
+
+    <TextView
+        android:id="@+id/list_item_jumps_number"
+        android:text="@string/_text_list_item_jumps_number"
+        style="@style/LisItemJumpsText.Number"
+        />
+
+    <TextView
+        android:id="@+id/list_item_jumps_place"
+        android:text="@string/_text_list_item_jumps_place"
+        style="@style/LisItemJumpsText.Place"
+        />
+
+    <TextView
+        android:id="@+id/list_item_jumps_aircraft"
+        android:text="@string/_text_list_item_jumps_aircraft"
+        style="@style/LisItemJumpsText.Aircraft"
+        />
+
+    <TextView
+        android:id="@+id/list_item_jumps_date"
+        android:text="@string/_text_list_item_jumps_date"
+        style="@style/LisItemJumpsText.Date"
+        />
+
+    <TextView
+        android:id="@+id/list_item_jumps_altitude"
+        android:text="@string/_text_list_item_jumps_altitude"
+        style="@style/LisItemJumpsText.Altitude"
+        />
+
+    <TextView android:id="@+id/list_item_jumps_description"
+        android:text="@string/_text_list_item_jumps_description"
+        style="@style/LisItemJumpsText.Description"
+        />
+
+</RelativeLayout>

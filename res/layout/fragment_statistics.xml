@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ScrollWrapper">
+	<LinearLayout
+        style="@style/StatsLayout">
+	
+	    <TextView
+            android:id="@+id/text_stat_jump_numbers_head"
+	        android:text="@string/text_stat_jump_numbers_head"
+	        style="@style/StatsHeader"
+	        />
+        <TextView android:id="@+id/text_stat_jump_numbers_6"
+            android:text="@string/text_stat_jump_numbers"
+            style="@style/StatsText"
+            />
+        <TextView android:id="@+id/text_stat_jump_numbers_12"
+            android:text="@string/text_stat_jump_numbers"
+            style="@style/StatsText"
+            />
+        <TextView android:id="@+id/text_stat_jump_numbers_18"
+            android:text="@string/text_stat_jump_numbers"
+            style="@style/StatsText"
+            />
+        <TextView android:id="@+id/text_stat_jump_numbers_24"
+            android:text="@string/text_stat_jump_numbers"
+            style="@style/StatsText.Padded"
+            />
+    
+        <TextView
+            android:id="@+id/text_stat_delay_head"
+            android:text="@string/text_stat_delay_head"
+            style="@style/StatsHeader"
+            />
+	    <TextView android:id="@+id/text_stat_delay"
+	        android:text="@string/text_stat_delay"
+            style="@style/StatsText"
+            />
+    
+        <TextView
+            android:id="@+id/text_stat_altitude_head"
+            android:text="@string/text_stat_altitude_head"
+            style="@style/StatsHeader.Padded"
+            />
+	    <TextView android:id="@+id/text_stat_altitude"
+	        android:text="@string/text_stat_altitude"
+            style="@style/StatsText"
+            />
+    
+        <TextView
+            android:id="@+id/text_stat_places_head"
+            android:text="@string/text_stat_places_head"
+            style="@style/StatsHeader.Padded"
+            />
+        <TextView
+            android:id="@+id/text_stat_places"
+            android:text="@string/text_stat_places"
+            style="@style/StatsText"
+            />
+    
+        <TextView
+            android:id="@+id/text_stat_equipment_head"
+            android:text="@string/text_stat_equipment_head"
+            style="@style/StatsHeader"
+            />
+        <TextView android:id="@+id/text_stat_equipment"
+            android:text="@string/text_stat_equipment"
+            style="@style/StatsText"
+            />
+    
+        <TextView
+            android:id="@+id/text_stat_aircrafts_head"
+            android:text="@string/text_stat_aircrafts_head"
+            style="@style/StatsHeader"
+            />
+        <TextView android:id="@+id/text_stat_aircrafts"
+            android:text="@string/text_stat_aircrafts"
+            style="@style/StatsText"
+            />
+
+	</LinearLayout>
+</ScrollView>

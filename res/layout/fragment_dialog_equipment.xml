@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/EditDialogLayout"
+    >
+
+    <TextView
+        android:id="@+id/dialog_label_equipment_name"
+        android:text="@string/dialog_label_equipment_name"
+        style="@style/EditDialogLabel"
+        />
+    <EditText
+        android:id="@+id/dialog_text_equipment_name"
+        style="@style/EditDialogInput"
+        />
+
+    <TextView
+        android:id="@+id/dialog_label_equipment_size"
+        android:text="@string/dialog_label_equipment_size"
+        style="@style/EditDialogLabel"
+        />
+
+    <EditText
+        android:id="@+id/dialog_text_equipment_size"
+        style="@style/EditDialogInput.Number"
+        />
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ListLayout"
+    >
+
+    <ListView
+        android:id="@id/android:list"
+        style="@style/ListView">
+        <!-- Preview: listitem=@layout/list_item_jumps -->
+    </ListView>
+
+    <TextView
+        android:id="@id/android:empty"
+        android:text="@string/list_emtpy_jumps"
+        style="@style/ListEmpty"
+        />
+
+</FrameLayout>
+ 

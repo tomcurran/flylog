@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Logbook</string>
+    <string name="premission_write">Modify logbook data</string>
+
+    <!-- JumpsListFragment -->
+    <string name="title_jumps_list">Jumps</string>
+    <string name="list_emtpy_jumps">No jumps</string>
+    <string name="options_menu_list_jumps_insert">Log Jump</string>
+    <string name="options_menu_list_jumps_delete">Delete Jumps</string>
+    <string name="options_menu_list_jumps_preferences">Preferences</string>
+    <string name="options_menu_list_jumps_stats">Statistics</string>
+    <string name="options_menu_list_jumps_places">Places</string>
+    <string name="context_menu_list_item_jumps_title">Jump %s</string>
+    <string name="context_menu_list_item_jumps_edit">Edit</string>
+    <string name="context_menu_list_item_jumps_delete">Delete</string>
+    <string name="text_format_list_jumps_date">E, MMMM dd, yyyy</string>
+
+    <!-- JumpEditFragment -->
+    <string name="title_create_jump">Add Jump</string>
+    <string name="title_edit_jump">Edit Jump %d</string>
+    <string name="label_edit_jump_number">Number</string>
+    <string name="label_edit_jump_date">Date</string>
+    <string name="label_edit_jump_place">Place</string>
+    <string name="label_edit_jump_aircraft">Aircraft</string>
+    <string name="label_edit_jump_equipment">Equipment</string>
+    <string name="label_edit_jump_altitude">Altitude</string>
+    <string name="label_edit_jump_delay">Delay</string>
+    <string name="label_edit_jump_description">Description</string>
+    <string name="prompt_edit_jump_places">Places</string>
+    <string name="prompt_edit_jump_aircrafts">Aircrafts</string>
+    <string name="prompt_edit_jump_equipment">Equipment</string>
+    <string name="options_menu_edit_jump_delete">Delete</string>
+    <string name="options_menu_edit_jump_save">Save</string>
+    <string name="options_menu_edit_jump_place">Add Place</string>
+    <string name="options_menu_edit_jump_aircraft">Add Aircraft</string>
+    <string name="options_menu_edit_jump_equipment">Add Equipment</string>
+
+    <!-- BaseDialogFragment -->
+    <string name="dialog_title_base_add">Add</string>
+    <string name="dialog_title_base_edit">Edit</string>
+    <string name="dialog_button_base_positive">OK</string>
+    <string name="dialog_button_base_neutral">Delete</string>
+    <string name="dialog_button_base_negative">Cancel</string>
+
+    <!-- PlaceDialogFragment -->
+    <string name="dialog_title_place_add">Add Place</string>
+    <string name="dialog_title_place_edit">Edit Place</string>
+
+    <!-- AircraftDialogFragment -->
+    <string name="dialog_title_aircraft_add">Add Aircraft</string>
+    <string name="dialog_title_aircraft_edit">Edit Aircraft</string>
+
+    <!-- EquipmentDialogFragment -->
+    <string name="dialog_title_equipment_add">Add Equipment</string>
+    <string name="dialog_title_equipment_edit">Edit Equipment</string>
+    <string name="dialog_label_equipment_name">Canopy Name</string>
+    <string name="dialog_label_equipment_size">Canopy Size</string>
+    
+    <!-- AddSpinner -->
+    <string name="widget_add_spinner_add">Add</string>
+
+    <!-- JumpPreferenceActivity -->
+    <string name="preference_jump_title">Preferences</string>
+    <string name="preference_jump_category_title">Jump Preferences</string>
+    <string name="preference_jump_category_summary">dfsdfs</string>
+    <string name="preference_jump_altitude_title">Altitude</string>
+    <string name="preference_jump_altitude_summary">Usual exit altitude</string>
+    <string name="preference_jump_altitude_dialog_title">Altitude</string>
+    <string name="preference_jump_delay_title">Delay</string>
+    <string name="preference_jump_delay_summary">Usual delay</string>
+    <string name="preference_jump_delay_dialog_title">Delay</string>
+    <string name="preference_place_title">Place</string>
+    <string name="preference_place_summary">Usual place</string>
+    <string name="preference_place_dialog_title">Place</string>
+    <string name="preference_aircraft_title">Aircraft</string>
+    <string name="preference_aircraft_summary">Usual aircraft</string>
+    <string name="preference_aircraft_dialog_title">Aircraft</string>
+    <string name="preference_equipment_title">Equipment</string>
+    <string name="preference_equipment_summary">Usual equipment</string>
+    <string name="preference_equipment_dialog_title">Equipment</string>
+    <string name="preference_jump_invalid_number">Only numbers valid</string>
+
+    <!-- StatisticsFragment -->
+    <string name="stats_title">Statistics</string>
+    <string name="text_stat_jumps_empty">No jumps</string>
+    <string name="text_stat_jump_numbers_head">Jump Numbers</string>
+    <string name="text_stat_jump_numbers">Last %1$2s months: %2$d</string>
+    <string name="text_stat_delay_head">Delay</string>
+    <string name="text_stat_delay">Longest: %1$s\nTotal: %2$s</string>
+    <string name="text_stat_altitude_head">Altitude</string>
+    <string name="text_stat_altitude">Highest: %1$s\nAverage: %2$s\nLowest: %3$s</string>
+    <string name="text_stat_places_head">Places</string>
+    <string name="text_stat_places">%1$s (%2$d)\n</string>
+    <string name="text_stat_places_empty">No places\n</string>
+    <string name="text_stat_equipment_head">Equipment</string>
+    <string name="text_stat_equipment">%1$s %2$d (%3$d)\n</string>
+    <string name="text_stat_equipment_empty">No equipment\n</string>
+    <string name="text_stat_aircrafts_head">Aircrafts</string>
+    <string name="text_stat_aircrafts">%1$s (%2$d)\n</string>
+    <string name="text_stat_aircrafts_empty">No aircrafts\n</string>
+    <string name="text_format_days">%4$d days, %3$d hours, %2$d minutes, %1$d seconds</string>
+    <string name="text_format_hours">%3$d hours, %2$d minutes, %1$d seconds</string>
+    <string name="text_format_minutes">%2$d minutes, %1$d seconds</string>
+    <string name="text_format_seconds">%1$d seconds</string>
+    <string name="text_format_feet">&#160;ft</string>
+
+    <!-- PlaceListFragment -->
+    <string name="title_places_list">Places</string>
+    <string name="list_emtpy_places">No Places</string>
+    <string name="options_menu_list_places_insert">Add Place</string>
+    <string name="context_menu_list_item_places_edit">Edit</string>
+    <string name="context_menu_list_item_places_delete">Delete</string>
+
+    <!-- AircraftListFragment -->
+    <string name="title_aircraft_list">Aircrafts</string>
+    <string name="list_emtpy_aircraft">No Aircrafts</string>
+    <string name="options_menu_list_aircraft_insert">Add Aircraft</string>
+    <string name="context_menu_list_item_aircraft_edit">Edit</string>
+    <string name="context_menu_list_item_aircraft_delete">Delete</string>
+
+    <!-- EquipmentListFragment -->
+    <string name="title_equipment_list">Equipment</string>
+    <string name="list_emtpy_equipment">No Equipment</string>
+    <string name="text_list_item_equipment">%1$s %2$d</string>
+    <string name="options_menu_list_equipment_insert">Add Equipment</string>
+    <string name="context_menu_list_item_equipment_edit">Edit</string>
+    <string name="context_menu_list_item_equipment_delete">Delete</string>
+
+    <!-- test data -->
+    <string name="_text_list_item_jumps_number">112</string>
+    <string name="_text_list_item_jumps_place">Strathallan</string>
+    <string name="_text_list_item_jumps_aircraft">C206</string>
+    <string name="_text_list_item_jumps_date">Sun, June 05, 2011</string>
+    <string name="_text_list_item_jumps_altitude">5,000 ft</string>
+    <string name="_text_list_item_jumps_description">really long description, really long description, really long description</string>
+    <string name="_text_list_item_jumps_delay">15</string>
+    <string name="_text_list_item_jumps_equipment">Spectre 190</string>
+    <string name="_text_list_item_places_name">Strathallan</string>
+    <string name="_text_list_item_places_count">0</string>
+
+</resources>

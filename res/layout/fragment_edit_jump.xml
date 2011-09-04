@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ScrollWrapper"
+    >
+
+    <RelativeLayout
+        android:id="@+id/layout_edit_jump"
+        style="@style/EditJumpLayout">
+
+	    <!-- diverts focus from text fields -->
+	    <LinearLayout style="@style/DivertFocus" />
+
+        <TextView
+            android:id="@+id/label_edit_jump_number"
+            android:text="@string/label_edit_jump_number"
+            style="@style/EditJumpLabel.Number"
+            />
+        <EditText
+            android:id="@+id/text_edit_jump_number"
+            style="@style/EditJumpInput.Number"
+            />
+
+        <TextView
+            android:id="@+id/label_edit_jump_date"
+            android:text="@string/label_edit_jump_date"
+            style="@style/EditJumpLabel.Date"
+            />
+        <DatePicker
+            android:id="@+id/date_edit_jump_date"
+            style="@style/EditJumpInput.Date"
+            />
+
+        <TextView
+            android:id="@+id/label_edit_jump_place"
+            android:text="@string/label_edit_jump_place"
+            style="@style/EditJumpLabel.Place"
+            />
+        <org.tomcurran.logbook.ui.widget.AddSpinner
+            android:id="@+id/spinner_edit_jump_place"
+            style="@style/EditJumpInput.Place" />
+
+        <TextView
+            android:id="@+id/label_edit_jump_aircraft"
+            android:text="@string/label_edit_jump_aircraft"
+            style="@style/EditJumpLabel.Aircraft"
+            />
+        <org.tomcurran.logbook.ui.widget.AddSpinner
+            android:id="@+id/spinner_edit_jump_aircraft"
+            style="@style/EditJumpInput.Aircraft"
+            />
+
+        <TextView
+            android:id="@+id/label_edit_jump_equipment"
+            android:text="@string/label_edit_jump_equipment"
+            style="@style/EditJumpLabel.Equipment"
+            />
+        <org.tomcurran.logbook.ui.widget.AddSpinner
+            android:id="@+id/spinner_edit_jump_equipment"
+            style="@style/EditJumpInput.Equipment"
+            />
+
+        <TextView
+            android:id="@+id/label_edit_jump_altitude"
+            android:text="@string/label_edit_jump_altitude"
+            style="@style/EditJumpLabel.Altitude"
+             />
+        <EditText
+            android:id="@+id/text_edit_jump_altitude"
+            style="@style/EditJumpInput.Altitude"
+            />
+
+        <TextView
+            android:id="@+id/label_edit_jump_delay"
+            android:text="@string/label_edit_jump_delay"
+            style="@style/EditJumpLabel.Delay"
+            />
+        <EditText
+            android:id="@+id/text_edit_jump_delay"
+            style="@style/EditJumpInput.Delay"
+            />
+
+        <TextView
+            android:id="@+id/label_edit_jump_description"
+            android:text="@string/label_edit_jump_description"
+            style="@style/EditJumpLabel.Description"
+            />
+        <EditText
+            android:id="@+id/text_edit_jump_description"
+            style="@style/EditJumpInput.Description"
+            />
+
+    </RelativeLayout>
+</ScrollView>
