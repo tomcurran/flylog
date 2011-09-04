@@ -231,6 +231,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
+        updateJump();
         outState.putParcelable("uri", mUri);
         outState.putInt("state", mState);
     }
