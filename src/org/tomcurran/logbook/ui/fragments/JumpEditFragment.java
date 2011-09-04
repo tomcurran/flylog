@@ -97,17 +97,17 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 			BaseDialogFragment dialog = null;
 			switch (spinner.getId()) {
 			case R.id.spinner_edit_jump_place:
-				dialog = PlaceDialogFragment.newInstance(0);
+				dialog = PlaceDialogFragment.newInstance();
 				dialog.setOnSuccessListener(mPlaceOnSuccessListener);
 				dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
 				break;
 			case R.id.spinner_edit_jump_aircraft:
-				dialog = AircraftDialogFragment.newInstance(0);
+				dialog = AircraftDialogFragment.newInstance();
 				dialog.setOnSuccessListener(mAircraftOnSuccessListener);
 				dialog.show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
 				break;
 			case R.id.spinner_edit_jump_equipment:
-				dialog = EquipmentDialogFragment.newInstance(0);
+				dialog = EquipmentDialogFragment.newInstance();
 				dialog.setOnSuccessListener(mEquipmentOnSuccessListener);
 				dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
 				break;

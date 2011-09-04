@@ -92,7 +92,10 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		editEquipment(id);
+		Cursor equipment = (Cursor) getListAdapter().getItem(position);
+		editEquipment(equipment.getInt(EquipmentQuery._ID),
+				equipment.getString(EquipmentQuery.CANOPY_NAME),
+				equipment.getInt(EquipmentQuery.CANOPY_SIZE));
 	}
 
 	@Override
@@ -109,7 +112,11 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
 	public boolean onContextItemSelected(android.view.MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.context_menu_list_item_equipment_edit: {
-			editEquipment(((AdapterContextMenuInfo)item.getMenuInfo()).id);
+			AdapterContextMenuInfo info = ((AdapterContextMenuInfo)item.getMenuInfo());
+			Cursor equipment = (Cursor) getListAdapter().getItem(info.position);
+			editEquipment(equipment.getInt(EquipmentQuery._ID),
+					equipment.getString(EquipmentQuery.CANOPY_NAME),
+					equipment.getInt(EquipmentQuery.CANOPY_SIZE));
 			return true;
 		}
 		case R.id.context_menu_list_item_equipment_delete: {
@@ -130,8 +137,8 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
 		dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
 	}
 
-	private void editEquipment(long equipmentId) {
-		BaseDialogFragment dialog = EquipmentDialogFragment.newInstance(equipmentId);
+	private void editEquipment(long equipmentId, String canopyName, int canopySize) {
+		BaseDialogFragment dialog = EquipmentDialogFragment.newInstance(equipmentId, canopyName, canopySize);
 		dialog.setOnSuccessListener(mEquipmentOnSuccessListener);
 		dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
 	}
@@ -216,6 +223,7 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
 
 		int CANOPY_NAME = 0;
 		int CANOPY_SIZE = 1;
+		int _ID = 2;
 	}
 
 }

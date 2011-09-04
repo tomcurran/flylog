@@ -2,7 +2,6 @@ package org.tomcurran.logbook.ui.fragments;
 
 import org.tomcurran.logbook.R;
 import org.tomcurran.logbook.provider.LogbookContract;
-import org.tomcurran.logbook.provider.LogbookContract.Places;
 import org.tomcurran.logbook.ui.BaseActivity;
 import org.tomcurran.logbook.ui.HomeActivity;
 
@@ -93,7 +92,8 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		editPlace(id);
+		final Cursor place = (Cursor) getListAdapter().getItem(position);
+		editPlace(place.getInt(PlacesQuery._ID), place.getString(PlacesQuery.NAME));
 	}
 
 	@Override
@@ -110,7 +110,9 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
 	public boolean onContextItemSelected(android.view.MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.context_menu_list_item_places_edit: {
-			editPlace(((AdapterContextMenuInfo)item.getMenuInfo()).id);
+			AdapterContextMenuInfo info = ((AdapterContextMenuInfo)item.getMenuInfo());
+			Cursor place = (Cursor) getListAdapter().getItem(info.position);
+			editPlace(place.getInt(PlacesQuery._ID), place.getString(PlacesQuery.NAME));
 			return true;
 		}
 		case R.id.context_menu_list_item_places_delete: {
@@ -131,14 +133,14 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
 		dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
 	}
 
-	private void editPlace(long placeId) {
-		BaseDialogFragment dialog = PlaceDialogFragment.newInstance(placeId);
+	private void editPlace(long placeId, String placeName) {
+		BaseDialogFragment dialog = PlaceDialogFragment.newInstance(placeId, placeName);
 		dialog.setOnSuccessListener(mPlaceOnSuccessListener);
 		dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
 	}
 
 	private void deletePlace(long placeId) {
-		getActivity().getContentResolver().delete(Places.buildPlaceUri(placeId), null, null);
+		getActivity().getContentResolver().delete(LogbookContract.Places.buildPlaceUri(placeId), null, null);
 		getLoaderManager().restartLoader(0, null, this);
 	}
 
@@ -149,11 +151,11 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		return new CursorLoader(
 				getActivity(),
-				Places.CONTENT_URI,
+				LogbookContract.Places.CONTENT_URI,
 				PlacesQuery.PROJECTION,
 				null,
 				null,
-				Places.DEFAULT_SORT
+				LogbookContract.Places.DEFAULT_SORT
 		);
 	}
 
@@ -190,6 +192,9 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
 				LogbookContract.Places.PLACE_NAME,
 				LogbookContract.Places._ID
 		};
+
+		int NAME = 0;
+		int _ID = 1;
 
 	}
 
