@@ -87,7 +87,7 @@ public class LogbookContract {
 		public static final Uri CONTENT_STATS_URI = CONTENT_URI.buildUpon().appendPath(PATH_STATS).build();
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.logbook.equipment";
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.logbook.equipment";
-		public static final String DEFAULT_SORT = Equipment.EQUIPMENT_CANOPY_SIZE + " ASC";
+		public static final String DEFAULT_SORT = Equipment.EQUIPMENT_CANOPY_SIZE + " ASC, " + Equipment.EQUIPMENT_CANOPY_NAME + " ASC";
 
 		public static Uri buildEquipmentUri(String equipmentId) {
 			return CONTENT_URI.buildUpon().appendPath(equipmentId).build();
