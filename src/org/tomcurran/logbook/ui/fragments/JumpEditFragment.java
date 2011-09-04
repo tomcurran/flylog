@@ -55,7 +55,6 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private int mState;
     private Uri mUri;
     private Cursor mJumpCursor;
-
     private Long mPlaceId;
     private Long mAircraftId;
     private Long mEquipmentId;
@@ -188,14 +187,14 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         ab.setTitle(R.string.title_create_jump);
         ab.setDisplayHomeAsUpEnabled(true);
 
-        mJumpNumText = (TextView) activity.findViewById(R.id.text_edit_jump_number);
-        mDatePicker = (DatePicker) activity.findViewById(R.id.date_edit_jump_date);
-        mPlaceSpinner = (AddSpinner) activity.findViewById(R.id.spinner_edit_jump_place);
-        mAircraftSpinner = (AddSpinner) activity.findViewById(R.id.spinner_edit_jump_aircraft);
+        mJumpNumText      = (TextView)   activity.findViewById(R.id.text_edit_jump_number);
+        mDatePicker       = (DatePicker) activity.findViewById(R.id.date_edit_jump_date);
+        mPlaceSpinner     = (AddSpinner) activity.findViewById(R.id.spinner_edit_jump_place);
+        mAircraftSpinner  = (AddSpinner) activity.findViewById(R.id.spinner_edit_jump_aircraft);
         mEquipmentSpinner = (AddSpinner) activity.findViewById(R.id.spinner_edit_jump_equipment);
-        mAltitudeText = (TextView) activity.findViewById(R.id.text_edit_jump_altitude);
-        mDelayText = (TextView) activity.findViewById(R.id.text_edit_jump_delay);
-        mDescriptionText = (TextView) activity.findViewById(R.id.text_edit_jump_description);
+        mAltitudeText     = (TextView)   activity.findViewById(R.id.text_edit_jump_altitude);
+        mDelayText        = (TextView)   activity.findViewById(R.id.text_edit_jump_delay);
+        mDescriptionText  = (TextView)   activity.findViewById(R.id.text_edit_jump_description);
 
         getLoaderManager().initLoader(LOADER_JUMP, null, this);
 
