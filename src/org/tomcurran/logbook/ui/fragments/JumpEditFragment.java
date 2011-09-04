@@ -181,7 +181,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
-
+    	
         FragmentActivity activity = getActivity();
         ActionBar ab = activity.getSupportActionBar();
 
@@ -222,7 +222,6 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
         mDatePicker.init(time.year, time.month, time.monthDay, mDateChangedListener);
     }
-
 
     @Override
     public void onPause() {
