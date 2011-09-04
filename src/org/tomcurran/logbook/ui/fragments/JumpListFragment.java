@@ -2,13 +2,13 @@ package org.tomcurran.logbook.ui.fragments;
 
 import org.tomcurran.logbook.R;
 import org.tomcurran.logbook.provider.LogbookContract;
-import org.tomcurran.logbook.ui.JumpEditActivity;
 import org.tomcurran.logbook.ui.PreferencesActivity;
 import org.tomcurran.logbook.util.UIUtils;
 
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
@@ -34,7 +34,7 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
 
 	public static final String TAG = "jump_list_fragment";
 
-	private static final int ACTIVITY_CREATE = 0;
+	private static final int ACTIVITY_INSERT = 0;
 	private static final int ACTIVITY_EDIT = 1;
 
 	private CursorAdapter mAdapter;
@@ -109,8 +109,12 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = (MenuInflater) getActivity().getMenuInflater();
 		inflater.inflate(R.menu.context_menu_list_item_jumps, menu);
-		menu.setHeaderTitle(getString(R.string.context_menu_list_item_jumps_title,
-				 ((TextView) ((AdapterContextMenuInfo) menuInfo).targetView.findViewById(R.id.list_item_jumps_number)).getText()));
+		
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+		Cursor jump = (Cursor) getListAdapter().getItem(info.position);
+		menu.setHeaderTitle(getString(
+				R.string.context_menu_list_item_jumps_title,
+				jump.getInt(JumpsQuery.NUMBER)));
 	}
 
 	@Override
@@ -133,13 +137,15 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
 	// helpers
 
 	private void createJump() {
-		startActivityForResult(new Intent(getActivity(), JumpEditActivity.class), ACTIVITY_CREATE);
+		final Uri jumpUri = LogbookContract.Jumps.CONTENT_URI;
+		final Intent intent = new Intent(Intent.ACTION_INSERT, jumpUri);
+		startActivityForResult(intent, ACTIVITY_INSERT);
 	}
 
 	private void editJump(long jumpId) {
-		Intent i = new Intent(getActivity(), JumpEditActivity.class);
-		i.putExtra(LogbookContract.Jumps._ID, jumpId);
-		startActivityForResult(i, ACTIVITY_EDIT);
+		final Uri jumpUri = LogbookContract.Jumps.buildJumpUri(jumpId);
+		final Intent intent = new Intent(Intent.ACTION_EDIT, jumpUri);
+		startActivityForResult(intent, ACTIVITY_EDIT);
 	}
 
 	private void deleteJump(long jumpId) {
@@ -229,6 +235,7 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
 				LogbookContract.Jumps._ID
 		};
 
+		int NUMBER = 0;
 		int DATE = 1;
 		int ALTITUDE = 4;
 

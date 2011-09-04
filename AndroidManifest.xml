@@ -39,7 +39,19 @@
         <activity
             android:name=".ui.JumpEditActivity"
             android:label="@string/title_create_jump"
-            />
+            >
+
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.logbook.jump" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.logbook.jump" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".ui.PreferencesActivity"

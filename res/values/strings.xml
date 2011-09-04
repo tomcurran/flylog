@@ -12,7 +12,7 @@
     <string name="options_menu_list_jumps_preferences">Preferences</string>
     <string name="options_menu_list_jumps_stats">Statistics</string>
     <string name="options_menu_list_jumps_places">Places</string>
-    <string name="context_menu_list_item_jumps_title">Jump %s</string>
+    <string name="context_menu_list_item_jumps_title">Jump %d</string>
     <string name="context_menu_list_item_jumps_edit">Edit</string>
     <string name="context_menu_list_item_jumps_delete">Delete</string>
     <string name="text_format_list_jumps_date">E, MMMM dd, yyyy</string>

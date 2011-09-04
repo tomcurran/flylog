@@ -12,6 +12,7 @@ import org.tomcurran.logbook.util.UIUtils;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,6 +28,7 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -40,11 +42,20 @@ import android.widget.TextView;
 
 public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final int LOADER_PLACES = 0;
-    private static final int LOADER_AIRCRAFTS = 1;
-    private static final int LOADER_EQUIPMENT = 2;
+    private static final String TAG = "JumpEditFragment";
 
-    private Long mRowId;
+    private static final int STATE_EDIT = 0;
+    private static final int STATE_INSERT = 1;
+
+    private static final int LOADER_JUMP = 0;
+    private static final int LOADER_PLACES = 1;
+    private static final int LOADER_AIRCRAFTS = 2;
+    private static final int LOADER_EQUIPMENT = 3;
+
+    private int mState;
+    private Uri mUri;
+    private Cursor mJumpCursor;
+
     private Long mPlaceId;
     private Long mAircraftId;
     private Long mEquipmentId;
@@ -65,22 +76,19 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private BaseDialogFragment.OnSuccessListener mPlaceOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
 		@Override
 		public void onSuccess(Long id) {
-			mPlaceId = id;
-			getLoaderManager().restartLoader(LOADER_PLACES, null, JumpEditFragment.this);
+			updatePlace(id);
 		}
 	};
     private BaseDialogFragment.OnSuccessListener mAircraftOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
 		@Override
 		public void onSuccess(Long id) {
-			mAircraftId = id;
-			getLoaderManager().restartLoader(LOADER_AIRCRAFTS, null, JumpEditFragment.this);
+			updateAircraft(id);
 		}
 	};
     private BaseDialogFragment.OnSuccessListener mEquipmentOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
 		@Override
 		public void onSuccess(Long id) {
-			mEquipmentId = id;
-			getLoaderManager().restartLoader(LOADER_EQUIPMENT, null, JumpEditFragment.this);
+			updateEquipment(id);
 		}
 	};
     private AddSpinner.OnAddClickListener mOnAddListener = new AddSpinner.OnAddClickListener() {
@@ -114,6 +122,49 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     	setHasOptionsMenu(true);
+
+    	time = new Time();
+    	final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
+    	final String action = intent.getAction();
+    	if (Intent.ACTION_EDIT.equals(action)) {
+            mState = STATE_EDIT;
+            mUri = intent.getData();
+        } else if (Intent.ACTION_INSERT.equals(action)) {
+        	mState = STATE_INSERT;
+
+            FragmentActivity activity = getActivity();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            
+    		time.setToNow();
+            String placeId = prefs.getString(PreferencesActivity.JUMP_PLACE, null);
+            String aircraftId = prefs.getString(PreferencesActivity.JUMP_AIRCRAFT, null);
+            String equipmentId = prefs.getString(PreferencesActivity.JUMP_EQUIPMENT, null);
+            String altitude = prefs.getString(PreferencesActivity.JUMP_ALTITUDE, null);
+            String delay = prefs.getString(PreferencesActivity.JUMP_DELAY, null);
+
+            ContentValues values = new ContentValues();
+            values.put(LogbookContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(activity) + 1);
+            values.put(LogbookContract.Jumps.JUMP_DATE, time.toMillis(false));
+            values.put(LogbookContract.Jumps.PLACE_ID, placeId == null ? null : Long.valueOf(placeId));
+            values.put(LogbookContract.Jumps.AIRCRAFT_ID, aircraftId == null ? null : Long.valueOf(aircraftId));
+            values.put(LogbookContract.Jumps.EQUIPMENT_ID, equipmentId == null ? null : Long.valueOf(equipmentId));
+            values.put(LogbookContract.Jumps.JUMP_ALTITUDE, altitude == null ? 0 : Integer.valueOf(altitude));
+            values.put(LogbookContract.Jumps.JUMP_DELAY, delay == null ? 0 : Integer.valueOf(delay));
+            values.put(LogbookContract.Jumps.JUMP_DESCRIPTION, "");
+
+        	mUri = activity.getContentResolver().insert(intent.getData(), values);
+
+        	if (mUri == null) {
+                Log.e(TAG, "Failed to insert new jump into " + intent.getData());
+        		activity.finish();
+        		return;
+        	}
+        	activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mUri.toString()));
+        } else {
+            Log.e(TAG, "Unknown action, exiting");
+            getActivity().finish();
+    		return;
+        }
     }
 
     @Override
@@ -140,6 +191,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mDelayText = (TextView) activity.findViewById(R.id.text_edit_jump_delay);
         mDescriptionText = (TextView) activity.findViewById(R.id.text_edit_jump_description);
 
+        getLoaderManager().initLoader(LOADER_JUMP, null, this);
+
         setupAddSpinner(
         		mPlaceSpinner,
         		R.string.prompt_edit_jump_places,
@@ -161,24 +214,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         		LOADER_EQUIPMENT
         );
 
-        time = new Time();
-
-        if (savedInstanceState == null) {
-        	Bundle args = getArguments();
-    		long jumpId = args.getLong(LogbookContract.Jumps._ID, 0);
-    		mRowId = jumpId != 0 ? jumpId : null;
-        } else {
-        	mRowId = (Long) savedInstanceState.getSerializable(LogbookContract.Jumps._ID);
-        }
-
-        populateFields();
+        mDatePicker.init(time.year, time.month, time.monthDay, mDateChangedListener);
     }
 
-    @Override
-    public void onResume() {
-    	super.onResume();
-        populateFields();
-    }
 
     @Override
     public void onPause() {
@@ -190,7 +228,6 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
         saveState();
-        outState.putSerializable(LogbookContract.Jumps._ID, mRowId);
     }
 
 
@@ -209,8 +246,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 			return true;
 		case R.id.options_menu_edit_jump_delete:
 	        FragmentActivity activity = getActivity();
-	        saveState();
-	        activity.getContentResolver().delete(LogbookContract.Jumps.buildJumpUri(mRowId), null, null);
+	        activity.getContentResolver().delete(mUri, null, null);
             activity.finish();
 			return false;
 		default:
@@ -221,46 +257,39 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     // helpers
 
-    public void populateFields() {
-        FragmentActivity activity = getActivity();
-    	if (mRowId != null) {
-            Cursor jump = activity.getContentResolver().query(
-            		LogbookContract.Jumps.buildJumpUri(mRowId),
-                    JumpsQuery.PROJECTION,
-                    null,
-                    null,
-                    LogbookContract.Jumps.DEFAULT_SORT
-            );
-            if (jump.moveToFirst()) {
-                activity.getSupportActionBar().setTitle(getString(R.string.title_edit_jump, jump.getInt(JumpsQuery.NUMBER)));
-                mJumpNumText.setText(jump.getString(JumpsQuery.NUMBER));
-                time.set(jump.getLong(JumpsQuery.DATE));
-                mDatePicker.init(time.year, time.month, time.monthDay, mDateChangedListener);
-                mPlaceId = jump.getLong(JumpsQuery.PLACE_ID);
-                mAircraftId = jump.getLong(JumpsQuery.AIRCRAFT_ID);
-                mEquipmentId = jump.getLong(JumpsQuery.EQUIPMENT_ID);                
-                mAltitudeText.setText(jump.getString(JumpsQuery.ALTITUDE));
-                mDelayText.setText(jump.getString(JumpsQuery.DELAY));
-                mDescriptionText.setText(jump.getString(JumpsQuery.DESCRIPTION));
-            }
-        } else {
-        	activity.invalidateOptionsMenu();
-        	
-        	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        	time.setToNow();
-            
-        	mJumpNumText.setText(String.valueOf(DbAdapter.getHighestJumpNumber(activity) + 1));
+    public void loadJump() {
+        Cursor jump = mJumpCursor;
+        if (jump.moveToFirst()) {
+        	if (mState == STATE_EDIT) {
+        		getActivity().getSupportActionBar().setTitle(
+        				getString(R.string.title_edit_jump, jump.getInt(JumpsQuery.NUMBER)));
+        	}
+            mJumpNumText.setText(jump.getString(JumpsQuery.NUMBER));
+            time.set(jump.getLong(JumpsQuery.DATE));
             mDatePicker.init(time.year, time.month, time.monthDay, mDateChangedListener);
-            String placeId = prefs.getString(PreferencesActivity.JUMP_PLACE, null);
-            mPlaceId = placeId == null ? null : Long.valueOf(placeId);
-            String aircraftId = prefs.getString(PreferencesActivity.JUMP_AIRCRAFT, null);
-            mAircraftId = aircraftId == null ? null : Long.valueOf(aircraftId);
-            String equipmentId = prefs.getString(PreferencesActivity.JUMP_EQUIPMENT, null);
-            mEquipmentId = equipmentId == null ? null : Long.valueOf(equipmentId);
-            mDelayText.setText(prefs.getString(PreferencesActivity.JUMP_DELAY, ""));
-            mAltitudeText.setText(prefs.getString(PreferencesActivity.JUMP_ALTITUDE, ""));
+            updatePlace(jump.getLong(JumpsQuery.PLACE_ID));
+            updateAircraft(jump.getLong(JumpsQuery.AIRCRAFT_ID));
+            updateEquipment(jump.getLong(JumpsQuery.EQUIPMENT_ID));   
+            mAltitudeText.setText(jump.getString(JumpsQuery.ALTITUDE));
+            mDelayText.setText(jump.getString(JumpsQuery.DELAY));
+            mDescriptionText.setText(jump.getString(JumpsQuery.DESCRIPTION));
         }
-	}
+    }
+
+    private void updatePlace(long placeId) {
+    	mPlaceId = placeId;
+		getLoaderManager().restartLoader(LOADER_PLACES, null, this);
+    }
+
+    private void updateAircraft(long aircraftId) {
+    	mAircraftId = aircraftId;
+		getLoaderManager().restartLoader(LOADER_AIRCRAFTS, null, this);
+    }
+
+    private void updateEquipment(long equipmentId) {
+    	mEquipmentId = equipmentId;
+		getLoaderManager().restartLoader(LOADER_EQUIPMENT, null, this);
+    }
 
     private void saveState() {
         ContentResolver resolver = getActivity().getContentResolver();
@@ -274,20 +303,11 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         values.put(LogbookContract.Jumps.JUMP_ALTITUDE, UIUtils.parseTextViewInt(mAltitudeText));
         values.put(LogbookContract.Jumps.JUMP_DELAY, UIUtils.parseTextViewInt(mDelayText));
         values.put(LogbookContract.Jumps.JUMP_DESCRIPTION, mDescriptionText.getText().toString());
-        
-        if (mRowId == null) {
-            Uri jump = resolver.insert(LogbookContract.Jumps.CONTENT_URI, values);
-            long id = Long.valueOf(LogbookContract.Jumps.getJumpId(jump));
-            if (id > 0) {
-                mRowId = id;
-            }
-        } else {
-            resolver.update(
-            		LogbookContract.Jumps.buildJumpUri(mRowId),
-                    values,
-                    null,
-                    null
-            );
+
+        resolver.update(mUri, values, null, null);
+
+        if (mState == STATE_INSERT) {
+        	mState = STATE_EDIT;
         }
     }
 
@@ -371,6 +391,15 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
+        case LOADER_JUMP:
+        	return new CursorLoader(
+                    getActivity(),
+                    mUri,
+                    JumpsQuery.PROJECTION,
+                    null,
+                    null,
+                    LogbookContract.Jumps.DEFAULT_SORT
+        	);
         case LOADER_PLACES:
             return new CursorLoader(
                     getActivity(),
@@ -405,6 +434,10 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         switch (loader.getId()) {
+        case LOADER_JUMP:
+        	mJumpCursor = data;
+        	loadJump();
+        	break;
         case LOADER_PLACES:
         	AddSpinner placeSpinner = (AddSpinner)mPlaceSpinner;
         	((SimpleCursorAdapter)placeSpinner.getAdapter()).swapCursor(data);
@@ -425,6 +458,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     public void onLoaderReset(Loader<Cursor> loader) {
         switch (loader.getId()) {
+        case LOADER_JUMP:
+        	mJumpCursor = null;
+        	break;
         case LOADER_PLACES:
         	((SimpleCursorAdapter)mPlaceSpinner.getAdapter()).swapCursor(null);
             break;
