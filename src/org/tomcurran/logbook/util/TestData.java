@@ -38,7 +38,8 @@ public class TestData {
 			new EquipmentInfo("Balance",    210),
 			new EquipmentInfo("Fury",       220),
 			new EquipmentInfo("Spectre",    190),
-			new EquipmentInfo("Triathalon", 175)
+			new EquipmentInfo("Triathalon", 175),
+			new EquipmentInfo("Sabre 2",    190)
 	};
 
 	private static final ContentValues[] JUMPS = {
@@ -183,7 +184,9 @@ public class TestData {
 			newJump(138, 12500, 60, 2011,  8,  5, "Carols 4 point 3 way, greg coach\n4 points"),
 			newJump(139, 13680, 60, 2011,  8,  5, "9 way tracking\nMega fun\nWas slightly behind"),
 			newJump(140, 10140, 47, 2011,  8,  6, "Carols 4 way attempt"),
-			newJump(141, 10360, 49, 2011,  8,  6, "Carols second 4 way attempt. Exit funnelled")
+			newJump(141, 10360, 49, 2011,  8,  6, "Carols second 4 way attempt. Exit funnelled"),
+			newJump(142, 12930, 59, 2011,  9,  3, "2 way fs with john\nUnlinked exit, john floating, me diving\nDid alternate 90, 180, 360 turns and backloop"),
+			newJump(143, 13110, 59, 2011,  9,  3, "2 way fs with john\nUnlinked exit, john diving, me floating\nSpun each other about\nTried back tracking")
 	};
 
 	private static ContentValues newJump(int number, int altitude, int delay, int jYear, int jMonth, int jDay, String description) {
@@ -229,6 +232,7 @@ public class TestData {
 		Uri Fury    = res.insert(Equipment.CONTENT_URI, EQUIPMENT[4].getContentValues());
 		Uri Spectre = res.insert(Equipment.CONTENT_URI, EQUIPMENT[5].getContentValues());
 		Uri Triatha = res.insert(Equipment.CONTENT_URI, EQUIPMENT[6].getContentValues());
+		Uri Sabre2  = res.insert(Equipment.CONTENT_URI, EQUIPMENT[7].getContentValues());
 
 		setJump(JUMPS[1  ], SPC,    C206,   Manta);
 		setJump(JUMPS[2  ], SPC,    C206,   Manta);
@@ -372,6 +376,8 @@ public class TestData {
 		setJump(JUMPS[139], SPC,    Porter, Spectre);
 		setJump(JUMPS[140], SPC,    C206,   Spectre);
 		setJump(JUMPS[141], SPC,    C206,   Spectre);
+		setJump(JUMPS[142], Geese,  C208,   Sabre2);
+		setJump(JUMPS[143], Geese,  C208,   Sabre2);
 
 		res.bulkInsert(Jumps.CONTENT_URI, JUMPS);
 	}
