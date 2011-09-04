@@ -124,47 +124,53 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     	setHasOptionsMenu(true);
 
     	time = new Time();
-    	final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
-    	final String action = intent.getAction();
-    	if (Intent.ACTION_EDIT.equals(action)) {
-            mState = STATE_EDIT;
-            mUri = intent.getData();
-        } else if (Intent.ACTION_INSERT.equals(action)) {
-        	mState = STATE_INSERT;
-
-            FragmentActivity activity = getActivity();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            
-    		time.setToNow();
-            String placeId = prefs.getString(PreferencesActivity.JUMP_PLACE, null);
-            String aircraftId = prefs.getString(PreferencesActivity.JUMP_AIRCRAFT, null);
-            String equipmentId = prefs.getString(PreferencesActivity.JUMP_EQUIPMENT, null);
-            String altitude = prefs.getString(PreferencesActivity.JUMP_ALTITUDE, null);
-            String delay = prefs.getString(PreferencesActivity.JUMP_DELAY, null);
-
-            ContentValues values = new ContentValues();
-            values.put(LogbookContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(activity) + 1);
-            values.put(LogbookContract.Jumps.JUMP_DATE, time.toMillis(false));
-            values.put(LogbookContract.Jumps.PLACE_ID, placeId == null ? null : Long.valueOf(placeId));
-            values.put(LogbookContract.Jumps.AIRCRAFT_ID, aircraftId == null ? null : Long.valueOf(aircraftId));
-            values.put(LogbookContract.Jumps.EQUIPMENT_ID, equipmentId == null ? null : Long.valueOf(equipmentId));
-            values.put(LogbookContract.Jumps.JUMP_ALTITUDE, altitude == null ? 0 : Integer.valueOf(altitude));
-            values.put(LogbookContract.Jumps.JUMP_DELAY, delay == null ? 0 : Integer.valueOf(delay));
-            values.put(LogbookContract.Jumps.JUMP_DESCRIPTION, "");
-
-        	mUri = activity.getContentResolver().insert(intent.getData(), values);
-
-        	if (mUri == null) {
-                Log.e(TAG, "Failed to insert new jump into " + intent.getData());
-        		activity.finish();
-        		return;
-        	}
-        	activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mUri.toString()));
-        } else {
-            Log.e(TAG, "Unknown action, exiting");
-            getActivity().finish();
-    		return;
-        }
+    	
+    	if (savedInstanceState == null) {
+	    	final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
+	    	final String action = intent.getAction();
+	    	if (Intent.ACTION_EDIT.equals(action)) {
+	            mState = STATE_EDIT;
+	            mUri = intent.getData();
+	        } else if (Intent.ACTION_INSERT.equals(action)) {
+	        	mState = STATE_INSERT;
+	
+	            FragmentActivity activity = getActivity();
+	            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+	            
+	    		time.setToNow();
+	            String placeId = prefs.getString(PreferencesActivity.JUMP_PLACE, null);
+	            String aircraftId = prefs.getString(PreferencesActivity.JUMP_AIRCRAFT, null);
+	            String equipmentId = prefs.getString(PreferencesActivity.JUMP_EQUIPMENT, null);
+	            String altitude = prefs.getString(PreferencesActivity.JUMP_ALTITUDE, null);
+	            String delay = prefs.getString(PreferencesActivity.JUMP_DELAY, null);
+	
+	            ContentValues values = new ContentValues();
+	            values.put(LogbookContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(activity) + 1);
+	            values.put(LogbookContract.Jumps.JUMP_DATE, time.toMillis(false));
+	            values.put(LogbookContract.Jumps.PLACE_ID, placeId == null ? null : Long.valueOf(placeId));
+	            values.put(LogbookContract.Jumps.AIRCRAFT_ID, aircraftId == null ? null : Long.valueOf(aircraftId));
+	            values.put(LogbookContract.Jumps.EQUIPMENT_ID, equipmentId == null ? null : Long.valueOf(equipmentId));
+	            values.put(LogbookContract.Jumps.JUMP_ALTITUDE, altitude == null ? 0 : Integer.valueOf(altitude));
+	            values.put(LogbookContract.Jumps.JUMP_DELAY, delay == null ? 0 : Integer.valueOf(delay));
+	            values.put(LogbookContract.Jumps.JUMP_DESCRIPTION, "");
+	
+	        	mUri = activity.getContentResolver().insert(intent.getData(), values);
+	
+	        	if (mUri == null) {
+	                Log.e(TAG, "Failed to insert new jump into " + intent.getData());
+	        		activity.finish();
+	        		return;
+	        	}
+	        	activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mUri.toString()));
+	        } else {
+	            Log.e(TAG, "Unknown action, exiting");
+	            getActivity().finish();
+	    		return;
+	        }
+    	} else {
+    		mUri = savedInstanceState.getParcelable("uri");
+    		mState = savedInstanceState.getInt("state");
+    	}
     }
 
     @Override
@@ -221,13 +227,14 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onPause() {
     	super.onPause();
-        saveState();
+        updateJump();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
-        saveState();
+        outState.putParcelable("uri", mUri);
+        outState.putInt("state", mState);
     }
 
 
@@ -247,6 +254,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 		case R.id.options_menu_edit_jump_delete:
 	        FragmentActivity activity = getActivity();
 	        activity.getContentResolver().delete(mUri, null, null);
+	        activity.setResult(FragmentActivity.RESULT_CANCELED);
             activity.finish();
 			return false;
 		default:
@@ -291,7 +299,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 		getLoaderManager().restartLoader(LOADER_EQUIPMENT, null, this);
     }
 
-    private void saveState() {
+    private void updateJump() {
         ContentResolver resolver = getActivity().getContentResolver();
         ContentValues values = new ContentValues();
 
