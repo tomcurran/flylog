@@ -52,6 +52,11 @@ public abstract class BaseActivity extends FragmentActivity {
 			arguments.putParcelable("_uri", data);
 		}
 
+		final String action = intent.getAction();
+		if (action != null) {
+			arguments.putString("_action", action);
+		}
+
 		final Bundle extras = intent.getExtras();
 		if (extras != null) {
 			arguments.putAll(intent.getExtras());
@@ -74,8 +79,14 @@ public abstract class BaseActivity extends FragmentActivity {
 			intent.setData(data);
 		}
 
+		final String action = arguments.getString("_action");
+		if (action != null) {
+			intent.setAction(action);
+		}
+
 		intent.putExtras(arguments);
 		intent.removeExtra("_uri");
+		intent.removeExtra("_action");
 		return intent;
 	}
 }
