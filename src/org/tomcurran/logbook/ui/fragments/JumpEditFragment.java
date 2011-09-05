@@ -134,7 +134,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 	        } else if (Intent.ACTION_INSERT.equals(action)) {
 	        	mState = STATE_INSERT;
 	
-	            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+	            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	            
 	    		time.setToNow();
 	            String placeId = prefs.getString(PreferencesActivity.JUMP_PLACE, null);
@@ -162,7 +162,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 	        	}
 	        } else {
 	            Log.e(TAG, "Unknown action, exiting");
-	            getActivity().finish();
+	            activity.finish();
 	    		return;
 	        }
     	} else {
