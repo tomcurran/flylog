@@ -2,14 +2,14 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ScrollWrapper">
-	<LinearLayout
+    <LinearLayout
         style="@style/StatsLayout">
-	
-	    <TextView
+
+        <TextView
             android:id="@+id/text_stat_jump_numbers_head"
-	        android:text="@string/text_stat_jump_numbers_head"
-	        style="@style/StatsHeader"
-	        />
+            android:text="@string/text_stat_jump_numbers_head"
+            style="@style/StatsHeader"
+            />
         <TextView android:id="@+id/text_stat_jump_numbers_6"
             style="@style/StatsText"
             />
@@ -22,25 +22,25 @@
         <TextView android:id="@+id/text_stat_jump_numbers_24"
             style="@style/StatsText.Padded"
             />
-    
+
         <TextView
             android:id="@+id/text_stat_delay_head"
             android:text="@string/text_stat_delay_head"
             style="@style/StatsHeader"
             />
-	    <TextView android:id="@+id/text_stat_delay"
+        <TextView android:id="@+id/text_stat_delay"
             style="@style/StatsText"
             />
-    
+
         <TextView
             android:id="@+id/text_stat_altitude_head"
             android:text="@string/text_stat_altitude_head"
             style="@style/StatsHeader.Padded"
             />
-	    <TextView android:id="@+id/text_stat_altitude"
+        <TextView android:id="@+id/text_stat_altitude"
             style="@style/StatsText"
             />
-    
+
         <TextView
             android:id="@+id/text_stat_places_head"
             android:text="@string/text_stat_places_head"
@@ -51,7 +51,7 @@
             android:text="@string/text_stat_places_empty"
             style="@style/StatsText"
             />
-    
+
         <TextView
             android:id="@+id/text_stat_equipment_head"
             android:text="@string/text_stat_equipment_head"
@@ -61,7 +61,7 @@
             android:text="@string/text_stat_equipment_empty"
             style="@style/StatsText"
             />
-    
+
         <TextView
             android:id="@+id/text_stat_aircrafts_head"
             android:text="@string/text_stat_aircrafts_head"
@@ -72,5 +72,5 @@
             style="@style/StatsText"
             />
 
-	</LinearLayout>
+    </LinearLayout>
 </ScrollView>

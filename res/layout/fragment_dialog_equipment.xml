@@ -19,7 +19,6 @@
         android:text="@string/dialog_label_equipment_size"
         style="@style/EditDialogLabel"
         />
-
     <EditText
         android:id="@+id/dialog_text_equipment_size"
         style="@style/EditDialogInput.Number"

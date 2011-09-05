@@ -2,34 +2,41 @@
 <resources>
 
     <!-- list_item_jumps -->
- 
+
     <style name="LisItemJumps">
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:padding">3dip</item>
     </style>
+
     <style name="LisItemJumpsText">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
+
     <style name="LisItemJumpsText.Number">
         <item name="android:layout_marginTop">6dip</item>
         <item name="android:layout_marginRight">5dip</item>
     </style>
+
     <style name="LisItemJumpsText.Place">
         <item name="android:layout_toRightOf">@id/list_item_jumps_number</item>
     </style>
+
     <style name="LisItemJumpsText.Aircraft">
         <item name="android:layout_alignParentRight">true</item>
     </style>
+
     <style name="LisItemJumpsText.Date">
         <item name="android:layout_below">@id/list_item_jumps_place</item>
         <item name="android:layout_toRightOf">@id/list_item_jumps_number</item>
     </style>
+
     <style name="LisItemJumpsText.Altitude">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_below">@id/list_item_jumps_aircraft</item>
     </style>
+
     <style name="LisItemJumpsText.Description">
         <item name="android:layout_below">@id/list_item_jumps_date</item>
         <item name="android:layout_toRightOf">@id/list_item_jumps_number</item>
@@ -54,7 +61,6 @@
     </style>
 
     <style name="EditJumpLabel.Number">
-        
     </style>
 
     <style name="EditJumpLabel.Date">
@@ -92,7 +98,6 @@
     </style>
 
     <style name="EditJumpInput.Number">
-        <item name="android:inputType">number</item>
         <item name="android:layout_below">@id/label_edit_jump_number</item>
     </style>
 
@@ -113,17 +118,14 @@
     </style>
 
     <style name="EditJumpInput.Altitude">
-        <item name="android:inputType">number</item>
         <item name="android:layout_below">@id/label_edit_jump_altitude</item>
     </style>
 
     <style name="EditJumpInput.Delay">
-        <item name="android:inputType">date</item>
         <item name="android:layout_below">@id/label_edit_jump_delay</item>
     </style>
 
     <style name="EditJumpInput.Description">
-        <item name="android:inputType">textMultiLine</item>
         <item name="android:layout_height">100dip</item>
         <item name="android:layout_below">@id/label_edit_jump_description</item>
     </style>
@@ -145,9 +147,9 @@
     </style>
 
     <style name="EditDialogLayout">
-	    <item name="android:layout_width">match_parent</item>
-	    <item name="android:layout_height">wrap_content</item>
-	    <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
     </style>
 
     <style name="EditDialogLabel">
@@ -173,8 +175,8 @@
     <style name="EditDialogInput.Number">
         <item name="android:inputType">number</item>
     </style>
- 
- 
+
+
     <!--  fragment_statistics -->
 
     <style name="StatsLayout">
@@ -229,11 +231,12 @@
         <item name="android:visibility">gone</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>
     </style>
- 
+
     <style name="DivertFocus">
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:layout_width">0dip</item>
         <item name="android:layout_height">0dip</item>
     </style>
+
 </resources>

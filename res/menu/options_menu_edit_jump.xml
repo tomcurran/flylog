@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/options_menu_edit_jump_delete"
+    <item
+        android:id="@+id/options_menu_edit_jump_delete"
         android:title="@string/options_menu_edit_jump_delete"
         android:icon="@drawable/ic_menu_delete"
-        android:showAsAction="ifRoom|withText" />
+        android:showAsAction="ifRoom|withText"
+        />
 
 </menu>

@@ -18,6 +18,7 @@
             />
         <EditText
             android:id="@+id/text_edit_jump_number"
+            android:inputType="number"
             style="@style/EditJumpInput.Number"
             />
 
@@ -38,7 +39,8 @@
             />
         <org.tomcurran.logbook.ui.widget.AddSpinner
             android:id="@+id/spinner_edit_jump_place"
-            style="@style/EditJumpInput.Place" />
+            style="@style/EditJumpInput.Place"
+            />
 
         <TextView
             android:id="@+id/label_edit_jump_aircraft"
@@ -67,6 +69,7 @@
              />
         <EditText
             android:id="@+id/text_edit_jump_altitude"
+            android:inputType="number"
             style="@style/EditJumpInput.Altitude"
             />
 
@@ -77,6 +80,7 @@
             />
         <EditText
             android:id="@+id/text_edit_jump_delay"
+            android:inputType="number"
             style="@style/EditJumpInput.Delay"
             />
 
@@ -87,6 +91,7 @@
             />
         <EditText
             android:id="@+id/text_edit_jump_description"
+            android:inputType="textMultiLine"
             style="@style/EditJumpInput.Description"
             />
 
