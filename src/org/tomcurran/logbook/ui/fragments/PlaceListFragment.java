@@ -2,8 +2,6 @@ package org.tomcurran.logbook.ui.fragments;
 
 import org.tomcurran.logbook.R;
 import org.tomcurran.logbook.provider.LogbookContract;
-import org.tomcurran.logbook.ui.BaseActivity;
-import org.tomcurran.logbook.ui.HomeActivity;
 
 import android.content.Context;
 import android.database.Cursor;
