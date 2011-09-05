@@ -17,24 +17,14 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     public void goHome() {
-        if (goActivity(HomeActivity.class)) {
-//            overridePendingTransition(R.anim.home_enter, R.anim.home_exit);
-        }
-    }
-
-    public void goUp(Class<? extends FragmentActivity> targetActivity) {
-        goActivity(targetActivity);
-    }
-
-    private boolean goActivity(Class<? extends FragmentActivity> targetActivity) {
-        if (this instanceof HomeActivity || this.getClass() == targetActivity) {
-            return false;
+        if (this instanceof HomeActivity) {
+            return;
         }
 
-        final Intent intent = new Intent(this, targetActivity);
+        final Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        return true;
+        finish();
     }
 
     /**

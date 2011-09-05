@@ -3,7 +3,6 @@ package org.tomcurran.logbook.ui.fragments;
 import org.tomcurran.logbook.R;
 import org.tomcurran.logbook.provider.LogbookContract;
 import org.tomcurran.logbook.ui.BaseActivity;
-import org.tomcurran.logbook.ui.HomeActivity;
 import org.tomcurran.logbook.ui.PreferencesActivity;
 import org.tomcurran.logbook.ui.widget.AddSpinner;
 import org.tomcurran.logbook.util.DbAdapter;
@@ -248,7 +247,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
-            ((BaseActivity)getActivity()).goUp(HomeActivity.class);
+            ((BaseActivity)getActivity()).goHome();
             return true;
         case R.id.options_menu_edit_jump_delete:
             FragmentActivity activity = getActivity();
