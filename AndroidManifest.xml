@@ -58,6 +58,28 @@
             android:label="@string/preference_jump_title"
             />
 
+        <activity
+            android:name=".ui.LauncherShortcuts"
+            android:label="@string/title_shortcuts"
+            >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity-alias
+            android:name=".ui.CreateShortcut"
+            android:targetActivity=".ui.LauncherShortcuts"
+            android:label="@string/shortcut_jump_insert_title">
+
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
         <provider
             android:name=".provider.LogbookProvider"
             android:authorities="org.tomcurran.providers.logbook"
@@ -65,5 +87,4 @@
             />
 
     </application>
-
 </manifest>

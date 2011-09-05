@@ -121,6 +121,11 @@
     <string name="context_menu_list_item_equipment_edit">Edit</string>
     <string name="context_menu_list_item_equipment_delete">Delete</string>
 
+    <!-- LauncherShortcuts -->
+    <string name="title_shortcuts">Logbook Shortcuts</string>
+    <string name="shortcut_jump_insert_title">Logbook</string>
+    <string name="shortcut_jump_insert_name">Log Jump</string>
+
     <!-- test data -->
     <string name="_text_list_item_jumps_number">112</string>
     <string name="_text_list_item_jumps_place">Strathallan</string>
