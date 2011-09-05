@@ -14,49 +14,49 @@ import android.widget.SpinnerAdapter;
 
 public class AddSpinner extends Spinner implements DialogInterface.OnClickListener {
 
-	private AlertDialog mPopup;
-	protected AddSpinner.OnAddClickListener mListener = null;
-	protected DialogInterface.OnClickListener mOnClickListener = new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (mListener != null) {
-					mListener.onAddClick(AddSpinner.this);
-				}
-			}
-	};
-	
-	public interface OnAddClickListener {
+    private AlertDialog mPopup;
+    protected AddSpinner.OnAddClickListener mListener = null;
+    protected DialogInterface.OnClickListener mOnClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (mListener != null) {
+                    mListener.onAddClick(AddSpinner.this);
+                }
+            }
+    };
+    
+    public interface OnAddClickListener {
         void onAddClick(Spinner spinner);
     }
-	
-	public AddSpinner(Context context) {
-		this(context, null);
-	}
+    
+    public AddSpinner(Context context) {
+        this(context, null);
+    }
 
-	public AddSpinner(Context context, AttributeSet attrs) {
-		this(context, attrs, android.R.attr.spinnerStyle);
-	}
+    public AddSpinner(Context context, AttributeSet attrs) {
+        this(context, attrs, android.R.attr.spinnerStyle);
+    }
 
-	public AddSpinner(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-	}
+    public AddSpinner(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
 
-	@Override
-	protected void onDetachedFromWindow() {
-		super.onDetachedFromWindow();
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
 
-		if (mPopup != null && mPopup.isShowing()) {
-			mPopup.dismiss();
-			mPopup = null;
-		}
-	}
+        if (mPopup != null && mPopup.isShowing()) {
+            mPopup.dismiss();
+            mPopup = null;
+        }
+    }
 
-	@Override
-	public boolean performClick() {
-//		boolean handled = super.performClick();
-		boolean handled = false;
+    @Override
+    public boolean performClick() {
+//        boolean handled = super.performClick();
+        boolean handled = false;
 
-		if (!handled) {
+        if (!handled) {
             handled = true;
             Context context = getContext();
             
@@ -65,7 +65,7 @@ public class AddSpinner extends Spinner implements DialogInterface.OnClickListen
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setPositiveButton("Add", mOnClickListener);
             
-			CharSequence prompt = getPrompt();
+            CharSequence prompt = getPrompt();
             if (prompt != null) {
                 builder.setTitle(prompt);
             }
@@ -73,25 +73,25 @@ public class AddSpinner extends Spinner implements DialogInterface.OnClickListen
         }
 
         return handled;
-	}
+    }
 
-	@Override
-	public void onClick(DialogInterface dialog, int which) {
-		setSelection(which);
-		dialog.dismiss();
-		mPopup = null;
-	}
-	
-	public void setOnAddListener(AddSpinner.OnAddClickListener listener) {
-		mListener = listener;
-	}
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        setSelection(which);
+        dialog.dismiss();
+        mPopup = null;
+    }
+    
+    public void setOnAddListener(AddSpinner.OnAddClickListener listener) {
+        mListener = listener;
+    }
 
-	public void setSelectionDbRow(final Long rowId, final String column) {
-		if (rowId == null) {
-			return;
-		}
+    public void setSelectionDbRow(final Long rowId, final String column) {
+        if (rowId == null) {
+            return;
+        }
 
-		final int parentCount = this.getCount();
+        final int parentCount = this.getCount();
         for (int i = 0; i < parentCount; i++) {
             final Cursor cursor = (Cursor) getItemAtPosition(i);
             if (rowId == cursor.getLong(cursor.getColumnIndex(column))) {
@@ -99,7 +99,7 @@ public class AddSpinner extends Spinner implements DialogInterface.OnClickListen
                 break;
             }
         }
-	}
+    }
 
     /**
      * <p>Wrapper class for an Adapter. Transforms the embedded Adapter instance

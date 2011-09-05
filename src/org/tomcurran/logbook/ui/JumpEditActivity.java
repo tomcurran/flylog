@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment;
 
 public class JumpEditActivity extends BaseSinglePaneActivity {
 
-	@Override
-	protected Fragment onCreatePane() {
-		return new JumpEditFragment();
-	}
+    @Override
+    protected Fragment onCreatePane() {
+        return new JumpEditFragment();
+    }
 
 }

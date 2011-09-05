@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 
 public class CheckableLinearLayout extends LinearLayout implements Checkable {
 
-	private CheckedTextView mCheckbox;
+    private CheckedTextView mCheckbox;
 
     public CheckableLinearLayout(Context context) {
         super(context, null);
@@ -21,15 +21,15 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
 
     @Override
     protected void onFinishInflate() {
-    	super.onFinishInflate();
-    	final int childCount = getChildCount();
-    	for (int i = 0; i < childCount; i++) {
-    		final View view = getChildAt(i);
-    		if (view instanceof CheckedTextView) {
-    			mCheckbox = (CheckedTextView)view;
-    			break;
-    		}
-    	}
+        super.onFinishInflate();
+        final int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View view = getChildAt(i);
+            if (view instanceof CheckedTextView) {
+                mCheckbox = (CheckedTextView)view;
+                break;
+            }
+        }
     }
 
     @Override
@@ -40,14 +40,14 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
     @Override
     public void setChecked(boolean checked) {
         if (mCheckbox != null) {
-        	mCheckbox.setChecked(checked);
+            mCheckbox.setChecked(checked);
         }
     }
 
     @Override
     public void toggle() {
-    	if (mCheckbox != null) {
-        	mCheckbox.toggle();
+        if (mCheckbox != null) {
+            mCheckbox.toggle();
         }
     }
 

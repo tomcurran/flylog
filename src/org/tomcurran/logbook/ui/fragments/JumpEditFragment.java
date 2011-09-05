@@ -73,114 +73,114 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             }
     };
     private BaseDialogFragment.OnSuccessListener mPlaceOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
-		@Override
-		public void onSuccess(Long id) {
-			updatePlace(id);
-		}
-	};
+        @Override
+        public void onSuccess(Long id) {
+            updatePlace(id);
+        }
+    };
     private BaseDialogFragment.OnSuccessListener mAircraftOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
-		@Override
-		public void onSuccess(Long id) {
-			updateAircraft(id);
-		}
-	};
+        @Override
+        public void onSuccess(Long id) {
+            updateAircraft(id);
+        }
+    };
     private BaseDialogFragment.OnSuccessListener mEquipmentOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
-		@Override
-		public void onSuccess(Long id) {
-			updateEquipment(id);
-		}
-	};
+        @Override
+        public void onSuccess(Long id) {
+            updateEquipment(id);
+        }
+    };
     private AddSpinner.OnAddClickListener mOnAddListener = new AddSpinner.OnAddClickListener() {
-		@Override
-		public void onAddClick(Spinner spinner) {
-			BaseDialogFragment dialog = null;
-			switch (spinner.getId()) {
-			case R.id.spinner_edit_jump_place:
-				dialog = PlaceDialogFragment.newInstance();
-				dialog.setOnSuccessListener(mPlaceOnSuccessListener);
-				dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
-				break;
-			case R.id.spinner_edit_jump_aircraft:
-				dialog = AircraftDialogFragment.newInstance();
-				dialog.setOnSuccessListener(mAircraftOnSuccessListener);
-				dialog.show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
-				break;
-			case R.id.spinner_edit_jump_equipment:
-				dialog = EquipmentDialogFragment.newInstance();
-				dialog.setOnSuccessListener(mEquipmentOnSuccessListener);
-				dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
-				break;
-			}
-		}
-	};
+        @Override
+        public void onAddClick(Spinner spinner) {
+            BaseDialogFragment dialog = null;
+            switch (spinner.getId()) {
+            case R.id.spinner_edit_jump_place:
+                dialog = PlaceDialogFragment.newInstance();
+                dialog.setOnSuccessListener(mPlaceOnSuccessListener);
+                dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
+                break;
+            case R.id.spinner_edit_jump_aircraft:
+                dialog = AircraftDialogFragment.newInstance();
+                dialog.setOnSuccessListener(mAircraftOnSuccessListener);
+                dialog.show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
+                break;
+            case R.id.spinner_edit_jump_equipment:
+                dialog = EquipmentDialogFragment.newInstance();
+                dialog.setOnSuccessListener(mEquipmentOnSuccessListener);
+                dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
+                break;
+            }
+        }
+    };
 
 
     // life cycle
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-    	super.onCreate(savedInstanceState);
-    	setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         FragmentActivity activity = getActivity();
-    	time = new Time();
-    	
-    	if (savedInstanceState == null) {
-	    	final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
-	    	final String action = intent.getAction();
-	    	if (Intent.ACTION_EDIT.equals(action)) {
-	            mState = STATE_EDIT;
-	            mUri = intent.getData();
-	        } else if (Intent.ACTION_INSERT.equals(action)) {
-	        	mState = STATE_INSERT;
-	
-	            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-	            
-	    		time.setToNow();
-	            String placeId = prefs.getString(PreferencesActivity.JUMP_PLACE, null);
-	            String aircraftId = prefs.getString(PreferencesActivity.JUMP_AIRCRAFT, null);
-	            String equipmentId = prefs.getString(PreferencesActivity.JUMP_EQUIPMENT, null);
-	            String altitude = prefs.getString(PreferencesActivity.JUMP_ALTITUDE, null);
-	            String delay = prefs.getString(PreferencesActivity.JUMP_DELAY, null);
-	
-	            ContentValues values = new ContentValues();
-	            values.put(LogbookContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(activity) + 1);
-	            values.put(LogbookContract.Jumps.JUMP_DATE, time.toMillis(false));
-	            values.put(LogbookContract.Jumps.PLACE_ID, placeId == null ? null : Long.valueOf(placeId));
-	            values.put(LogbookContract.Jumps.AIRCRAFT_ID, aircraftId == null ? null : Long.valueOf(aircraftId));
-	            values.put(LogbookContract.Jumps.EQUIPMENT_ID, equipmentId == null ? null : Long.valueOf(equipmentId));
-	            values.put(LogbookContract.Jumps.JUMP_ALTITUDE, altitude == null ? 0 : Integer.valueOf(altitude));
-	            values.put(LogbookContract.Jumps.JUMP_DELAY, delay == null ? 0 : Integer.valueOf(delay));
-	            values.put(LogbookContract.Jumps.JUMP_DESCRIPTION, "");
-	
-	        	mUri = activity.getContentResolver().insert(intent.getData(), values);
-	
-	        	if (mUri == null) {
-	                Log.e(TAG, "Failed to insert new jump into " + intent.getData());
-	        		activity.finish();
-	        		return;
-	        	}
-	        } else {
-	            Log.e(TAG, "Unknown action, exiting");
-	            activity.finish();
-	    		return;
-	        }
-    	} else {
-    		mUri = savedInstanceState.getParcelable("uri");
-    		mState = savedInstanceState.getInt("state");
-    	}
-    	activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mUri.toString()));
+        time = new Time();
+
+        if (savedInstanceState == null) {
+            final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
+            final String action = intent.getAction();
+            if (Intent.ACTION_EDIT.equals(action)) {
+                mState = STATE_EDIT;
+                mUri = intent.getData();
+            } else if (Intent.ACTION_INSERT.equals(action)) {
+                mState = STATE_INSERT;
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+
+                time.setToNow();
+                String placeId = prefs.getString(PreferencesActivity.JUMP_PLACE, null);
+                String aircraftId = prefs.getString(PreferencesActivity.JUMP_AIRCRAFT, null);
+                String equipmentId = prefs.getString(PreferencesActivity.JUMP_EQUIPMENT, null);
+                String altitude = prefs.getString(PreferencesActivity.JUMP_ALTITUDE, null);
+                String delay = prefs.getString(PreferencesActivity.JUMP_DELAY, null);
+
+                ContentValues values = new ContentValues();
+                values.put(LogbookContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(activity) + 1);
+                values.put(LogbookContract.Jumps.JUMP_DATE, time.toMillis(false));
+                values.put(LogbookContract.Jumps.PLACE_ID, placeId == null ? null : Long.valueOf(placeId));
+                values.put(LogbookContract.Jumps.AIRCRAFT_ID, aircraftId == null ? null : Long.valueOf(aircraftId));
+                values.put(LogbookContract.Jumps.EQUIPMENT_ID, equipmentId == null ? null : Long.valueOf(equipmentId));
+                values.put(LogbookContract.Jumps.JUMP_ALTITUDE, altitude == null ? 0 : Integer.valueOf(altitude));
+                values.put(LogbookContract.Jumps.JUMP_DELAY, delay == null ? 0 : Integer.valueOf(delay));
+                values.put(LogbookContract.Jumps.JUMP_DESCRIPTION, "");
+
+                mUri = activity.getContentResolver().insert(intent.getData(), values);
+
+                if (mUri == null) {
+                    Log.e(TAG, "Failed to insert new jump into " + intent.getData());
+                    activity.finish();
+                    return;
+                }
+            } else {
+                Log.e(TAG, "Unknown action, exiting");
+                activity.finish();
+                return;
+            }
+        } else {
+            mUri = savedInstanceState.getParcelable("uri");
+            mState = savedInstanceState.getInt("state");
+        }
+        activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mUri.toString()));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    	return inflater.inflate(R.layout.fragment_edit_jump, container, false);
+        return inflater.inflate(R.layout.fragment_edit_jump, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-    	super.onActivityCreated(savedInstanceState);
-    	
+        super.onActivityCreated(savedInstanceState);
+
         FragmentActivity activity = getActivity();
         ActionBar ab = activity.getSupportActionBar();
 
@@ -199,24 +199,24 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         getLoaderManager().initLoader(LOADER_JUMP, null, this);
 
         setupAddSpinner(
-        		mPlaceSpinner,
-        		R.string.prompt_edit_jump_places,
-        		new BaseAdapter(activity, PlacesQuery.PROJECTION),
-        		LOADER_PLACES
+                mPlaceSpinner,
+                R.string.prompt_edit_jump_places,
+                new BaseAdapter(activity, PlacesQuery.PROJECTION),
+                LOADER_PLACES
         );
         
         setupAddSpinner(
-        		mAircraftSpinner,
-        		R.string.prompt_edit_jump_aircrafts,
-        		new BaseAdapter(activity, AircraftsQuery.PROJECTION),
-        		LOADER_AIRCRAFTS
+                mAircraftSpinner,
+                R.string.prompt_edit_jump_aircrafts,
+                new BaseAdapter(activity, AircraftsQuery.PROJECTION),
+                LOADER_AIRCRAFTS
         );
-        
+
         setupAddSpinner(
-        		mEquipmentSpinner,
-        		R.string.prompt_edit_jump_equipment,
-        		new EquipmentAdapter(activity),
-        		LOADER_EQUIPMENT
+                mEquipmentSpinner,
+                R.string.prompt_edit_jump_equipment,
+                new EquipmentAdapter(activity),
+                LOADER_EQUIPMENT
         );
 
         mDatePicker.init(time.year, time.month, time.monthDay, mDateChangedListener);
@@ -224,13 +224,13 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onPause() {
-    	super.onPause();
+        super.onPause();
         updateJump();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-    	super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
         updateJump();
         outState.putParcelable("uri", mUri);
         outState.putInt("state", mState);
@@ -241,24 +241,24 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    	inflater.inflate(R.menu.options_menu_edit_jump, menu);
+        inflater.inflate(R.menu.options_menu_edit_jump, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	switch (item.getItemId()) {
-		case android.R.id.home:
-			((BaseActivity)getActivity()).goUp(HomeActivity.class);
-			return true;
-		case R.id.options_menu_edit_jump_delete:
-	        FragmentActivity activity = getActivity();
-	        activity.getContentResolver().delete(mUri, null, null);
-	        activity.setResult(FragmentActivity.RESULT_CANCELED);
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            ((BaseActivity)getActivity()).goUp(HomeActivity.class);
+            return true;
+        case R.id.options_menu_edit_jump_delete:
+            FragmentActivity activity = getActivity();
+            activity.getContentResolver().delete(mUri, null, null);
+            activity.setResult(FragmentActivity.RESULT_CANCELED);
             activity.finish();
-			return false;
-		default:
-	    	return super.onOptionsItemSelected(item);
-		}
+            return false;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -267,10 +267,10 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public void loadJump() {
         Cursor jump = mJumpCursor;
         if (jump.moveToFirst()) {
-        	if (mState == STATE_EDIT) {
-        		getActivity().getSupportActionBar().setTitle(
-        				getString(R.string.title_edit_jump, jump.getInt(JumpsQuery.NUMBER)));
-        	}
+            if (mState == STATE_EDIT) {
+                getActivity().getSupportActionBar().setTitle(
+                        getString(R.string.title_edit_jump, jump.getInt(JumpsQuery.NUMBER)));
+            }
             mJumpNumText.setText(jump.getString(JumpsQuery.NUMBER));
             time.set(jump.getLong(JumpsQuery.DATE));
             mDatePicker.init(time.year, time.month, time.monthDay, mDateChangedListener);
@@ -284,18 +284,18 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updatePlace(long placeId) {
-    	mPlaceId = placeId;
-		getLoaderManager().restartLoader(LOADER_PLACES, null, this);
+        mPlaceId = placeId;
+        getLoaderManager().restartLoader(LOADER_PLACES, null, this);
     }
 
     private void updateAircraft(long aircraftId) {
-    	mAircraftId = aircraftId;
-		getLoaderManager().restartLoader(LOADER_AIRCRAFTS, null, this);
+        mAircraftId = aircraftId;
+        getLoaderManager().restartLoader(LOADER_AIRCRAFTS, null, this);
     }
 
     private void updateEquipment(long equipmentId) {
-    	mEquipmentId = equipmentId;
-		getLoaderManager().restartLoader(LOADER_EQUIPMENT, null, this);
+        mEquipmentId = equipmentId;
+        getLoaderManager().restartLoader(LOADER_EQUIPMENT, null, this);
     }
 
     private void updateJump() {
@@ -314,21 +314,21 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         resolver.update(mUri, values, null, null);
 
         if (mState == STATE_INSERT) {
-        	mState = STATE_EDIT;
+            mState = STATE_EDIT;
         }
     }
 
     public void setupAddSpinner(AddSpinner spinner, int promtRes, SimpleCursorAdapter adapter, final int loader) {
-    	spinner.setPromptId(promtRes);
-    	spinner.setAdapter(adapter);
-    	spinner.setOnItemSelectedListener(new BaseOnItemSelectedListener());
-    	spinner.setOnAddListener(mOnAddListener);
+        spinner.setPromptId(promtRes);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new BaseOnItemSelectedListener());
+        spinner.setOnAddListener(mOnAddListener);
         getLoaderManager().initLoader(loader, null, this);
     }
 
 
     // adapters
-    
+
     public static class BaseAdapter extends SimpleCursorAdapter {
 
         private final static int[] TO = new int[] {
@@ -343,31 +343,31 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     public static class EquipmentAdapter extends BaseAdapter {
-        
+
         public EquipmentAdapter(Context context) {
             super(context, EquipmentQuery.PROJECTION);
         }
 
-		@Override
-		public void bindView(View view, Context context, Cursor cursor) {
-			super.bindView(view, context, cursor);
+        @Override
+        public void bindView(View view, Context context, Cursor cursor) {
+            super.bindView(view, context, cursor);
 
-			ViewHolder holder = (ViewHolder) view.getTag();
-			if (holder == null) {
-				holder = new ViewHolder();
-				holder.text = (TextView) view.findViewById(android.R.id.text1);
-				view.setTag(holder);
-			}
+            ViewHolder holder = (ViewHolder) view.getTag();
+            if (holder == null) {
+                holder = new ViewHolder();
+                holder.text = (TextView) view.findViewById(android.R.id.text1);
+                view.setTag(holder);
+            }
 
-			holder.text.setText(
-					context.getString(R.string.text_list_item_equipment,
-							cursor.getString(EquipmentQuery.CANOPY_NAME),
-							cursor.getInt(EquipmentQuery.CANOPY_SIZE))
-			);
-		}
+            holder.text.setText(
+                    context.getString(R.string.text_list_item_equipment,
+                            cursor.getString(EquipmentQuery.CANOPY_NAME),
+                            cursor.getInt(EquipmentQuery.CANOPY_SIZE))
+            );
+        }
 
-		static class ViewHolder {
-			TextView text;
+        static class ViewHolder {
+            TextView text;
         }
     }
 
@@ -399,14 +399,14 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
         case LOADER_JUMP:
-        	return new CursorLoader(
+            return new CursorLoader(
                     getActivity(),
                     mUri,
                     JumpsQuery.PROJECTION,
                     null,
                     null,
                     LogbookContract.Jumps.DEFAULT_SORT
-        	);
+            );
         case LOADER_PLACES:
             return new CursorLoader(
                     getActivity(),
@@ -442,23 +442,23 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         switch (loader.getId()) {
         case LOADER_JUMP:
-        	mJumpCursor = data;
-        	loadJump();
-        	break;
+            mJumpCursor = data;
+            loadJump();
+            break;
         case LOADER_PLACES:
-        	AddSpinner placeSpinner = (AddSpinner)mPlaceSpinner;
-        	((SimpleCursorAdapter)placeSpinner.getAdapter()).swapCursor(data);
-        	placeSpinner.setSelectionDbRow(mPlaceId, LogbookContract.Places._ID);
+            AddSpinner placeSpinner = (AddSpinner)mPlaceSpinner;
+            ((SimpleCursorAdapter)placeSpinner.getAdapter()).swapCursor(data);
+            placeSpinner.setSelectionDbRow(mPlaceId, LogbookContract.Places._ID);
             break;
         case LOADER_AIRCRAFTS:
-        	AddSpinner aircraftSpinner = (AddSpinner)mAircraftSpinner;
-        	((SimpleCursorAdapter)aircraftSpinner.getAdapter()).swapCursor(data);
-        	aircraftSpinner.setSelectionDbRow(mAircraftId, LogbookContract.Aircrafts._ID);
+            AddSpinner aircraftSpinner = (AddSpinner)mAircraftSpinner;
+            ((SimpleCursorAdapter)aircraftSpinner.getAdapter()).swapCursor(data);
+            aircraftSpinner.setSelectionDbRow(mAircraftId, LogbookContract.Aircrafts._ID);
             break;
         case LOADER_EQUIPMENT:
-        	AddSpinner equipmentSpinner = (AddSpinner)mEquipmentSpinner;
-        	((SimpleCursorAdapter)equipmentSpinner.getAdapter()).swapCursor(data);
-        	equipmentSpinner.setSelectionDbRow(mEquipmentId, LogbookContract.Equipment._ID);
+            AddSpinner equipmentSpinner = (AddSpinner)mEquipmentSpinner;
+            ((SimpleCursorAdapter)equipmentSpinner.getAdapter()).swapCursor(data);
+            equipmentSpinner.setSelectionDbRow(mEquipmentId, LogbookContract.Equipment._ID);
             break;
         }
     }
@@ -466,16 +466,16 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoaderReset(Loader<Cursor> loader) {
         switch (loader.getId()) {
         case LOADER_JUMP:
-        	mJumpCursor = null;
-        	break;
+            mJumpCursor = null;
+            break;
         case LOADER_PLACES:
-        	((SimpleCursorAdapter)mPlaceSpinner.getAdapter()).swapCursor(null);
+            ((SimpleCursorAdapter)mPlaceSpinner.getAdapter()).swapCursor(null);
             break;
         case LOADER_AIRCRAFTS:
-        	((SimpleCursorAdapter)mAircraftSpinner.getAdapter()).swapCursor(null);
+            ((SimpleCursorAdapter)mAircraftSpinner.getAdapter()).swapCursor(null);
             break;
         case LOADER_EQUIPMENT:
-        	((SimpleCursorAdapter)mEquipmentSpinner.getAdapter()).swapCursor(null);
+            ((SimpleCursorAdapter)mEquipmentSpinner.getAdapter()).swapCursor(null);
             break;
         }
     }
@@ -485,57 +485,57 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     private interface JumpsQuery {
 
-		String[] PROJECTION = {
-				LogbookContract.Jumps.JUMP_NUMBER,
-				LogbookContract.Jumps.JUMP_DATE,
-				LogbookContract.Jumps.PLACE_ID,
-				LogbookContract.Jumps.AIRCRAFT_ID,
-				LogbookContract.Jumps.EQUIPMENT_ID,
-				LogbookContract.Jumps.JUMP_ALTITUDE,
-				LogbookContract.Jumps.JUMP_DELAY,
-				LogbookContract.Jumps.JUMP_DESCRIPTION,
-				LogbookContract.Jumps._ID
-		};
+        String[] PROJECTION = {
+                LogbookContract.Jumps.JUMP_NUMBER,
+                LogbookContract.Jumps.JUMP_DATE,
+                LogbookContract.Jumps.PLACE_ID,
+                LogbookContract.Jumps.AIRCRAFT_ID,
+                LogbookContract.Jumps.EQUIPMENT_ID,
+                LogbookContract.Jumps.JUMP_ALTITUDE,
+                LogbookContract.Jumps.JUMP_DELAY,
+                LogbookContract.Jumps.JUMP_DESCRIPTION,
+                LogbookContract.Jumps._ID
+        };
 
-		int NUMBER = 0;
-		int DATE = 1;
-		int PLACE_ID = 2;
-		int AIRCRAFT_ID = 3;
-		int EQUIPMENT_ID = 4;
-		int ALTITUDE = 5;
-		int DELAY = 6;
-		int DESCRIPTION = 7;
+        int NUMBER = 0;
+        int DATE = 1;
+        int PLACE_ID = 2;
+        int AIRCRAFT_ID = 3;
+        int EQUIPMENT_ID = 4;
+        int ALTITUDE = 5;
+        int DELAY = 6;
+        int DESCRIPTION = 7;
 
-	}
+    }
 
     private interface PlacesQuery {
 
-    	String[] PROJECTION = {
-    			LogbookContract.Places.PLACE_NAME,
-    			LogbookContract.Places._ID
-    	};
+        String[] PROJECTION = {
+                LogbookContract.Places.PLACE_NAME,
+                LogbookContract.Places._ID
+        };
 
     }
 
     private interface AircraftsQuery {
 
-    	String[] PROJECTION = {
-    			LogbookContract.Aircrafts.AIRCRAFT_NAME,
-    			LogbookContract.Aircrafts._ID
-    	};
+        String[] PROJECTION = {
+                LogbookContract.Aircrafts.AIRCRAFT_NAME,
+                LogbookContract.Aircrafts._ID
+        };
 
     }
 
     private interface EquipmentQuery {
 
-    	String[] PROJECTION = {
-    			LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME,
-    			LogbookContract.Equipment.EQUIPMENT_CANOPY_SIZE,
-    			LogbookContract.Equipment._ID
-    	};
+        String[] PROJECTION = {
+                LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME,
+                LogbookContract.Equipment.EQUIPMENT_CANOPY_SIZE,
+                LogbookContract.Equipment._ID
+        };
 
-    	int CANOPY_NAME = 0;
-    	int CANOPY_SIZE = 1;
+        int CANOPY_NAME = 0;
+        int CANOPY_SIZE = 1;
     }
 
 }
