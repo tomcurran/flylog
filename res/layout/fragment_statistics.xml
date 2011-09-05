@@ -11,19 +11,15 @@
 	        style="@style/StatsHeader"
 	        />
         <TextView android:id="@+id/text_stat_jump_numbers_6"
-            android:text="@string/text_stat_jump_numbers"
             style="@style/StatsText"
             />
         <TextView android:id="@+id/text_stat_jump_numbers_12"
-            android:text="@string/text_stat_jump_numbers"
             style="@style/StatsText"
             />
         <TextView android:id="@+id/text_stat_jump_numbers_18"
-            android:text="@string/text_stat_jump_numbers"
             style="@style/StatsText"
             />
         <TextView android:id="@+id/text_stat_jump_numbers_24"
-            android:text="@string/text_stat_jump_numbers"
             style="@style/StatsText.Padded"
             />
     
@@ -33,7 +29,6 @@
             style="@style/StatsHeader"
             />
 	    <TextView android:id="@+id/text_stat_delay"
-	        android:text="@string/text_stat_delay"
             style="@style/StatsText"
             />
     
@@ -43,7 +38,6 @@
             style="@style/StatsHeader.Padded"
             />
 	    <TextView android:id="@+id/text_stat_altitude"
-	        android:text="@string/text_stat_altitude"
             style="@style/StatsText"
             />
     
@@ -54,7 +48,7 @@
             />
         <TextView
             android:id="@+id/text_stat_places"
-            android:text="@string/text_stat_places"
+            android:text="@string/text_stat_places_empty"
             style="@style/StatsText"
             />
     
@@ -64,7 +58,7 @@
             style="@style/StatsHeader"
             />
         <TextView android:id="@+id/text_stat_equipment"
-            android:text="@string/text_stat_equipment"
+            android:text="@string/text_stat_equipment_empty"
             style="@style/StatsText"
             />
     
@@ -74,7 +68,7 @@
             style="@style/StatsHeader"
             />
         <TextView android:id="@+id/text_stat_aircrafts"
-            android:text="@string/text_stat_aircrafts"
+            android:text="@string/text_stat_aircrafts_empty"
             style="@style/StatsText"
             />
 
