@@ -86,8 +86,7 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        final Cursor place = (Cursor) getListAdapter().getItem(position);
-        editPlace(place.getInt(PlacesQuery._ID), place.getString(PlacesQuery.NAME));
+        editPlace((Cursor) getListAdapter().getItem(position));
     }
 
     @Override
@@ -104,9 +103,7 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
     public boolean onContextItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
         case R.id.context_menu_list_item_places_edit: {
-            AdapterContextMenuInfo info = ((AdapterContextMenuInfo)item.getMenuInfo());
-            Cursor place = (Cursor) getListAdapter().getItem(info.position);
-            editPlace(place.getInt(PlacesQuery._ID), place.getString(PlacesQuery.NAME));
+            editPlace((Cursor) getListAdapter().getItem(((AdapterContextMenuInfo)item.getMenuInfo()).position));
             return true;
         }
         case R.id.context_menu_list_item_places_delete: {
@@ -127,8 +124,8 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
         dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
     }
 
-    private void editPlace(long placeId, String placeName) {
-        BaseDialogFragment dialog = PlaceDialogFragment.newInstance(placeId, placeName);
+    private void editPlace(final Cursor place) {
+        BaseDialogFragment dialog = PlaceDialogFragment.newInstance(place.getInt(PlacesQuery._ID), place.getString(PlacesQuery.NAME));
         dialog.setOnSuccessListener(mPlaceOnSuccessListener);
         dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
     }

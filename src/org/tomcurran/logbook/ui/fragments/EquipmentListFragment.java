@@ -86,10 +86,7 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Cursor equipment = (Cursor) getListAdapter().getItem(position);
-        editEquipment(equipment.getInt(EquipmentQuery._ID),
-                equipment.getString(EquipmentQuery.CANOPY_NAME),
-                equipment.getInt(EquipmentQuery.CANOPY_SIZE));
+        editEquipment((Cursor) getListAdapter().getItem(position));
     }
 
     @Override
@@ -106,11 +103,7 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
     public boolean onContextItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
         case R.id.context_menu_list_item_equipment_edit: {
-            AdapterContextMenuInfo info = ((AdapterContextMenuInfo)item.getMenuInfo());
-            Cursor equipment = (Cursor) getListAdapter().getItem(info.position);
-            editEquipment(equipment.getInt(EquipmentQuery._ID),
-                    equipment.getString(EquipmentQuery.CANOPY_NAME),
-                    equipment.getInt(EquipmentQuery.CANOPY_SIZE));
+            editEquipment((Cursor) getListAdapter().getItem(((AdapterContextMenuInfo)item.getMenuInfo()).position));
             return true;
         }
         case R.id.context_menu_list_item_equipment_delete: {
@@ -131,8 +124,12 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
         dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
     }
 
-    private void editEquipment(long equipmentId, String canopyName, int canopySize) {
-        BaseDialogFragment dialog = EquipmentDialogFragment.newInstance(equipmentId, canopyName, canopySize);
+    private void editEquipment(final Cursor equipment) {
+        BaseDialogFragment dialog = EquipmentDialogFragment.newInstance(
+                equipment.getInt(EquipmentQuery._ID),
+                equipment.getString(EquipmentQuery.CANOPY_NAME),
+                equipment.getInt(EquipmentQuery.CANOPY_SIZE)
+        );
         dialog.setOnSuccessListener(mEquipmentOnSuccessListener);
         dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
     }

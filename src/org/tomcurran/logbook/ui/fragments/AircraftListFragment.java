@@ -86,8 +86,7 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        final Cursor aircraft = (Cursor) getListAdapter().getItem(position);
-        editAircraft(aircraft.getInt(AircraftsQuery._ID), aircraft.getString(AircraftsQuery.NAME));
+        editAircraft((Cursor) getListAdapter().getItem(position));
     }
 
     @Override
@@ -104,9 +103,7 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
     public boolean onContextItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
         case R.id.context_menu_list_item_aircraft_edit: {
-            AdapterContextMenuInfo info = ((AdapterContextMenuInfo)item.getMenuInfo());
-            final Cursor aircraft = (Cursor) getListAdapter().getItem(info.position);
-            editAircraft(aircraft.getInt(AircraftsQuery._ID), aircraft.getString(AircraftsQuery.NAME));
+            editAircraft((Cursor) getListAdapter().getItem(((AdapterContextMenuInfo)item.getMenuInfo()).position));
             return true;
         }
         case R.id.context_menu_list_item_aircraft_delete: {
@@ -127,8 +124,8 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
         dialog.show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
     }
 
-    private void editAircraft(long aircraftId, String aircraftName) {
-        AircraftDialogFragment dialog = AircraftDialogFragment.newInstance(aircraftId, aircraftName);
+    private void editAircraft(final Cursor aircraft) {
+        AircraftDialogFragment dialog = AircraftDialogFragment.newInstance(aircraft.getInt(AircraftsQuery._ID), aircraft.getString(AircraftsQuery.NAME));
         dialog.setOnSuccessListener(mAircraftOnSuccessListener);
         dialog.show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
     }
