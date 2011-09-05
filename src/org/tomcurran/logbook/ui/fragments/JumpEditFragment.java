@@ -122,6 +122,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     	super.onCreate(savedInstanceState);
     	setHasOptionsMenu(true);
 
+        FragmentActivity activity = getActivity();
     	time = new Time();
     	
     	if (savedInstanceState == null) {
@@ -133,7 +134,6 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 	        } else if (Intent.ACTION_INSERT.equals(action)) {
 	        	mState = STATE_INSERT;
 	
-	            FragmentActivity activity = getActivity();
 	            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 	            
 	    		time.setToNow();
@@ -160,7 +160,6 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 	        		activity.finish();
 	        		return;
 	        	}
-	        	activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mUri.toString()));
 	        } else {
 	            Log.e(TAG, "Unknown action, exiting");
 	            getActivity().finish();
@@ -170,6 +169,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     		mUri = savedInstanceState.getParcelable("uri");
     		mState = savedInstanceState.getInt("state");
     	}
+    	activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mUri.toString()));
     }
 
     @Override
