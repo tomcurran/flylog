@@ -73,10 +73,6 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home: {
-            ((BaseActivity)getActivity()).goUp(HomeActivity.class);
-            return true;
-        }
         case R.id.options_menu_list_places_insert: {
             createPlace();
             return true;

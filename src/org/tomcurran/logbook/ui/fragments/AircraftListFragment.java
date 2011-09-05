@@ -73,10 +73,6 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home: {
-            ((BaseActivity)getActivity()).goUp(HomeActivity.class);
-            return true;
-        }
         case R.id.options_menu_list_aircraft_insert: {
             createAircraft();
             return true;
