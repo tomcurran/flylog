@@ -1,10 +1,6 @@
 package org.tomcurran.logbook.test;
 
 import org.tomcurran.logbook.provider.LogbookContract;
-import org.tomcurran.logbook.provider.LogbookContract.Aircrafts;
-import org.tomcurran.logbook.provider.LogbookContract.Equipment;
-import org.tomcurran.logbook.provider.LogbookContract.Jumps;
-import org.tomcurran.logbook.provider.LogbookContract.Places;
 import org.tomcurran.logbook.provider.LogbookDatabase;
 import org.tomcurran.logbook.provider.LogbookProvider;
 
@@ -18,10 +14,10 @@ import android.text.format.Time;
 
 public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
-    private static final Uri INVALID_PLACES_URI = Uri.withAppendedPath(Places.CONTENT_URI, "invalid");
-    private static final Uri INVALID_AIRCRAFTS_URI = Uri.withAppendedPath(Aircrafts.CONTENT_URI, "invalid");
-    private static final Uri INVALID_EQUIPMENT_URI = Uri.withAppendedPath(Equipment.CONTENT_URI, "invalid");
-    private static final Uri INVALID_JUMPS_URI = Uri.withAppendedPath(Jumps.CONTENT_URI, "invalid");
+    private static final Uri INVALID_PLACES_URI = Uri.withAppendedPath(LogbookContract.Places.CONTENT_URI, "invalid");
+    private static final Uri INVALID_AIRCRAFTS_URI = Uri.withAppendedPath(LogbookContract.Aircrafts.CONTENT_URI, "invalid");
+    private static final Uri INVALID_EQUIPMENT_URI = Uri.withAppendedPath(LogbookContract.Equipment.CONTENT_URI, "invalid");
+    private static final Uri INVALID_JUMPS_URI = Uri.withAppendedPath(LogbookContract.Jumps.CONTENT_URI, "invalid");
     private static final PlaceInfo[] TEST_PLACES = {
             new PlaceInfo("place0"),
             new PlaceInfo("place1"),
@@ -79,7 +75,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
             for (int index = 0; index < TEST_PLACES.length; index++) {
                 mDb.insertOrThrow(
                     "places", // TODO don't do this?
-                    Places.PLACE_NAME,
+                    LogbookContract.Places.PLACE_NAME,
                     TEST_PLACES[index].getContentValues()
                 );
             }
@@ -87,7 +83,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
             for (int index = 0; index < TEST_AIRCRAFTS.length; index++) {
                 mDb.insertOrThrow(
                     "aircrafts", // TODO don't do this?
-                    Aircrafts.AIRCRAFT_NAME,
+                    LogbookContract.Aircrafts.AIRCRAFT_NAME,
                     TEST_AIRCRAFTS[index].getContentValues()
                 );
             }
@@ -95,7 +91,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
             for (int index = 0; index < TEST_EQUIPMENT.length; index++) {
                 mDb.insertOrThrow(
                     "equipment", // TODO don't do this?
-                    Equipment.EQUIPMENT_CANOPY_NAME,
+                    LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME,
                     TEST_EQUIPMENT[index].getContentValues()
                 );
             }
@@ -103,7 +99,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
             for (int index = 0; index < TEST_JUMPS.length; index++) {
                 mDb.insertOrThrow(
                     "jumps", // TODO don't do this?
-                    Jumps.JUMP_DESCRIPTION,
+                    LogbookContract.Jumps.JUMP_DESCRIPTION,
                     TEST_JUMPS[index].getContentValues()
                 );
             }
@@ -119,49 +115,49 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         final String uriId = "1";
 
         // places
-        assertEquals(Places.CONTENT_TYPE, mResolver.getType(Places.CONTENT_URI));
-        assertEquals(Places.CONTENT_ITEM_TYPE, mResolver.getType(Places.buildPlaceUri(uriId)));
+        assertEquals(LogbookContract.Places.CONTENT_TYPE, mResolver.getType(LogbookContract.Places.CONTENT_URI));
+        assertEquals(LogbookContract.Places.CONTENT_ITEM_TYPE, mResolver.getType(LogbookContract.Places.buildPlaceUri(uriId)));
         mResolver.getType(INVALID_PLACES_URI);
 
         // aircrafts
-        assertEquals(Aircrafts.CONTENT_TYPE, mResolver.getType(Aircrafts.CONTENT_URI));
-        assertEquals(Aircrafts.CONTENT_ITEM_TYPE, mResolver.getType(Aircrafts.buildAircraftUri(uriId)));
+        assertEquals(LogbookContract.Aircrafts.CONTENT_TYPE, mResolver.getType(LogbookContract.Aircrafts.CONTENT_URI));
+        assertEquals(LogbookContract.Aircrafts.CONTENT_ITEM_TYPE, mResolver.getType(LogbookContract.Aircrafts.buildAircraftUri(uriId)));
         mResolver.getType(INVALID_AIRCRAFTS_URI);
 
         // equipment
-        assertEquals(Equipment.CONTENT_TYPE, mResolver.getType(Equipment.CONTENT_URI));
-        assertEquals(Equipment.CONTENT_ITEM_TYPE, mResolver.getType(Equipment.buildEquipmentUri(uriId)));
+        assertEquals(LogbookContract.Equipment.CONTENT_TYPE, mResolver.getType(LogbookContract.Equipment.CONTENT_URI));
+        assertEquals(LogbookContract.Equipment.CONTENT_ITEM_TYPE, mResolver.getType(LogbookContract.Equipment.buildEquipmentUri(uriId)));
         mResolver.getType(INVALID_EQUIPMENT_URI);
 
         // jumps
-        assertEquals(Jumps.CONTENT_TYPE, mResolver.getType(Jumps.CONTENT_URI));
-        assertEquals(Jumps.CONTENT_ITEM_TYPE, mResolver.getType(Jumps.buildJumpUri(uriId)));
+        assertEquals(LogbookContract.Jumps.CONTENT_TYPE, mResolver.getType(LogbookContract.Jumps.CONTENT_URI));
+        assertEquals(LogbookContract.Jumps.CONTENT_ITEM_TYPE, mResolver.getType(LogbookContract.Jumps.buildJumpUri(uriId)));
         mResolver.getType(INVALID_JUMPS_URI);
 
     }
 
     public void testQueriesOnPlacesUri() {
         _testQueriesOnURI(
-                Places.CONTENT_URI,
-                new String[] { Places.PLACE_NAME },
-                Places.PLACE_NAME + "=?",
-                Places.PLACE_NAME + "=? OR " + Places.PLACE_NAME + "=? OR " + Places.PLACE_NAME + "=?",
+                LogbookContract.Places.CONTENT_URI,
+                new String[] { LogbookContract.Places.PLACE_NAME },
+                LogbookContract.Places.PLACE_NAME + "=?",
+                LogbookContract.Places.PLACE_NAME + "=? OR " + LogbookContract.Places.PLACE_NAME + "=? OR " + LogbookContract.Places.PLACE_NAME + "=?",
                 new String[] { "place0", "place1", "place2" },
-                Places.DEFAULT_SORT,
+                LogbookContract.Places.DEFAULT_SORT,
                 TEST_PLACES
         );
     }
     
     public void testQueriesOnPlaceIdUri() {
-          final String SELECTION_COLUMNS = Places.PLACE_NAME + "=?";
+          final String SELECTION_COLUMNS = LogbookContract.Places.PLACE_NAME + "=?";
           final String[] SELECTION_ARGS = { "place1" };
-          final String SORT_ORDER = Places.DEFAULT_SORT;
+          final String SORT_ORDER = LogbookContract.Places.DEFAULT_SORT;
           final String[] PLACE_ID_PROJECTION = {
-               Places._ID,
-               Places.PLACE_NAME
+               LogbookContract.Places._ID,
+               LogbookContract.Places.PLACE_NAME
           };
 
-          Uri placeIdUri = Places.buildPlaceUri("1");
+          Uri placeIdUri = LogbookContract.Places.buildPlaceUri("1");
           Cursor cursor = mResolver.query(
               placeIdUri,
               null,
@@ -173,7 +169,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
           insertData();
           cursor = mResolver.query(
-              Places.CONTENT_URI,
+              LogbookContract.Places.CONTENT_URI,
               PLACE_ID_PROJECTION, 
               SELECTION_COLUMNS,
               SELECTION_ARGS,
@@ -184,7 +180,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
           assertTrue(cursor.moveToFirst());
 
           String inputPlaceId = cursor.getString(0);
-          placeIdUri = Places.buildPlaceUri(inputPlaceId);
+          placeIdUri = LogbookContract.Places.buildPlaceUri(inputPlaceId);
           cursor = mResolver.query(placeIdUri,
                   PLACE_ID_PROJECTION,
                   SELECTION_COLUMNS,
@@ -202,14 +198,14 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         );
 
         Uri rowUri = mResolver.insert(
-                Places.CONTENT_URI,
+                LogbookContract.Places.CONTENT_URI,
                 place.getContentValues()
         );
 
-        long placeId = Long.parseLong(Places.getPlaceId(rowUri));
+        long placeId = Long.parseLong(LogbookContract.Places.getPlaceId(rowUri));
 
         Cursor cursor = mResolver.query(
-                Places.CONTENT_URI,
+                LogbookContract.Places.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -217,12 +213,12 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         );
         assertEquals(1, cursor.getCount());
         assertTrue(cursor.moveToFirst());
-        assertEquals(place.place_name, cursor.getString(cursor.getColumnIndex(Places.PLACE_NAME)));
+        assertEquals(place.place_name, cursor.getString(cursor.getColumnIndex(LogbookContract.Places.PLACE_NAME)));
 
         ContentValues values = place.getContentValues();
-        values.put(Places._ID, placeId);
+        values.put(LogbookContract.Places._ID, placeId);
         try {
-            rowUri = mResolver.insert(Places.CONTENT_URI, values);
+            rowUri = mResolver.insert(LogbookContract.Places.CONTENT_URI, values);
             fail("Expected insert failure for existing record but insert succeeded.");
         } catch (Exception e) {
             // succeeded, so do nothing.
@@ -231,18 +227,18 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
     public void testPlacesDeletes() {
         _testDeletes(
-                Places.CONTENT_URI,
-                Places.PLACE_NAME + "=?",
+                LogbookContract.Places.CONTENT_URI,
+                LogbookContract.Places.PLACE_NAME + "=?",
                 new String[] { "place0" }
         );
     }
     
     public void testPlacesUpdates() {
         ContentValues values = new ContentValues();
-        values.put(Places.PLACE_NAME, "place99");
+        values.put(LogbookContract.Places.PLACE_NAME, "place99");
         _testUpdates(
-                Places.CONTENT_URI,
-                Places.PLACE_NAME + "=?",
+                LogbookContract.Places.CONTENT_URI,
+                LogbookContract.Places.PLACE_NAME + "=?",
                 new String[] { "place1" },
                 values
         );
@@ -250,26 +246,26 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
     public void testQueriesOnAircraftsUri() {
         _testQueriesOnURI(
-                Aircrafts.CONTENT_URI,
-                new String[] { Aircrafts.AIRCRAFT_NAME },
-                Aircrafts.AIRCRAFT_NAME + "=?",
-                Aircrafts.AIRCRAFT_NAME + "=? OR " + Aircrafts.AIRCRAFT_NAME + "=? OR " + Aircrafts.AIRCRAFT_NAME + "=?",
+                LogbookContract.Aircrafts.CONTENT_URI,
+                new String[] { LogbookContract.Aircrafts.AIRCRAFT_NAME },
+                LogbookContract.Aircrafts.AIRCRAFT_NAME + "=?",
+                LogbookContract.Aircrafts.AIRCRAFT_NAME + "=? OR " + LogbookContract.Aircrafts.AIRCRAFT_NAME + "=? OR " + LogbookContract.Aircrafts.AIRCRAFT_NAME + "=?",
                 new String[] { "aircraft0", "aircraft1", "aircraft2" },
-                Aircrafts.DEFAULT_SORT,
+                LogbookContract.Aircrafts.DEFAULT_SORT,
                 TEST_AIRCRAFTS
         );
     }
     
     public void testQueriesOnAircraftIdUri() {
-          final String SELECTION_COLUMNS = Aircrafts.AIRCRAFT_NAME + "=?";
+          final String SELECTION_COLUMNS = LogbookContract.Aircrafts.AIRCRAFT_NAME + "=?";
           final String[] SELECTION_ARGS = { "aircraft1" };
-          final String SORT_ORDER = Aircrafts.DEFAULT_SORT;
+          final String SORT_ORDER = LogbookContract.Aircrafts.DEFAULT_SORT;
           final String[] AIRCRAFT_ID_PROJECTION = {
-                  Aircrafts._ID,
-                  Aircrafts.AIRCRAFT_NAME
+                  LogbookContract.Aircrafts._ID,
+                  LogbookContract.Aircrafts.AIRCRAFT_NAME
           };
 
-          Uri aircraftIdUri = Aircrafts.buildAircraftUri("1");
+          Uri aircraftIdUri = LogbookContract.Aircrafts.buildAircraftUri("1");
           Cursor cursor = mResolver.query(
               aircraftIdUri,
               null,
@@ -281,7 +277,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
           insertData();
           cursor = mResolver.query(
-                  Aircrafts.CONTENT_URI,
+                  LogbookContract.Aircrafts.CONTENT_URI,
                   AIRCRAFT_ID_PROJECTION, 
                   SELECTION_COLUMNS,
                   SELECTION_ARGS,
@@ -292,7 +288,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
           assertTrue(cursor.moveToFirst());
 
           String inputAircraftId = cursor.getString(0);
-          aircraftIdUri = Aircrafts.buildAircraftUri(inputAircraftId);
+          aircraftIdUri = LogbookContract.Aircrafts.buildAircraftUri(inputAircraftId);
           cursor = mResolver.query(aircraftIdUri,
                   AIRCRAFT_ID_PROJECTION,
                   SELECTION_COLUMNS,
@@ -307,13 +303,13 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
     public void testAircraftsInserts() {
         AircraftInfo aircraft = new AircraftInfo("aircraft99");
         Uri rowUri = mResolver.insert(
-                Aircrafts.CONTENT_URI,
+                LogbookContract.Aircrafts.CONTENT_URI,
                 aircraft.getContentValues());
 
-        long aircraftId = Long.valueOf(Aircrafts.getAircraftId(rowUri));
+        long aircraftId = Long.valueOf(LogbookContract.Aircrafts.getAircraftId(rowUri));
 
         Cursor cursor = mResolver.query(
-                Aircrafts.CONTENT_URI,
+                LogbookContract.Aircrafts.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -321,12 +317,12 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         );
         assertEquals(1, cursor.getCount());
         assertTrue(cursor.moveToFirst());
-        assertEquals(aircraft.aircraft_name, cursor.getString(cursor.getColumnIndex(Aircrafts.AIRCRAFT_NAME)));
+        assertEquals(aircraft.aircraft_name, cursor.getString(cursor.getColumnIndex(LogbookContract.Aircrafts.AIRCRAFT_NAME)));
 
         ContentValues values = aircraft.getContentValues();
-        values.put(Aircrafts._ID, (int) aircraftId);
+        values.put(LogbookContract.Aircrafts._ID, (int) aircraftId);
         try {
-            rowUri = mResolver.insert(Aircrafts.CONTENT_URI, values);
+            rowUri = mResolver.insert(LogbookContract.Aircrafts.CONTENT_URI, values);
             fail("Expected insert failure for existing record but insert succeeded.");
         } catch (Exception e) {
             // succeeded, so do nothing.
@@ -335,18 +331,18 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
     public void testAircraftsDeletes() {
         _testDeletes(
-                Aircrafts.CONTENT_URI,
-                Aircrafts.AIRCRAFT_NAME + "=?",
+                LogbookContract.Aircrafts.CONTENT_URI,
+                LogbookContract.Aircrafts.AIRCRAFT_NAME + "=?",
                 new String[] { "aircraft0" }
         );
     }
 
     public void testAircraftsUpdates() {
         ContentValues values = new ContentValues();
-        values.put(Aircrafts.AIRCRAFT_NAME, "aircraft99");
+        values.put(LogbookContract.Aircrafts.AIRCRAFT_NAME, "aircraft99");
         _testUpdates(
-                Aircrafts.CONTENT_URI,
-                Aircrafts.AIRCRAFT_NAME + "=?",
+                LogbookContract.Aircrafts.CONTENT_URI,
+                LogbookContract.Aircrafts.AIRCRAFT_NAME + "=?",
                 new String[] { "aircraft1" },
                 values
         );
@@ -354,27 +350,27 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
     public void testQueriesOnEquipmentUri() {
         _testQueriesOnURI(
-                Equipment.CONTENT_URI,
-                new String[] { Equipment.EQUIPMENT_CANOPY_NAME, Equipment.EQUIPMENT_CANOPY_SIZE },
-                Equipment.EQUIPMENT_CANOPY_NAME + "=?",
-                Equipment.EQUIPMENT_CANOPY_NAME + "=? OR " + Equipment.EQUIPMENT_CANOPY_NAME + "=? OR " + Equipment.EQUIPMENT_CANOPY_NAME + "=?",
+                LogbookContract.Equipment.CONTENT_URI,
+                new String[] { LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME, LogbookContract.Equipment.EQUIPMENT_CANOPY_SIZE },
+                LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME + "=?",
+                LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME + "=? OR " + LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME + "=? OR " + LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME + "=?",
                 new String[] { "equipment2", "equipment1", "equipment0" },
-                Equipment.DEFAULT_SORT,
+                LogbookContract.Equipment.DEFAULT_SORT,
                 TEST_EQUIPMENT
         );
     }
     
     public void testQueriesOnEquipmentIdUri() {
-          final String SELECTION_COLUMNS = Equipment.EQUIPMENT_CANOPY_NAME + "=?";
+          final String SELECTION_COLUMNS = LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME + "=?";
           final String[] SELECTION_ARGS = { "equipment1" };
-          final String SORT_ORDER = Equipment.DEFAULT_SORT;
+          final String SORT_ORDER = LogbookContract.Equipment.DEFAULT_SORT;
           final String[] EQUIPMENT_ID_PROJECTION = {
-                  Equipment._ID,
-                  Equipment.EQUIPMENT_CANOPY_NAME,
-                  Equipment.EQUIPMENT_CANOPY_SIZE
+                  LogbookContract.Equipment._ID,
+                  LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME,
+                  LogbookContract.Equipment.EQUIPMENT_CANOPY_SIZE
           };
 
-          Uri equipmentIdUri = Equipment.buildEquipmentUri("1");
+          Uri equipmentIdUri = LogbookContract.Equipment.buildEquipmentUri("1");
           
           Cursor cursor = mResolver.query(
               equipmentIdUri,
@@ -387,7 +383,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
           insertData();
           cursor = mResolver.query(
-                  Equipment.CONTENT_URI,
+                  LogbookContract.Equipment.CONTENT_URI,
                   EQUIPMENT_ID_PROJECTION, 
                   SELECTION_COLUMNS,
                   SELECTION_ARGS,
@@ -398,7 +394,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
           assertTrue(cursor.moveToFirst());
 
           String inputEquipmentId = cursor.getString(0);
-          equipmentIdUri = Equipment.buildEquipmentUri(inputEquipmentId);
+          equipmentIdUri = LogbookContract.Equipment.buildEquipmentUri(inputEquipmentId);
           cursor = mResolver.query(
                   equipmentIdUri,
                   EQUIPMENT_ID_PROJECTION,
@@ -414,14 +410,14 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
     public void testEquipmentInserts() {
         EquipmentInfo equipment = new EquipmentInfo("equipment99", 280);
         Uri rowUri = mResolver.insert(
-                Equipment.CONTENT_URI,
+                LogbookContract.Equipment.CONTENT_URI,
                 equipment.getContentValues()
         );
 
-        long equipmentId = Long.valueOf(Equipment.getEquipmentId(rowUri));
+        long equipmentId = Long.valueOf(LogbookContract.Equipment.getEquipmentId(rowUri));
 
         Cursor cursor = mResolver.query(
-                Equipment.CONTENT_URI,
+                LogbookContract.Equipment.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -429,13 +425,13 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         );
         assertEquals(1, cursor.getCount());
         assertTrue(cursor.moveToFirst());
-        assertEquals(equipment.equipment_canopy_name, cursor.getString(cursor.getColumnIndex(Equipment.EQUIPMENT_CANOPY_NAME)));
-        assertEquals(equipment.equipment_canopy_size, cursor.getInt(cursor.getColumnIndex(Equipment.EQUIPMENT_CANOPY_SIZE)));
+        assertEquals(equipment.equipment_canopy_name, cursor.getString(cursor.getColumnIndex(LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME)));
+        assertEquals(equipment.equipment_canopy_size, cursor.getInt(cursor.getColumnIndex(LogbookContract.Equipment.EQUIPMENT_CANOPY_SIZE)));
 
         ContentValues values = equipment.getContentValues();
-        values.put(Equipment._ID, (int) equipmentId);
+        values.put(LogbookContract.Equipment._ID, (int) equipmentId);
         try {
-            rowUri = mResolver.insert(Equipment.CONTENT_URI, values);
+            rowUri = mResolver.insert(LogbookContract.Equipment.CONTENT_URI, values);
             fail("Expected insert failure for existing record but insert succeeded.");
         } catch (Exception e) {
             // succeeded, so do nothing.
@@ -444,19 +440,19 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
     public void testEquipmentDeletes() {
         _testDeletes(
-                Equipment.CONTENT_URI,
-                Equipment.EQUIPMENT_CANOPY_NAME + "=?",
+                LogbookContract.Equipment.CONTENT_URI,
+                LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME + "=?",
                 new String[] { "equipment0" }
         );
     }
 
     public void testEquipmentUpdates() {
         ContentValues values = new ContentValues();
-        values.put(Equipment.EQUIPMENT_CANOPY_NAME, "equipment99");
-        values.put(Equipment.EQUIPMENT_CANOPY_SIZE, 280);
+        values.put(LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME, "equipment99");
+        values.put(LogbookContract.Equipment.EQUIPMENT_CANOPY_SIZE, 280);
         _testUpdates(
-                Equipment.CONTENT_URI,
-                Equipment.EQUIPMENT_CANOPY_NAME + "=?",
+                LogbookContract.Equipment.CONTENT_URI,
+                LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME + "=?",
                 new String[] { "equipment1" },
                 values
         );
@@ -464,38 +460,38 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
     public void testQueriesOnJumpsUri() {
         _testQueriesOnURI(
-                Jumps.CONTENT_URI,
+                LogbookContract.Jumps.CONTENT_URI,
                 new String[] {
-                        Jumps.JUMP_NUMBER,
-                        Jumps.JUMP_DESCRIPTION,
-                        Places.PLACE_NAME,
-                        Aircrafts.AIRCRAFT_NAME,
-                        Equipment.EQUIPMENT_CANOPY_NAME,
-                        Equipment.EQUIPMENT_CANOPY_SIZE
+                        LogbookContract.Jumps.JUMP_NUMBER,
+                        LogbookContract.Jumps.JUMP_DESCRIPTION,
+                        LogbookContract.Places.PLACE_NAME,
+                        LogbookContract.Aircrafts.AIRCRAFT_NAME,
+                        LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME,
+                        LogbookContract.Equipment.EQUIPMENT_CANOPY_SIZE
                 },
-                Jumps.JUMP_NUMBER + "=?",
-                Jumps.JUMP_NUMBER + "=? OR " + Jumps.JUMP_NUMBER + "=? OR " + Jumps.JUMP_NUMBER + "=?",
+                LogbookContract.Jumps.JUMP_NUMBER + "=?",
+                LogbookContract.Jumps.JUMP_NUMBER + "=? OR " + LogbookContract.Jumps.JUMP_NUMBER + "=? OR " + LogbookContract.Jumps.JUMP_NUMBER + "=?",
                 new String[] { "2", "1", "0" },
-                Jumps.DEFAULT_SORT,
+                LogbookContract.Jumps.DEFAULT_SORT,
                 TEST_JUMPS
         );
     }
 
     public void testQueriesOnJumpIdUri() {
-          final String SELECTION_COLUMNS = Jumps.JUMP_NUMBER + "=?";
+          final String SELECTION_COLUMNS = LogbookContract.Jumps.JUMP_NUMBER + "=?";
           final String[] SELECTION_ARGS = { "1" };
-          final String SORT_ORDER = Jumps.DEFAULT_SORT;
+          final String SORT_ORDER = LogbookContract.Jumps.DEFAULT_SORT;
           final String[] JUMP_ID_PROJECTION = {
-                  Jumps._ID,
-                  Jumps.JUMP_NUMBER,
-                  Jumps.JUMP_DESCRIPTION,
-                  Places.PLACE_NAME,
-                  Aircrafts.AIRCRAFT_NAME,
-                  Equipment.EQUIPMENT_CANOPY_NAME,
-                  Equipment.EQUIPMENT_CANOPY_SIZE
+                  LogbookContract.Jumps._ID,
+                  LogbookContract.Jumps.JUMP_NUMBER,
+                  LogbookContract.Jumps.JUMP_DESCRIPTION,
+                  LogbookContract.Places.PLACE_NAME,
+                  LogbookContract.Aircrafts.AIRCRAFT_NAME,
+                  LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME,
+                  LogbookContract.Equipment.EQUIPMENT_CANOPY_SIZE
           };
 
-          Uri jumpIdUri = Jumps.buildJumpUri("1");
+          Uri jumpIdUri = LogbookContract.Jumps.buildJumpUri("1");
           
           Cursor cursor = mResolver.query(
               jumpIdUri,
@@ -508,7 +504,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
           insertData();
           cursor = mResolver.query(
-                  Jumps.CONTENT_URI,
+                  LogbookContract.Jumps.CONTENT_URI,
                   JUMP_ID_PROJECTION, 
                   SELECTION_COLUMNS,
                   SELECTION_ARGS,
@@ -519,7 +515,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
           assertTrue(cursor.moveToFirst());
 
           String inputEquipmentId = cursor.getString(0);
-          jumpIdUri = Jumps.buildJumpUri(inputEquipmentId);
+          jumpIdUri = LogbookContract.Jumps.buildJumpUri(inputEquipmentId);
           cursor = mResolver.query(
                   jumpIdUri,
                   JUMP_ID_PROJECTION,
@@ -535,14 +531,14 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
     public void testJumpsInserts() {
         JumpInfo jump = new JumpInfo(1, 2, 3, 99, sTime.toMillis(false), 2200, 5, "description99");
         Uri rowUri = mResolver.insert(
-                Jumps.CONTENT_URI,
+                LogbookContract.Jumps.CONTENT_URI,
                 jump.getContentValues()
         );
 
-        long jumpId = Long.valueOf(Jumps.getJumpId(rowUri));
+        long jumpId = Long.valueOf(LogbookContract.Jumps.getJumpId(rowUri));
 
         Cursor cursor = mResolver.query(
-                Jumps.CONTENT_URI,
+                LogbookContract.Jumps.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -552,15 +548,15 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         assertTrue(cursor.moveToFirst());
 
         ContentValues values = jump.getContentValues();
-        assertEquals((int)values.getAsInteger(Jumps.PLACE_ID), cursor.getInt(cursor.getColumnIndexOrThrow(Jumps.PLACE_ID)));
-        assertEquals((int)values.getAsInteger(Jumps.AIRCRAFT_ID), cursor.getInt(cursor.getColumnIndexOrThrow(Jumps.AIRCRAFT_ID)));
-        assertEquals((int)values.getAsInteger(Jumps.EQUIPMENT_ID), cursor.getInt(cursor.getColumnIndexOrThrow(Jumps.EQUIPMENT_ID)));
-        assertEquals((int)values.getAsInteger(Jumps.JUMP_NUMBER), cursor.getInt(cursor.getColumnIndexOrThrow(Jumps.JUMP_NUMBER)));
-        assertEquals(values.getAsString(Jumps.JUMP_DESCRIPTION), cursor.getString(cursor.getColumnIndexOrThrow(Jumps.JUMP_DESCRIPTION)));
+        assertEquals((int)values.getAsInteger(LogbookContract.Jumps.PLACE_ID), cursor.getInt(cursor.getColumnIndexOrThrow(LogbookContract.Jumps.PLACE_ID)));
+        assertEquals((int)values.getAsInteger(LogbookContract.Jumps.AIRCRAFT_ID), cursor.getInt(cursor.getColumnIndexOrThrow(LogbookContract.Jumps.AIRCRAFT_ID)));
+        assertEquals((int)values.getAsInteger(LogbookContract.Jumps.EQUIPMENT_ID), cursor.getInt(cursor.getColumnIndexOrThrow(LogbookContract.Jumps.EQUIPMENT_ID)));
+        assertEquals((int)values.getAsInteger(LogbookContract.Jumps.JUMP_NUMBER), cursor.getInt(cursor.getColumnIndexOrThrow(LogbookContract.Jumps.JUMP_NUMBER)));
+        assertEquals(values.getAsString(LogbookContract.Jumps.JUMP_DESCRIPTION), cursor.getString(cursor.getColumnIndexOrThrow(LogbookContract.Jumps.JUMP_DESCRIPTION)));
 
-        values.put(Jumps._ID, (int) jumpId);
+        values.put(LogbookContract.Jumps._ID, (int) jumpId);
         try {
-            rowUri = mResolver.insert(Jumps.CONTENT_URI, values);
+            rowUri = mResolver.insert(LogbookContract.Jumps.CONTENT_URI, values);
             fail("Expected insert failure for existing record but insert succeeded.");
         } catch (Exception e) {
             // succeeded, so do nothing.
@@ -569,22 +565,22 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
 
     public void testJumpsDeletes() {
         _testDeletes(
-                Jumps.CONTENT_URI,
-                Jumps.JUMP_NUMBER + "=?",
+                LogbookContract.Jumps.CONTENT_URI,
+                LogbookContract.Jumps.JUMP_NUMBER + "=?",
                 new String[] { "0" }
         );
     }
 
     public void testJumpsUpdates() {
         ContentValues values = new ContentValues();
-        values.put(Jumps.PLACE_ID, 5);
-        values.put(Jumps.AIRCRAFT_ID, 5);
-        values.put(Jumps.EQUIPMENT_ID, 5);
-        values.put(Jumps.JUMP_NUMBER, 6);
-        values.put(Jumps.JUMP_DESCRIPTION, "desctiption6");
+        values.put(LogbookContract.Jumps.PLACE_ID, 5);
+        values.put(LogbookContract.Jumps.AIRCRAFT_ID, 5);
+        values.put(LogbookContract.Jumps.EQUIPMENT_ID, 5);
+        values.put(LogbookContract.Jumps.JUMP_NUMBER, 6);
+        values.put(LogbookContract.Jumps.JUMP_DESCRIPTION, "desctiption6");
         _testUpdates(
-                Jumps.CONTENT_URI,
-                Jumps.JUMP_NUMBER + "=?",
+                LogbookContract.Jumps.CONTENT_URI,
+                LogbookContract.Jumps.JUMP_NUMBER + "=?",
                 new String[] { "0" },
                 values
         );
@@ -694,7 +690,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         
         public ContentValues getContentValues() {
             ContentValues v = new ContentValues();
-            v.put(Places.PLACE_NAME, place_name);
+            v.put(LogbookContract.Places.PLACE_NAME, place_name);
             return v;
         }
     }
@@ -708,7 +704,7 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         
         public ContentValues getContentValues() {
             ContentValues v = new ContentValues();
-            v.put(Aircrafts.AIRCRAFT_NAME, aircraft_name);
+            v.put(LogbookContract.Aircrafts.AIRCRAFT_NAME, aircraft_name);
             return v;
         }
     }
@@ -724,8 +720,8 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         
         public ContentValues getContentValues() {
             ContentValues v = new ContentValues();
-            v.put(Equipment.EQUIPMENT_CANOPY_NAME, equipment_canopy_name);
-            v.put(Equipment.EQUIPMENT_CANOPY_SIZE, equipment_canopy_size);
+            v.put(LogbookContract.Equipment.EQUIPMENT_CANOPY_NAME, equipment_canopy_name);
+            v.put(LogbookContract.Equipment.EQUIPMENT_CANOPY_SIZE, equipment_canopy_size);
             return v;
         }
     }
@@ -735,14 +731,14 @@ public class LogbookProviderTest extends ProviderTestCase2<LogbookProvider> {
         
         public JumpInfo(int place, int aircraft, int equipment, int number, long date, int altitude, int delay, String description) {
             contentValues = new ContentValues();
-            contentValues.put(Jumps.PLACE_ID, place);
-            contentValues.put(Jumps.AIRCRAFT_ID, aircraft);
-            contentValues.put(Jumps.EQUIPMENT_ID, equipment);
-            contentValues.put(Jumps.JUMP_NUMBER, number);
-            contentValues.put(Jumps.JUMP_DATE, date);
-            contentValues.put(Jumps.JUMP_ALTITUDE,altitude);
-            contentValues.put(Jumps.JUMP_DELAY, delay);
-            contentValues.put(Jumps.JUMP_DESCRIPTION, description);
+            contentValues.put(LogbookContract.Jumps.PLACE_ID, place);
+            contentValues.put(LogbookContract.Jumps.AIRCRAFT_ID, aircraft);
+            contentValues.put(LogbookContract.Jumps.EQUIPMENT_ID, equipment);
+            contentValues.put(LogbookContract.Jumps.JUMP_NUMBER, number);
+            contentValues.put(LogbookContract.Jumps.JUMP_DATE, date);
+            contentValues.put(LogbookContract.Jumps.JUMP_ALTITUDE,altitude);
+            contentValues.put(LogbookContract.Jumps.JUMP_DELAY, delay);
+            contentValues.put(LogbookContract.Jumps.JUMP_DESCRIPTION, description);
         }
         
         public ContentValues getContentValues() {
