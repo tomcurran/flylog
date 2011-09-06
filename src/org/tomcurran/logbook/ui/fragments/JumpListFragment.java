@@ -181,39 +181,64 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
 
     // list adapter
 
-    public static class JumpsListAdapter extends SimpleCursorAdapter {
+    public static class JumpsListAdapter extends SimpleCursorAdapter implements SimpleCursorAdapter.ViewBinder  {
 
+        private static final String[] FORM = {
+                LogbookContract.Jumps.JUMP_NUMBER,
+                LogbookContract.Jumps.JUMP_DATE,
+                LogbookContract.Jumps.PLACE_NAME,
+                LogbookContract.Jumps.AIRCRAFT_NAME,
+                LogbookContract.Jumps.JUMP_ALTITUDE,
+                LogbookContract.Jumps.JUMP_DESCRIPTION
+        };
         private static final int[] TO = {
-            R.id.list_item_jumps_number,
-            R.id.list_item_jumps_date,
-            R.id.list_item_jumps_place,
-            R.id.list_item_jumps_aircraft,
-            R.id.list_item_jumps_altitude,
-            R.id.list_item_jumps_description
+                R.id.list_item_jumps_number,
+                R.id.list_item_jumps_date,
+                R.id.list_item_jumps_place,
+                R.id.list_item_jumps_aircraft,
+                R.id.list_item_jumps_altitude,
+                R.id.list_item_jumps_description
         };
 
-        private String mDateFormat;
-
         public JumpsListAdapter(Context context) {
-            super(context, R.layout.list_item_jumps, null, JumpsQuery.PROJECTION, TO, 0);
-            mDateFormat = context.getString(R.string.text_format_list_jumps_date);
+            super(context, R.layout.list_item_jumps, null, FORM, TO, 0);
+            setViewBinder(this);
         }
 
         @Override
-        public void setViewText(TextView v, String text) {
-            switch (v.getId()) {
-            case R.id.list_item_jumps_date: {
-                v.setText(DateFormat.format(mDateFormat, Long.valueOf(text)));
-                break;
+        public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+            switch (columnIndex) {
+            case JumpsQuery.DATE: {
+                ViewHolder holder = getViewHolder(view);
+                holder.date.setText(DateFormat.format(holder.dataFormat, cursor.getLong(JumpsQuery.DATE)));
+                return true;
             }
-            case R.id.list_item_jumps_altitude: {
-                v.setText(UIUtils.formatAltitude(v.getContext(),
-                        UIUtils.roundAltitude(Integer.valueOf(text))));
-                break;
+            case JumpsQuery.ALTITUDE: {
+                ViewHolder holder = getViewHolder(view);
+                holder.altitude.setText(UIUtils.formatAltitude(view.getContext(), UIUtils.roundAltitude(cursor.getInt(JumpsQuery.ALTITUDE))));
+                return true;
             }
             default:
-                super.setViewText(v, text);
+                return false;
             }
+        }
+
+        private ViewHolder getViewHolder(View view) {
+            ViewHolder holder = (ViewHolder) view.getTag();
+            if (holder == null) {
+                holder = new ViewHolder();
+                holder.altitude = (TextView) view.findViewById(R.id.list_item_jumps_altitude);
+                holder.date = (TextView) view.findViewById(R.id.list_item_jumps_date);
+                holder.dataFormat = view.getContext().getString(R.string.text_format_list_jumps_date);
+                view.setTag(holder);
+            }
+            return holder;
+        }
+
+        static class ViewHolder {
+            TextView altitude;
+            TextView date;
+            String dataFormat;
         }
 
     }
