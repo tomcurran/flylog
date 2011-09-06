@@ -192,32 +192,30 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
             R.id.list_item_jumps_description
         };
 
+        private String mDateFormat;
+
         public JumpsListAdapter(Context context) {
             super(context, R.layout.list_item_jumps, null, JumpsQuery.PROJECTION, TO, 0);
+            mDateFormat = context.getString(R.string.text_format_list_jumps_date);
         }
 
         @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            super.bindView(view, context, cursor);
-
-            ViewHolder holder = (ViewHolder) view.getTag();
-            if (holder == null) {
-                holder = new ViewHolder();
-                holder.altitude = (TextView) view.findViewById(R.id.list_item_jumps_altitude);
-                holder.date = (TextView) view.findViewById(R.id.list_item_jumps_date);
-                holder.dataFormat = context.getString(R.string.text_format_list_jumps_date);
-                view.setTag(holder);
+        public void setViewText(TextView v, String text) {
+            switch (v.getId()) {
+            case R.id.list_item_jumps_date: {
+                v.setText(DateFormat.format(mDateFormat, Long.valueOf(text)));
+                break;
             }
-
-            holder.altitude.setText(UIUtils.formatAltitude(context, UIUtils.roundAltitude(cursor.getInt(JumpsQuery.ALTITUDE))));
-            holder.date.setText(DateFormat.format(holder.dataFormat, cursor.getLong(JumpsQuery.DATE)));
+            case R.id.list_item_jumps_altitude: {
+                v.setText(UIUtils.formatAltitude(v.getContext(),
+                        UIUtils.roundAltitude(Integer.valueOf(text))));
+                break;
+            }
+            default:
+                super.setViewText(v, text);
+            }
         }
 
-        static class ViewHolder {
-            TextView altitude;
-            TextView date;
-            String dataFormat;
-        }
     }
 
 
