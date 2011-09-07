@@ -4,7 +4,6 @@ import org.tomcurran.logbook.R;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -19,7 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-public abstract class BaseDialogFragment extends DialogFragment {
+public abstract class BaseDialogFragment extends DialogFragment implements BaseDialogQueryHandler.BaseDialogQueryListener {
 
     protected static final int STATE_INSERT = 0;
     protected static final int STATE_EDIT = 1;
@@ -28,15 +27,13 @@ public abstract class BaseDialogFragment extends DialogFragment {
     protected Uri mUri;
     private int mViewResource;
     private View mCustomView;
+    private BaseDialogQueryHandler mQueryHandler;
     private BaseDialogFragment.OnSuccessListener mOnSuccessListener;
     private OnClickListener mOnClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int whichButton) {
             switch (whichButton) {
             case DialogInterface.BUTTON_POSITIVE:
                 onPositiveButtonClick(dialog);
-                break;
-            case DialogInterface.BUTTON_NEUTRAL:
-                onNeutralButtonClick(dialog);
                 break;
             case DialogInterface.BUTTON_NEGATIVE:
                 onNegativeButtonClick(dialog);
@@ -57,6 +54,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mQueryHandler = new BaseDialogQueryHandler(getActivity().getContentResolver(), this);
 
         Bundle args = getArguments();
         long id = args.getLong(BaseColumns._ID, 0);
@@ -95,26 +93,15 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     public void onPositiveButtonClick(DialogInterface dialog) {
         if (validInputValues(dialog) == true) {
-            ContentResolver resolver = getActivity().getContentResolver();
-            ContentValues values = getInputValues(dialog);
             if (mState == STATE_INSERT) {
-                mUri = resolver.insert(mUri, values);
-                mState = STATE_EDIT;
+                mQueryHandler.startInsert(mUri, getInputValues(dialog));
             } else if (mState == STATE_EDIT) {
-                resolver.update(mUri, values, null, null);
+                mQueryHandler.startUpdate(mUri, getInputValues(dialog));
             }
-            dispatchOnSuccessListener();
         }
     }
-    public void onNeutralButtonClick(DialogInterface dialog) {
-        if (mState == STATE_EDIT) {
-            getActivity().getContentResolver().delete(mUri, null, null);
-            dispatchOnSuccessListener();
-        }
-    }
-
     public void onNegativeButtonClick(DialogInterface dialog) {}
-    
+
     protected boolean validInputValues(DialogInterface dialog) {
         if (!TextUtils.isEmpty(
                 ((EditText)((AlertDialog)dialog).findViewById(R.id.dialog_text)).getText().toString())) {
@@ -125,6 +112,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     }
 
     protected abstract ContentValues getInputValues(DialogInterface dialog);
+
 
     public interface OnSuccessListener {
         void onSuccess(Long rowId);
@@ -139,4 +127,18 @@ public abstract class BaseDialogFragment extends DialogFragment {
             mOnSuccessListener.onSuccess(ContentUris.parseId(mUri));
         }
     }
+
+    @Override
+    public void onInsertComplete(Uri uri) {
+        mUri = uri;
+        mState = STATE_EDIT;
+        dispatchOnSuccessListener();
+    }
+
+    @Override
+    public void onUpdateComplete() {
+        dispatchOnSuccessListener();
+        
+    }
+
 }

@@ -23,11 +23,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AircraftListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AircraftListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ListsQueryHandler.ListsQueryListener {
 
     public static final String TAG = "aircraft_list_fragment";
 
     private CursorAdapter mAdapter;
+    private ListsQueryHandler mHandler;
     private BaseDialogFragment.OnSuccessListener mAircraftOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
         @Override
         public void onSuccess(Long id) {
@@ -42,6 +43,7 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
+        mHandler = new ListsQueryHandler(getActivity().getContentResolver(), this);
     }
 
     @Override
@@ -131,8 +133,8 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
     }
 
     private void deleteAircraft(long aircraftId) {
-        getActivity().getContentResolver().delete(LogbookContract.Aircrafts.buildAircraftUri(aircraftId), null, null);
-        getLoaderManager().restartLoader(0, null, this);
+        mHandler.startDelete(LogbookContract.Aircrafts.buildAircraftUri(aircraftId));
+        
     }
 
 
@@ -186,6 +188,11 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
 
         int NAME = 0;
         int _ID = 1;
+    }
+
+    @Override
+    public void onDeleteComplete() {
+        getLoaderManager().restartLoader(0, null, this);
     }
 
 }

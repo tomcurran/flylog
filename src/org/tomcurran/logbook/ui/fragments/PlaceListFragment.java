@@ -23,11 +23,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class PlaceListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PlaceListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ListsQueryHandler.ListsQueryListener {
 
     public static final String TAG = "place_list_fragment";
 
     private CursorAdapter mAdapter;
+    private ListsQueryHandler mHandler;
     private BaseDialogFragment.OnSuccessListener mPlaceOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
         @Override
         public void onSuccess(Long id) {
@@ -42,6 +43,7 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
+        mHandler = new ListsQueryHandler(getActivity().getContentResolver(), this);
     }
 
     @Override
@@ -131,8 +133,7 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
     }
 
     private void deletePlace(long placeId) {
-        getActivity().getContentResolver().delete(LogbookContract.Places.buildPlaceUri(placeId), null, null);
-        getLoaderManager().restartLoader(0, null, this);
+        mHandler.startDelete(LogbookContract.Places.buildPlaceUri(placeId));
     }
 
 
@@ -187,6 +188,11 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
         int NAME = 0;
         int _ID = 1;
 
+    }
+
+    @Override
+    public void onDeleteComplete() {
+        getLoaderManager().restartLoader(0, null, this);
     }
 
 }

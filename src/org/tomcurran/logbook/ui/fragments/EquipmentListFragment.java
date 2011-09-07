@@ -23,11 +23,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class EquipmentListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class EquipmentListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ListsQueryHandler.ListsQueryListener {
 
     public static final String TAG = "equipment_list_fragment";
 
     private CursorAdapter mAdapter;
+    private ListsQueryHandler mHandler;
     private BaseDialogFragment.OnSuccessListener mEquipmentOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
         @Override
         public void onSuccess(Long id) {
@@ -42,6 +43,7 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
+        mHandler = new ListsQueryHandler(getActivity().getContentResolver(), this);
     }
 
     @Override
@@ -135,8 +137,7 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
     }
 
     private void deleteEquipment(long equipmentId) {
-        getActivity().getContentResolver().delete(LogbookContract.Equipment.buildEquipmentUri(equipmentId), null, null);
-        getLoaderManager().restartLoader(0, null, this);
+        mHandler.startDelete(LogbookContract.Equipment.buildEquipmentUri(equipmentId));
     }
 
 
@@ -215,6 +216,11 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
         int CANOPY_NAME = 0;
         int CANOPY_SIZE = 1;
         int _ID = 2;
+    }
+
+    @Override
+    public void onDeleteComplete() {
+        getLoaderManager().restartLoader(0, null, this);
     }
 
 }
