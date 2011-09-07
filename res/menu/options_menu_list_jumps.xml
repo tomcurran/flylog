@@ -8,11 +8,4 @@
         android:showAsAction="ifRoom|withText"
         />
 
-    <item
-        android:id="@+id/options_menu_list_jumps_preferences"
-        android:title="@string/options_menu_list_jumps_preferences"
-        android:icon="@drawable/ic_menu_preferences"
-        android:showAsAction="never"
-        />
-
 </menu>

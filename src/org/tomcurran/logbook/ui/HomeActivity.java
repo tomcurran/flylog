@@ -7,10 +7,13 @@ import org.tomcurran.logbook.ui.fragments.JumpListFragment;
 import org.tomcurran.logbook.ui.fragments.PlaceListFragment;
 import org.tomcurran.logbook.ui.fragments.StatisticsFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.widget.ArrayAdapter;
 
 public class HomeActivity extends BaseActivity implements ActionBar.OnNavigationListener {
@@ -45,6 +48,24 @@ public class HomeActivity extends BaseActivity implements ActionBar.OnNavigation
         mPlaceFragment     = (PlaceListFragment)     setupFragment(fm, PlaceListFragment.class,     PlaceListFragment.TAG);
         mAircraftFragment  = (AircraftListFragment)  setupFragment(fm, AircraftListFragment.class,  AircraftListFragment.TAG);
         mEquipmentFragment = (EquipmentListFragment) setupFragment(fm, EquipmentListFragment.class, EquipmentListFragment.TAG);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.options_menu_home_preferences: {
+            startActivity(new Intent(this, PreferencesActivity.class));
+            return true;
+        }
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     private Fragment setupFragment(FragmentManager fragmentManager, Class<? extends Fragment> fragmentClass, final String TAG) {

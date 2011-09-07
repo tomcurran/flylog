@@ -4,11 +4,13 @@
     <string name="app_name">Logbook</string>
     <string name="premission_write">Modify logbook data</string>
 
+    <!-- HomeActivity -->
+    <string name="options_menu_home_preferences">Preferences</string>
+
     <!-- JumpsListFragment -->
     <string name="title_jumps_list">Jumps</string>
     <string name="list_emtpy_jumps">No jumps\nPress the add button to log a jump</string>
     <string name="options_menu_list_jumps_insert">Log Jump</string>
-    <string name="options_menu_list_jumps_preferences">Preferences</string>
     <string name="context_menu_list_item_jumps_title">Jump %d</string>
     <string name="context_menu_list_item_jumps_edit">Edit</string>
     <string name="context_menu_list_item_jumps_delete">Delete</string>

@@ -2,7 +2,6 @@ package org.tomcurran.logbook.ui.fragments;
 
 import org.tomcurran.logbook.R;
 import org.tomcurran.logbook.provider.LogbookContract;
-import org.tomcurran.logbook.ui.PreferencesActivity;
 import org.tomcurran.logbook.util.UIUtils;
 
 import android.content.Context;
@@ -84,10 +83,6 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
         switch (item.getItemId()) {
         case R.id.options_menu_list_jumps_insert: {
             createJump();
-            return true;
-        }
-        case R.id.options_menu_list_jumps_preferences: {
-            startActivity(new Intent(getActivity(), PreferencesActivity.class));
             return true;
         }
         default:
