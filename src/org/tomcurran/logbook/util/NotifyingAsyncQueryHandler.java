@@ -112,6 +112,15 @@ public class NotifyingAsyncQueryHandler extends AsyncQueryHandler {
     }
 
     /**
+     * Begin an asynchronous query with the given arguments. When finished,
+     * {@link AsyncQueryListener#onQueryComplete(int, Object, Cursor)} is called
+     * if a valid {@link AsyncQueryListener} is present.
+     */
+    public void startQuery(Uri uri, String[] projection, String sortOrder) {
+        startQuery(-1, null, uri, projection, null, null, sortOrder);
+    }
+
+    /**
      * Begin an asynchronous update with the given arguments.
      */
     public void startUpdate(Uri uri, ContentValues values) {
