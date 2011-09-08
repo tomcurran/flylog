@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -52,14 +51,12 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_list_jumps, container, false);
     }
-    
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        FragmentActivity activity = getActivity();
-        activity.getSupportActionBar().setTitle(R.string.title_jumps_list);
         registerForContextMenu(getListView());
-        mAdapter = new JumpsListAdapter(activity);
+        mAdapter = new JumpsListAdapter(getActivity());
         setListAdapter(mAdapter);
         getLoaderManager().initLoader(0, null, this);
     }

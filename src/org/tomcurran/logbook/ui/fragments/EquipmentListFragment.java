@@ -7,7 +7,6 @@ import org.tomcurran.logbook.util.NotifyingAsyncQueryHandler;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -45,10 +44,8 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        FragmentActivity activity = getActivity();
-        activity.getSupportActionBar().setTitle(R.string.title_equipment_list);
         setEmptyText(getString(R.string.list_emtpy_equipment));
-        mAdapter = new EquipmentListAdapter(activity);
+        mAdapter = new EquipmentListAdapter(getActivity());
         setListAdapter(mAdapter);
         getLoaderManager().initLoader(0, null, this);
         registerForContextMenu(getListView());

@@ -8,7 +8,6 @@
     <string name="options_menu_home_preferences">Preferences</string>
 
     <!-- JumpsListFragment -->
-    <string name="title_jumps_list">Jumps</string>
     <string name="list_emtpy_jumps">No jumps\nPress the add button to log a jump</string>
     <string name="options_menu_list_jumps_insert">Log Jump</string>
     <string name="context_menu_list_item_jumps_title">Jump %d</string>
@@ -78,7 +77,6 @@
     <string name="preference_jump_invalid_number">Only numbers valid</string>
 
     <!-- StatisticsFragment -->
-    <string name="stats_title">Statistics</string>
     <string name="text_stat_jumps_empty">No jumps</string>
     <string name="text_stat_jump_numbers_head">Jump Numbers</string>
     <string name="text_stat_jump_numbers">Last %1$2s months: %2$d</string>
@@ -102,21 +100,18 @@
     <string name="text_format_feet">&#160;ft</string>
 
     <!-- PlaceListFragment -->
-    <string name="title_places_list">Places</string>
     <string name="list_emtpy_places">No Places</string>
     <string name="options_menu_list_places_insert">Add Place</string>
     <string name="context_menu_list_item_places_edit">Edit</string>
     <string name="context_menu_list_item_places_delete">Delete</string>
 
     <!-- AircraftListFragment -->
-    <string name="title_aircraft_list">Aircrafts</string>
     <string name="list_emtpy_aircraft">No Aircrafts</string>
     <string name="options_menu_list_aircraft_insert">Add Aircraft</string>
     <string name="context_menu_list_item_aircraft_edit">Edit</string>
     <string name="context_menu_list_item_aircraft_delete">Delete</string>
 
     <!-- EquipmentListFragment -->
-    <string name="title_equipment_list">Equipment</string>
     <string name="list_emtpy_equipment">No Equipment</string>
     <string name="text_list_item_equipment">%1$s %2$d</string>
     <string name="options_menu_list_equipment_insert">Add Equipment</string>
@@ -129,14 +124,14 @@
     <string name="shortcut_jump_insert_name">Log Jump</string>
 
     <!-- test data -->
-    <string name="_text_list_item_jumps_number">112</string>
-    <string name="_text_list_item_jumps_place">Strathallan</string>
-    <string name="_text_list_item_jumps_aircraft">C206</string>
-    <string name="_text_list_item_jumps_date">Sun, June 05, 2011</string>
-    <string name="_text_list_item_jumps_altitude">5,000 ft</string>
+    <string name="_text_list_item_jumps_number">143</string>
+    <string name="_text_list_item_jumps_place">Wild Geese</string>
+    <string name="_text_list_item_jumps_aircraft">C208</string>
+    <string name="_text_list_item_jumps_date">Sat, September 03, 2011</string>
+    <string name="_text_list_item_jumps_altitude">13,100 ft</string>
     <string name="_text_list_item_jumps_description">really long description, really long description, really long description</string>
-    <string name="_text_list_item_jumps_delay">15</string>
-    <string name="_text_list_item_jumps_equipment">Spectre 190</string>
+    <string name="_text_list_item_jumps_delay">59</string>
+    <string name="_text_list_item_jumps_equipment">Sabre 190</string>
     <string name="_text_list_item_places_name">Strathallan</string>
 
 </resources>
