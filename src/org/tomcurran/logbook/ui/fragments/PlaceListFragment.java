@@ -2,6 +2,7 @@ package org.tomcurran.logbook.ui.fragments;
 
 import org.tomcurran.logbook.R;
 import org.tomcurran.logbook.provider.LogbookContract;
+import org.tomcurran.logbook.util.NotifyingAsyncQueryHandler;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -23,18 +24,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class PlaceListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ListsQueryHandler.ListsQueryListener {
+public class PlaceListFragment extends ListFragment implements BaseDialogFragment.BaseDialogSuccessListener, LoaderManager.LoaderCallbacks<Cursor>, NotifyingAsyncQueryHandler.AsyncDeleteListener {
 
-    public static final String TAG = "place_list_fragment";
+    public static final String TAG = "PlaceListFragment";
 
     private CursorAdapter mAdapter;
-    private ListsQueryHandler mHandler;
-    private BaseDialogFragment.OnSuccessListener mPlaceOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
-        @Override
-        public void onSuccess(Long id) {
-            getLoaderManager().restartLoader(0, null, PlaceListFragment.this);
-        }
-    };
+    private NotifyingAsyncQueryHandler mHandler;
 
     // life cycle
 
@@ -43,7 +38,8 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
-        mHandler = new ListsQueryHandler(getActivity().getContentResolver(), this);
+        mHandler = new NotifyingAsyncQueryHandler(getActivity().getContentResolver());
+        mHandler.setDeleteListener(this);
     }
 
     @Override
@@ -58,7 +54,7 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
         registerForContextMenu(getListView());
         PlaceDialogFragment dialog = (PlaceDialogFragment)getSupportFragmentManager().findFragmentByTag(PlaceDialogFragment.TAG);
         if (dialog != null) {
-            dialog.setOnSuccessListener(mPlaceOnSuccessListener);
+            dialog.setOnSuccessListener(this);
         }
     }
 
@@ -121,15 +117,15 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
     // helpers
 
     private void createPlace() {
-        BaseDialogFragment dialog = PlaceDialogFragment.newInstance();
-        dialog.setOnSuccessListener(mPlaceOnSuccessListener);
-        dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
+        PlaceDialogFragment.newInstance()
+                .setOnSuccessListener(this)
+                .show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
     }
 
     private void editPlace(final Cursor place) {
-        BaseDialogFragment dialog = PlaceDialogFragment.newInstance(place.getInt(PlacesQuery._ID), place.getString(PlacesQuery.NAME));
-        dialog.setOnSuccessListener(mPlaceOnSuccessListener);
-        dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
+        PlaceDialogFragment.newInstance(place.getInt(PlacesQuery._ID), place.getString(PlacesQuery.NAME))
+                .setOnSuccessListener(this)
+                .show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
     }
 
     private void deletePlace(long placeId) {
@@ -191,7 +187,12 @@ public class PlaceListFragment extends ListFragment implements LoaderManager.Loa
     }
 
     @Override
-    public void onDeleteComplete() {
+    public void onDeleteComplete(int result) {
+        getLoaderManager().restartLoader(0, null, this);
+    }
+
+    @Override
+    public void onDialogSuccess(Long rowId) {
         getLoaderManager().restartLoader(0, null, this);
     }
 

@@ -2,6 +2,7 @@ package org.tomcurran.logbook.ui.fragments;
 
 import org.tomcurran.logbook.R;
 import org.tomcurran.logbook.provider.LogbookContract;
+import org.tomcurran.logbook.util.NotifyingAsyncQueryHandler;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -23,18 +24,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AircraftListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ListsQueryHandler.ListsQueryListener {
+public class AircraftListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, BaseDialogFragment.BaseDialogSuccessListener, NotifyingAsyncQueryHandler.AsyncDeleteListener {
 
     public static final String TAG = "aircraft_list_fragment";
 
     private CursorAdapter mAdapter;
-    private ListsQueryHandler mHandler;
-    private BaseDialogFragment.OnSuccessListener mAircraftOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
-        @Override
-        public void onSuccess(Long id) {
-            getLoaderManager().restartLoader(0, null, AircraftListFragment.this);
-        }
-    };
+    private NotifyingAsyncQueryHandler mHandler;
 
     // life cycle
 
@@ -43,7 +38,8 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
-        mHandler = new ListsQueryHandler(getActivity().getContentResolver(), this);
+        mHandler = new NotifyingAsyncQueryHandler(getActivity().getContentResolver());
+        mHandler.setDeleteListener(this);
     }
 
     @Override
@@ -58,7 +54,7 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
         registerForContextMenu(getListView());
         AircraftDialogFragment dialog = (AircraftDialogFragment)getSupportFragmentManager().findFragmentByTag(AircraftDialogFragment.TAG);
         if (dialog != null) {
-            dialog.setOnSuccessListener(mAircraftOnSuccessListener);
+            dialog.setOnSuccessListener(this);
         }
     }
 
@@ -121,15 +117,15 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
     // helpers
 
     private void createAircraft() {
-        AircraftDialogFragment dialog = AircraftDialogFragment.newInstance();
-        dialog.setOnSuccessListener(mAircraftOnSuccessListener);
-        dialog.show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
+        AircraftDialogFragment.newInstance()
+                .setOnSuccessListener(this)
+                .show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
     }
 
     private void editAircraft(final Cursor aircraft) {
-        AircraftDialogFragment dialog = AircraftDialogFragment.newInstance(aircraft.getInt(AircraftsQuery._ID), aircraft.getString(AircraftsQuery.NAME));
-        dialog.setOnSuccessListener(mAircraftOnSuccessListener);
-        dialog.show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
+        AircraftDialogFragment.newInstance(aircraft.getInt(AircraftsQuery._ID), aircraft.getString(AircraftsQuery.NAME))
+                .setOnSuccessListener(this)
+                .show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
     }
 
     private void deleteAircraft(long aircraftId) {
@@ -191,7 +187,12 @@ public class AircraftListFragment extends ListFragment implements LoaderManager.
     }
 
     @Override
-    public void onDeleteComplete() {
+    public void onDeleteComplete(int result) {
+        getLoaderManager().restartLoader(0, null, this);
+    }
+
+    @Override
+    public void onDialogSuccess(Long rowId) {
         getLoaderManager().restartLoader(0, null, this);
     }
 

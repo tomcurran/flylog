@@ -6,9 +6,9 @@ import org.tomcurran.logbook.ui.BaseActivity;
 import org.tomcurran.logbook.ui.PreferencesActivity;
 import org.tomcurran.logbook.ui.widget.AddSpinner;
 import org.tomcurran.logbook.util.DbAdapter;
+import org.tomcurran.logbook.util.NotifyingAsyncQueryHandler;
 import org.tomcurran.logbook.util.UIUtils;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +39,7 @@ import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, BaseDialogFragment.BaseDialogSuccessListener, NotifyingAsyncQueryHandler.AsyncUpdateListener, NotifyingAsyncQueryHandler.AsyncDeleteListener {
 
     private static final String TAG = "JumpEditFragment";
 
@@ -54,6 +54,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private int mState;
     private Uri mUri;
     private Cursor mJumpCursor;
+    private NotifyingAsyncQueryHandler mHandler;
     private Long mPlaceId;
     private Long mAircraftId;
     private Long mEquipmentId;
@@ -71,43 +72,28 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 time.set(dayOfMonth, monthOfYear, year);
             }
     };
-    private BaseDialogFragment.OnSuccessListener mPlaceOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
-        @Override
-        public void onSuccess(Long id) {
-            updatePlace(id);
-        }
-    };
-    private BaseDialogFragment.OnSuccessListener mAircraftOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
-        @Override
-        public void onSuccess(Long id) {
-            updateAircraft(id);
-        }
-    };
-    private BaseDialogFragment.OnSuccessListener mEquipmentOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
-        @Override
-        public void onSuccess(Long id) {
-            updateEquipment(id);
-        }
-    };
+    private int mDialogState;
     private AddSpinner.OnAddClickListener mOnAddListener = new AddSpinner.OnAddClickListener() {
         @Override
         public void onAddClick(Spinner spinner) {
-            BaseDialogFragment dialog = null;
             switch (spinner.getId()) {
             case R.id.spinner_edit_jump_place:
-                dialog = PlaceDialogFragment.newInstance();
-                dialog.setOnSuccessListener(mPlaceOnSuccessListener);
-                dialog.show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
+                mDialogState = R.id.spinner_edit_jump_place;
+                PlaceDialogFragment.newInstance()
+                        .setOnSuccessListener(JumpEditFragment.this)
+                        .show(getSupportFragmentManager(), PlaceDialogFragment.TAG);
                 break;
             case R.id.spinner_edit_jump_aircraft:
-                dialog = AircraftDialogFragment.newInstance();
-                dialog.setOnSuccessListener(mAircraftOnSuccessListener);
-                dialog.show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
+                mDialogState = R.id.spinner_edit_jump_aircraft;
+                AircraftDialogFragment.newInstance()
+                        .setOnSuccessListener(JumpEditFragment.this)
+                        .show(getSupportFragmentManager(), AircraftDialogFragment.TAG);
                 break;
             case R.id.spinner_edit_jump_equipment:
-                dialog = EquipmentDialogFragment.newInstance();
-                dialog.setOnSuccessListener(mEquipmentOnSuccessListener);
-                dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
+                mDialogState = R.id.spinner_edit_jump_equipment;
+                EquipmentDialogFragment.newInstance()
+                        .setOnSuccessListener(JumpEditFragment.this)
+                        .show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
                 break;
             }
         }
@@ -123,6 +109,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
         FragmentActivity activity = getActivity();
         time = new Time();
+        mHandler = new NotifyingAsyncQueryHandler(activity.getContentResolver());
+        mHandler.setUpdateListener(this);
+        mHandler.setDeleteListener(this);
 
         if (savedInstanceState == null) {
             final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
@@ -153,12 +142,12 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 values.put(LogbookContract.Jumps.JUMP_DESCRIPTION, "");
 
                 mUri = activity.getContentResolver().insert(intent.getData(), values);
-
+                
                 if (mUri == null) {
                     Log.e(TAG, "Failed to insert new jump into " + intent.getData());
                     activity.finish();
                     return;
-                }
+                }   
             } else {
                 Log.e(TAG, "Unknown action, exiting");
                 activity.finish();
@@ -168,7 +157,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             mUri = savedInstanceState.getParcelable("uri");
             mState = savedInstanceState.getInt("state");
         }
-        activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mUri.toString()));
+        getActivity().setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mUri.toString()));
     }
 
     @Override
@@ -250,10 +239,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             ((BaseActivity)getActivity()).goHome();
             return true;
         case R.id.options_menu_edit_jump_delete:
-            FragmentActivity activity = getActivity();
-            activity.getContentResolver().delete(mUri, null, null);
-            activity.setResult(FragmentActivity.RESULT_CANCELED);
-            activity.finish();
+            mHandler.startDelete(mUri);
             return false;
         default:
             return super.onOptionsItemSelected(item);
@@ -298,9 +284,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateJump() {
-        ContentResolver resolver = getActivity().getContentResolver();
         ContentValues values = new ContentValues();
-
         values.put(LogbookContract.Jumps.JUMP_NUMBER, UIUtils.parseTextViewInt(mJumpNumText));
         values.put(LogbookContract.Jumps.JUMP_DATE, time.toMillis(false));
         values.put(LogbookContract.Jumps.PLACE_ID, mPlaceId);
@@ -309,12 +293,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         values.put(LogbookContract.Jumps.JUMP_ALTITUDE, UIUtils.parseTextViewInt(mAltitudeText));
         values.put(LogbookContract.Jumps.JUMP_DELAY, UIUtils.parseTextViewInt(mDelayText));
         values.put(LogbookContract.Jumps.JUMP_DESCRIPTION, mDescriptionText.getText().toString());
-
-        resolver.update(mUri, values, null, null);
-
-        if (mState == STATE_INSERT) {
-            mState = STATE_EDIT;
-        }
+        mHandler.startUpdate(mUri, values);
     }
 
     public void setupAddSpinner(AddSpinner spinner, int promtRes, SimpleCursorAdapter adapter, final int loader) {
@@ -535,6 +514,35 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
         int CANOPY_NAME = 0;
         int CANOPY_SIZE = 1;
+    }
+
+    @Override
+    public void onDeleteComplete(int result) {
+        getActivity().finish();
+    }
+
+    @Override
+    public void onUpdateComplete(int result) {
+        if (mState == STATE_INSERT) {
+            mState = STATE_EDIT;
+        }
+    }
+
+    @Override
+    public void onDialogSuccess(Long rowId) {
+        switch (mDialogState) {
+        case R.id.spinner_edit_jump_place:
+            updatePlace(rowId);
+            break;
+        case R.id.spinner_edit_jump_aircraft:
+            updateAircraft(rowId);
+            break;
+        case R.id.spinner_edit_jump_equipment:
+            updateEquipment(rowId);
+            break;
+        default:
+            break;
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package org.tomcurran.logbook.ui.fragments;
 
 import org.tomcurran.logbook.R;
 import org.tomcurran.logbook.provider.LogbookContract;
+import org.tomcurran.logbook.util.NotifyingAsyncQueryHandler;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -23,18 +24,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class EquipmentListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ListsQueryHandler.ListsQueryListener {
+public class EquipmentListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, BaseDialogFragment.BaseDialogSuccessListener, NotifyingAsyncQueryHandler.AsyncDeleteListener {
 
     public static final String TAG = "equipment_list_fragment";
 
     private CursorAdapter mAdapter;
-    private ListsQueryHandler mHandler;
-    private BaseDialogFragment.OnSuccessListener mEquipmentOnSuccessListener = new BaseDialogFragment.OnSuccessListener() {
-        @Override
-        public void onSuccess(Long id) {
-            getLoaderManager().restartLoader(0, null, EquipmentListFragment.this);
-        }
-    };
+    private NotifyingAsyncQueryHandler mHandler;
 
     // life cycle
 
@@ -43,7 +38,8 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
-        mHandler = new ListsQueryHandler(getActivity().getContentResolver(), this);
+        mHandler = new NotifyingAsyncQueryHandler(getActivity().getContentResolver());
+        mHandler.setDeleteListener(this);
     }
 
     @Override
@@ -58,7 +54,7 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
         registerForContextMenu(getListView());
         EquipmentDialogFragment dialog = (EquipmentDialogFragment)getSupportFragmentManager().findFragmentByTag(EquipmentDialogFragment.TAG);
         if (dialog != null) {
-            dialog.setOnSuccessListener(mEquipmentOnSuccessListener);
+            dialog.setOnSuccessListener(this);
         }
     }
 
@@ -121,19 +117,18 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
     // helpers
 
     private void createEquipment() {
-        BaseDialogFragment dialog = EquipmentDialogFragment.newInstance();
-        dialog.setOnSuccessListener(mEquipmentOnSuccessListener);
-        dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
+        EquipmentDialogFragment.newInstance()
+                .setOnSuccessListener(this)
+                .show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
     }
 
     private void editEquipment(final Cursor equipment) {
-        BaseDialogFragment dialog = EquipmentDialogFragment.newInstance(
+        EquipmentDialogFragment.newInstance(
                 equipment.getInt(EquipmentQuery._ID),
                 equipment.getString(EquipmentQuery.CANOPY_NAME),
-                equipment.getInt(EquipmentQuery.CANOPY_SIZE)
-        );
-        dialog.setOnSuccessListener(mEquipmentOnSuccessListener);
-        dialog.show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
+                equipment.getInt(EquipmentQuery.CANOPY_SIZE))
+                    .setOnSuccessListener(this)
+                    .show(getSupportFragmentManager(), EquipmentDialogFragment.TAG);
     }
 
     private void deleteEquipment(long equipmentId) {
@@ -219,7 +214,12 @@ public class EquipmentListFragment extends ListFragment implements LoaderManager
     }
 
     @Override
-    public void onDeleteComplete() {
+    public void onDeleteComplete(int result) {
+        getLoaderManager().restartLoader(0, null, this);
+    }
+
+    @Override
+    public void onDialogSuccess(Long rowId) {
         getLoaderManager().restartLoader(0, null, this);
     }
 

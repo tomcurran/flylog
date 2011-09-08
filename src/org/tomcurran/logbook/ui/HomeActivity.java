@@ -9,6 +9,7 @@ import org.tomcurran.logbook.ui.fragments.StatisticsFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,6 +34,7 @@ public class HomeActivity extends BaseActivity implements ActionBar.OnNavigation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.enableDefaults(); // TODO remove!
         ensureSupportActionBarAttached();
 
         ActionBar ab = getSupportActionBar();
