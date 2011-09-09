@@ -6,6 +6,7 @@ import org.tomcurran.logbook.ui.fragments.EquipmentListFragment;
 import org.tomcurran.logbook.ui.fragments.JumpListFragment;
 import org.tomcurran.logbook.ui.fragments.PlaceListFragment;
 import org.tomcurran.logbook.ui.fragments.StatisticsFragment;
+import org.tomcurran.logbook.util.TestData;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +16,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
+import android.view.MenuInflater;
 import android.widget.ArrayAdapter;
 
 public class HomeActivity extends BaseActivity implements ActionBar.OnNavigationListener {
 
+    private static final boolean DEBUG = true;
+    
     private static final int LIST_JUMP      = 0;
     private static final int LIST_STATS     = 1;
     private static final int LIST_PLACES    = 2;
@@ -34,7 +38,9 @@ public class HomeActivity extends BaseActivity implements ActionBar.OnNavigation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StrictMode.enableDefaults(); // TODO remove!
+        if (DEBUG) {
+            StrictMode.enableDefaults();
+        }
         ensureSupportActionBarAttached();
 
         ActionBar ab = getSupportActionBar();
@@ -54,7 +60,11 @@ public class HomeActivity extends BaseActivity implements ActionBar.OnNavigation
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.options_menu_home, menu);
+        MenuInflater inflator = getMenuInflater();
+        inflator.inflate(R.menu.options_menu_home, menu);
+        if (DEBUG) {
+            inflator.inflate(R.menu.options_menu_home_debug, menu);
+        }
         return true;
     }
 
@@ -63,6 +73,14 @@ public class HomeActivity extends BaseActivity implements ActionBar.OnNavigation
         switch (item.getItemId()) {
         case R.id.options_menu_home_preferences: {
             startActivity(new Intent(this, PreferencesActivity.class));
+            return true;
+        }
+        case R.id.options_menu_home_debug_insert: {
+            new TestData(getContentResolver()).insert();
+            return true;
+        }
+        case R.id.options_menu_home_debug_delete: {
+            new TestData(getContentResolver()).delete();
             return true;
         }
         default:

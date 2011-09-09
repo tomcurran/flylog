@@ -5,7 +5,6 @@ import org.tomcurran.logbook.provider.LogbookContract.Equipment;
 import org.tomcurran.logbook.provider.LogbookContract.Jumps;
 import org.tomcurran.logbook.provider.LogbookContract.Places;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.net.Uri;
@@ -28,7 +27,7 @@ public class TestData {
             new AircraftInfo("C208"),
             new AircraftInfo("Twin Otter"),
             new AircraftInfo("Skyvan"),
-            new AircraftInfo("Baloon")
+            new AircraftInfo("Balloon")
     };
 
     private static final EquipmentInfo[] EQUIPMENT = {
@@ -382,10 +381,8 @@ public class TestData {
         res.bulkInsert(Jumps.CONTENT_URI, JUMPS);
     }
 
-    public TestData(Activity activity) {
-        mResolver = activity.getContentResolver();
-        delete();
-        insert();
+    public TestData(ContentResolver resolver) {
+        mResolver = resolver;
     }
 
     public void delete() {

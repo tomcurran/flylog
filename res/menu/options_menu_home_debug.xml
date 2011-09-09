@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/options_menu_home_debug"
+        android:title="@string/options_menu_home_debug"
+        android:icon="@drawable/ic_menu_preferences"
+        >
+        <menu>
+	        <item
+	            android:id="@+id/options_menu_home_debug_insert"
+	            android:title="@string/options_menu_home_debug_insert"
+	            android:icon="@drawable/ic_menu_preferences"
+	            android:showAsAction="never"
+	            />
+	
+	        <item
+	            android:id="@+id/options_menu_home_debug_delete"
+	            android:title="@string/options_menu_home_debug_delete"
+	            android:icon="@drawable/ic_menu_preferences"
+	            android:showAsAction="never"
+	            />
+        </menu>
+    </item>
+</menu>

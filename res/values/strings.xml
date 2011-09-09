@@ -6,6 +6,9 @@
 
     <!-- HomeActivity -->
     <string name="options_menu_home_preferences">Preferences</string>
+    <string name="options_menu_home_debug">Debug</string>
+    <string name="options_menu_home_debug_insert">Insert Test Data</string>
+    <string name="options_menu_home_debug_delete">Delete All Data</string>
 
     <!-- JumpsListFragment -->
     <string name="list_emtpy_jumps">No jumps\nPress the add button to log a jump</string>
