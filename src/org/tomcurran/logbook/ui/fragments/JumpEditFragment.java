@@ -259,28 +259,29 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             mJumpNumText.setText(jump.getString(JumpsQuery.NUMBER));
             time.set(jump.getLong(JumpsQuery.DATE));
             mDatePicker.init(time.year, time.month, time.monthDay, mDateChangedListener);
-            updatePlace(jump.getLong(JumpsQuery.PLACE_ID));
-            updateAircraft(jump.getLong(JumpsQuery.AIRCRAFT_ID));
-            updateEquipment(jump.getLong(JumpsQuery.EQUIPMENT_ID));   
+
+            mPlaceId = jump.getLong(JumpsQuery.PLACE_ID);
+            AddSpinner placeSpinner = (AddSpinner)mPlaceSpinner;
+            if (((SimpleCursorAdapter)placeSpinner.getAdapter()).getCursor() != null) {
+                placeSpinner.setSelectionDbRow(mPlaceId, LogbookContract.Places._ID);
+            }
+
+            mAircraftId = jump.getLong(JumpsQuery.AIRCRAFT_ID);
+            AddSpinner aircraftSpinner = (AddSpinner)mAircraftSpinner;
+            if (((SimpleCursorAdapter)aircraftSpinner.getAdapter()).getCursor() != null) {
+                aircraftSpinner.setSelectionDbRow(mAircraftId, LogbookContract.Aircrafts._ID);
+            }
+
+            mEquipmentId = jump.getLong(JumpsQuery.EQUIPMENT_ID);
+            AddSpinner equipmentSpinner = (AddSpinner)mEquipmentSpinner;
+            if (((SimpleCursorAdapter)equipmentSpinner.getAdapter()).getCursor() != null) {
+                equipmentSpinner.setSelectionDbRow(mEquipmentId, LogbookContract.Equipment._ID);
+            }
+
             mAltitudeText.setText(jump.getString(JumpsQuery.ALTITUDE));
             mDelayText.setText(jump.getString(JumpsQuery.DELAY));
             mDescriptionText.setText(jump.getString(JumpsQuery.DESCRIPTION));
         }
-    }
-
-    private void updatePlace(long placeId) {
-        mPlaceId = placeId;
-        getLoaderManager().restartLoader(LOADER_PLACES, null, this);
-    }
-
-    private void updateAircraft(long aircraftId) {
-        mAircraftId = aircraftId;
-        getLoaderManager().restartLoader(LOADER_AIRCRAFTS, null, this);
-    }
-
-    private void updateEquipment(long equipmentId) {
-        mEquipmentId = equipmentId;
-        getLoaderManager().restartLoader(LOADER_EQUIPMENT, null, this);
     }
 
     private void updateJump() {
@@ -532,13 +533,16 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public void onDialogSuccess(Long rowId) {
         switch (mDialogState) {
         case R.id.spinner_edit_jump_place:
-            updatePlace(rowId);
+            mPlaceId = rowId;
+            getLoaderManager().restartLoader(LOADER_PLACES, null, this);
             break;
         case R.id.spinner_edit_jump_aircraft:
-            updateAircraft(rowId);
+            mAircraftId = rowId;
+            getLoaderManager().restartLoader(LOADER_AIRCRAFTS, null, this);
             break;
         case R.id.spinner_edit_jump_equipment:
-            updateEquipment(rowId);
+            mEquipmentId = rowId;
+            getLoaderManager().restartLoader(LOADER_EQUIPMENT, null, this);
             break;
         default:
             break;
