@@ -1,6 +1,7 @@
 package org.tomcurran.logbook.ui;
 
 import org.tomcurran.logbook.R;
+import org.tomcurran.logbook.provider.LogbookContract;
 import org.tomcurran.logbook.ui.fragments.AircraftListFragment;
 import org.tomcurran.logbook.ui.fragments.EquipmentListFragment;
 import org.tomcurran.logbook.ui.fragments.JumpListFragment;
@@ -9,6 +10,7 @@ import org.tomcurran.logbook.ui.fragments.StatisticsFragment;
 import org.tomcurran.logbook.util.TestData;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActionBar;
@@ -28,6 +30,7 @@ public class HomeActivity extends BaseActivity implements ActionBar.OnNavigation
     private static final int LIST_PLACES    = 2;
     private static final int LIST_AIRCRAFTS = 3;
     private static final int LIST_EQUIPMENT = 4;
+    private static final int LIST_DEFAULT = LIST_JUMP;
 
     private JumpListFragment      mJumpFragment;
     private StatisticsFragment    mStatFragment;
@@ -56,6 +59,23 @@ public class HomeActivity extends BaseActivity implements ActionBar.OnNavigation
         mPlaceFragment     = (PlaceListFragment)     setupFragment(fm, PlaceListFragment.class,     PlaceListFragment.TAG);
         mAircraftFragment  = (AircraftListFragment)  setupFragment(fm, AircraftListFragment.class,  AircraftListFragment.TAG);
         mEquipmentFragment = (EquipmentListFragment) setupFragment(fm, EquipmentListFragment.class, EquipmentListFragment.TAG);
+
+        final Uri uri = getIntent().getData();
+        if (uri == null) {
+            ab.setSelectedNavigationItem(LIST_DEFAULT);
+        } else {
+            if (uri.equals(LogbookContract.Jumps.CONTENT_URI)) {
+                ab.setSelectedNavigationItem(LIST_JUMP);
+            } else if (uri.equals(LogbookContract.Places.CONTENT_URI)) {
+                ab.setSelectedNavigationItem(LIST_PLACES);
+            } else if (uri.equals(LogbookContract.Aircrafts.CONTENT_URI)) {
+                ab.setSelectedNavigationItem(LIST_AIRCRAFTS);
+            } else if (uri.equals(LogbookContract.Equipment.CONTENT_URI)) {
+                ab.setSelectedNavigationItem(LIST_EQUIPMENT);
+            } else {
+                ab.setSelectedNavigationItem(LIST_DEFAULT);
+            }
+        }
     }
 
     @Override
