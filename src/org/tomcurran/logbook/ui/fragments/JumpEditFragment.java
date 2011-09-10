@@ -107,7 +107,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        FragmentActivity activity = getActivity();
+        FragmentActivity activity = (FragmentActivity) getActivity();
         time = new Time();
         mHandler = new NotifyingAsyncQueryHandler(activity.getContentResolver());
         mHandler.setUpdateListener(this);
@@ -169,7 +169,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        FragmentActivity activity = getActivity();
+        FragmentActivity activity = (FragmentActivity) getActivity();
         ActionBar ab = activity.getSupportActionBar();
 
         ab.setTitle(R.string.title_create_jump);
@@ -253,7 +253,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         Cursor jump = mJumpCursor;
         if (jump.moveToFirst()) {
             if (mState == STATE_EDIT) {
-                getActivity().getSupportActionBar().setTitle(
+                ((FragmentActivity)getActivity()).getSupportActionBar().setTitle(
                         getString(R.string.title_edit_jump, jump.getInt(JumpsQuery.NUMBER)));
             }
             mJumpNumText.setText(jump.getString(JumpsQuery.NUMBER));

@@ -73,7 +73,7 @@
     
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            FragmentActivity activity = getActivity();
+            FragmentActivity activity = (FragmentActivity) getActivity();
     
             mCustomView = LayoutInflater.from(activity).inflate(mViewResource, null);
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
