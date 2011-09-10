@@ -13,30 +13,22 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
+import android.support.v4.view.ViewPager;
 import android.view.MenuInflater;
 import android.widget.ArrayAdapter;
 
-public class HomeActivity extends BaseActivity implements ActionBar.OnNavigationListener {
+import com.jakewharton.android.viewpagerindicator.TitlePageIndicator;
+import com.jakewharton.android.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
+import com.jakewharton.android.viewpagerindicator.TitleProvider;
+
+public class HomeActivity extends BaseActivity {
 
     private static final boolean DEBUG = true;
-    
-    private static final int LIST_JUMP      = 0;
-    private static final int LIST_STATS     = 1;
-    private static final int LIST_PLACES    = 2;
-    private static final int LIST_AIRCRAFTS = 3;
-    private static final int LIST_EQUIPMENT = 4;
-    private static final int LIST_DEFAULT = LIST_JUMP;
-
-    private JumpListFragment      mJumpFragment;
-    private StatisticsFragment    mStatFragment;
-    private PlaceListFragment     mPlaceFragment;
-    private AircraftListFragment  mAircraftFragment;
-    private EquipmentListFragment mEquipmentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,36 +36,25 @@ public class HomeActivity extends BaseActivity implements ActionBar.OnNavigation
         if (DEBUG) {
             StrictMode.enableDefaults();
         }
-        ensureSupportActionBarAttached();
 
-        ActionBar ab = getSupportActionBar();
-        FragmentManager fm = getSupportFragmentManager();
-
-        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.abs__simple_spinner_item);
-        list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        ab.setListNavigationCallbacks(list, this);
-
-        mJumpFragment      = (JumpListFragment)      setupFragment(fm, JumpListFragment.class,      JumpListFragment.TAG);
-        mStatFragment      = (StatisticsFragment)    setupFragment(fm, StatisticsFragment.class,    StatisticsFragment.TAG);
-        mPlaceFragment     = (PlaceListFragment)     setupFragment(fm, PlaceListFragment.class,     PlaceListFragment.TAG);
-        mAircraftFragment  = (AircraftListFragment)  setupFragment(fm, AircraftListFragment.class,  AircraftListFragment.TAG);
-        mEquipmentFragment = (EquipmentListFragment) setupFragment(fm, EquipmentListFragment.class, EquipmentListFragment.TAG);
+        setContentView(R.layout.activity_home);
+        ViewPager pager = (ViewPager)findViewById(R.id.pager);
+        pager.setAdapter(new TitleFragmentAdapter(getSupportFragmentManager()));
+        
+        TitlePageIndicator indicator = (TitlePageIndicator)findViewById(R.id.indicator);
+        indicator.setViewPager(pager, TitleFragmentAdapter.DEFAULT);
+        indicator.setFooterIndicatorStyle(IndicatorStyle.Underline);
 
         final Uri uri = getIntent().getData();
-        if (uri == null) {
-            ab.setSelectedNavigationItem(LIST_DEFAULT);
-        } else {
+        if (uri != null) {
             if (uri.equals(LogbookContract.Jumps.CONTENT_URI)) {
-                ab.setSelectedNavigationItem(LIST_JUMP);
+                indicator.setCurrentItem(TitleFragmentAdapter.JUMP);
             } else if (uri.equals(LogbookContract.Places.CONTENT_URI)) {
-                ab.setSelectedNavigationItem(LIST_PLACES);
+                indicator.setCurrentItem(TitleFragmentAdapter.PLACES);
             } else if (uri.equals(LogbookContract.Aircrafts.CONTENT_URI)) {
-                ab.setSelectedNavigationItem(LIST_AIRCRAFTS);
+                indicator.setCurrentItem(TitleFragmentAdapter.AIRCRAFTS);
             } else if (uri.equals(LogbookContract.Equipment.CONTENT_URI)) {
-                ab.setSelectedNavigationItem(LIST_EQUIPMENT);
-            } else {
-                ab.setSelectedNavigationItem(LIST_DEFAULT);
+                indicator.setCurrentItem(TitleFragmentAdapter.EQUIPMENT);
             }
         }
     }
@@ -108,50 +89,54 @@ public class HomeActivity extends BaseActivity implements ActionBar.OnNavigation
         }
     }
 
-    private Fragment setupFragment(FragmentManager fragmentManager, Class<? extends Fragment> fragmentClass, final String TAG) {
-        Fragment fragment = fragmentClass.cast(fragmentManager.findFragmentByTag(TAG));
-        if (fragment == null) {
-            try {
-                fragment = fragmentClass.newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+    public class TitleFragmentAdapter extends FragmentPagerAdapter implements TitleProvider {
+
+        private static final int STATS     = 0;
+        private static final int JUMP      = 1;
+        private static final int PLACES    = 2;
+        private static final int AIRCRAFTS = 3;
+        private static final int EQUIPMENT = 4;
+        public static final int DEFAULT = JUMP;
+
+        private static final int COUNT = 5;
+
+        private ArrayAdapter<CharSequence> mTitles;
+
+        public TitleFragmentAdapter(FragmentManager fm) {
+            super(fm);
+            mTitles = ArrayAdapter.createFromResource(getApplicationContext(), R.array.home_titles, R.layout.abs__simple_spinner_item);
+            if (mTitles.getCount() != COUNT) {
+                throw new IllegalStateException("Title and fragment count out of sync");
             }
         }
-        return fragment;
-    }
 
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        switch (itemPosition) {
-        case LIST_JUMP:
-            navigate(mJumpFragment, JumpListFragment.TAG);
-            return true;
-        case LIST_STATS:
-            navigate(mStatFragment, StatisticsFragment.TAG);
-            return true;
-        case LIST_PLACES:
-            navigate(mPlaceFragment, PlaceListFragment.TAG);
-            return true;
-        case LIST_AIRCRAFTS:
-            navigate(mAircraftFragment, AircraftListFragment.TAG);
-            return true;
-        case LIST_EQUIPMENT:
-            navigate(mEquipmentFragment, EquipmentListFragment.TAG);
-            return true;
-        default:
-            return false;
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+            case STATS:
+                return new StatisticsFragment();
+            case JUMP:
+                return new JumpListFragment();
+            case PLACES:
+                return new PlaceListFragment();
+            case AIRCRAFTS:
+                return new AircraftListFragment();
+            case EQUIPMENT:
+                return new EquipmentListFragment();
+            default:
+                return null;
+            }
         }
-    }
 
-    private void navigate(Fragment fragment, final String TAG) {
-        if (!fragment.isAdded()) {
-            getSupportFragmentManager()
-                .beginTransaction()
-                .replace(android.R.id.content, fragment, TAG)
-                .commit();
+        @Override
+        public int getCount() {
+            return COUNT;
         }
-    }
 
+        @Override
+        public String getTitle(int position) {
+            return mTitles.getItem(position).toString();
+        }
+
+    }
 }
