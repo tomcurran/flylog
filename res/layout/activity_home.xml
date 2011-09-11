@@ -8,9 +8,9 @@
 
     <com.jakewharton.android.viewpagerindicator.TitlePageIndicator
         android:id="@+id/indicator"
-        android:padding="10dip"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
+        style="@style/Widget.HomeTitlepageIndicator"
         />
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

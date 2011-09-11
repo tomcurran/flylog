@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- activity_home -->
+
+    <style name="Widget.HomeTitlepageIndicator" parent="Widget.TitlePageIndicator">
+        <item name="android:padding">10dp</item>
+        <item name="footerLineHeight">1dp</item>
+        <item name="footerIndicatorStyle">underline</item>
+        <item name="footerIndicatorHeight">3dp</item>
+        <item name="textSize">14dp</item>
+        <item name="footerPadding">8dp</item>
+        <item name="footerIndicatorUnderlinePadding">15dp</item>
+        <item name="selectedBold">false</item>
+        <item name="titlePadding">25dp</item>
+    </style>
+
+
     <!-- list_item_jumps -->
 
     <style name="LisItemJumps">

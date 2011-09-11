@@ -1,11 +1,11 @@
 <resources>
 
     <string-array name="home_titles">
-        <item>Statistics</item>
-        <item>Jumps</item>
-        <item>Places</item>
-        <item>Aircrafts</item>
-        <item>Equipment</item>
+        <item>STATISTICS</item>
+        <item>JUMPS</item>
+        <item>PLACES</item>
+        <item>AIRCRAFTS</item>
+        <item>EQUIPMENT</item>
     </string-array>
 
 </resources>

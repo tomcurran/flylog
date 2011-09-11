@@ -23,7 +23,6 @@ import android.view.MenuInflater;
 import android.widget.ArrayAdapter;
 
 import com.jakewharton.android.viewpagerindicator.TitlePageIndicator;
-import com.jakewharton.android.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 import com.jakewharton.android.viewpagerindicator.TitleProvider;
 
 public class HomeActivity extends BaseActivity {
@@ -40,10 +39,9 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         ViewPager pager = (ViewPager)findViewById(R.id.pager);
         pager.setAdapter(new TitleFragmentAdapter(getSupportFragmentManager()));
-        
+
         TitlePageIndicator indicator = (TitlePageIndicator)findViewById(R.id.indicator);
         indicator.setViewPager(pager, TitleFragmentAdapter.DEFAULT);
-        indicator.setFooterIndicatorStyle(IndicatorStyle.Underline);
 
         final Uri uri = getIntent().getData();
         if (uri != null) {
