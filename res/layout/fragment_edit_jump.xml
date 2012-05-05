@@ -8,8 +8,8 @@
         android:id="@+id/layout_edit_jump"
         style="@style/EditJumpLayout">
 
-	    <!-- diverts focus from text fields -->
-	    <LinearLayout style="@style/DivertFocus" />
+        <!-- diverts focus from text fields -->
+        <LinearLayout style="@style/DivertFocus" />
 
         <TextView
             android:id="@+id/label_edit_jump_number"

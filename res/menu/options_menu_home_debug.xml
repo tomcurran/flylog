@@ -6,19 +6,19 @@
         android:icon="@drawable/ic_menu_preferences"
         >
         <menu>
-	        <item
-	            android:id="@+id/options_menu_home_debug_insert"
-	            android:title="@string/options_menu_home_debug_insert"
-	            android:icon="@drawable/ic_menu_preferences"
-	            android:showAsAction="never"
-	            />
-	
-	        <item
-	            android:id="@+id/options_menu_home_debug_delete"
-	            android:title="@string/options_menu_home_debug_delete"
-	            android:icon="@drawable/ic_menu_preferences"
-	            android:showAsAction="never"
-	            />
+            <item
+                android:id="@+id/options_menu_home_debug_insert"
+                android:title="@string/options_menu_home_debug_insert"
+                android:icon="@drawable/ic_menu_preferences"
+                android:showAsAction="never"
+                />
+    
+            <item
+                android:id="@+id/options_menu_home_debug_delete"
+                android:title="@string/options_menu_home_debug_delete"
+                android:icon="@drawable/ic_menu_preferences"
+                android:showAsAction="never"
+                />
         </menu>
     </item>
 </menu>
