@@ -18,27 +18,35 @@ public class TestData {
             new PlaceInfo("Strathallan"),
             new PlaceInfo("Black Knights"),
             new PlaceInfo("Wild Geese"),
-            new PlaceInfo("Perris")
+            new PlaceInfo("Perris"),
+            new PlaceInfo("Hibalstow"),
+            new PlaceInfo("Prostejov")
     };
 
     private static final AircraftInfo[] AIRCRAFTS = {
             new AircraftInfo("C206"),
             new AircraftInfo("Porter"),
-            new AircraftInfo("C208"),
+            new AircraftInfo("Caravan"),
             new AircraftInfo("Twin Otter"),
             new AircraftInfo("Skyvan"),
-            new AircraftInfo("Balloon")
+            new AircraftInfo("Balloon"),
+            new AircraftInfo("Dorneir"),
+            new AircraftInfo("Finist"),
+            new AircraftInfo("Let"),
+            new AircraftInfo("MI-8")
     };
 
     private static final EquipmentInfo[] EQUIPMENT = {
-            new EquipmentInfo("Manta",      280),
-            new EquipmentInfo("Maveron",    240),
-            new EquipmentInfo("PD",         210),
-            new EquipmentInfo("Balance",    210),
-            new EquipmentInfo("Fury",       220),
-            new EquipmentInfo("Spectre",    190),
-            new EquipmentInfo("Triathalon", 175),
-            new EquipmentInfo("Sabre 2",    190)
+            new EquipmentInfo("Manta",       280),
+            new EquipmentInfo("Maveron",     240),
+            new EquipmentInfo("PD",          210),
+            new EquipmentInfo("Balance",     210),
+            new EquipmentInfo("Fury",        220),
+            new EquipmentInfo("Spectre",     190),
+            new EquipmentInfo("Triathalon",  175),
+            new EquipmentInfo("Sabre 2",     190),
+            new EquipmentInfo("Quadra Vtec", 190),
+            new EquipmentInfo("Sabre 1",     170)
     };
 
     private static final ContentValues[] JUMPS = {
@@ -73,74 +81,74 @@ public class TestData {
             newJump( 28, 10000, 35, 2010,  5, 31, "Good exit\n2 excellent tracks\nExcellent A/A, pull + recovery\nTrack turns next!"),
             newJump( 29, 12500, 50, 2010,  8,  4, "Excellent exit! 2 excellent track turns to left + right!\nExcellent A/A, pull + c/c\nCat 8 next!"),
             newJump( 30,  8000, 25, 2010,  8,  4, "Exit from 8000ft due to cloud.\nAll manoeuvres completed, good throughout, and good alti awareness.\nWell done"),
-            newJump( 31,  8000, 25, 2010,  8,  5, ""),
-            newJump( 32,  6000, 15, 2010,  8,  7, ""),
-            newJump( 33, 10000, 35, 2010,  8,  7, ""),
-            newJump( 34, 13000, 60, 2010,  8, 17, ""),
-            newJump( 35, 13000, 60, 2010,  8, 18, ""),
-            newJump( 36, 13000, 60, 2010,  8, 19, ""),
-            newJump( 37,  7800, 29, 2010, 10,  2, ""),
-            newJump( 38,  2500,  3, 2010, 10, 10, ""),
-            newJump( 39,  4580, 15, 2010, 10, 16, ""),
-            newJump( 40,  4820, 16, 2010, 10, 16, ""),
-            newJump( 41,  4860, 17, 2010, 10, 23, ""),
-            newJump( 42,  5080, 18, 2010, 11, 27, ""),
-            newJump( 43,  4860, 15, 2011,  1, 22, ""),
-            newJump( 44,  6230, 22, 2011,  1, 23, ""),
-            newJump( 45,  4860, 15, 2011,  1, 23, ""),
-            newJump( 46,  4500, 11, 2011,  1, 29, ""),
-            newJump( 47,  3210,  7, 2011,  1, 29, ""),
-            newJump( 48,  4900, 18, 2011,  2,  5, ""),
-            newJump( 49,  4370, 16, 2011,  2, 12, ""),
-            newJump( 50,  8910, 34, 2011,  2, 26, ""),
-            newJump( 51,  7000, 24, 2011,  2, 26, ""),
-            newJump( 52, 10000, 35, 2011,  2, 27, ""),
-            newJump( 53,  3140,  8, 2011,  3, 26, ""),
-            newJump( 54,  4270, 13, 2011,  3, 26, ""),
-            newJump( 55,  4990, 18, 2011,  3, 26, ""),
-            newJump( 56,  2500,  3, 2011,  3, 26, ""),
-            newJump( 57,  9480, 38, 2011,  3, 27, ""),
-            newJump( 58, 10240, 44, 2011,  3, 27, ""),
-            newJump( 59,  9730, 45, 2011,  3, 27, ""),
-            newJump( 60, 12520, 57, 2011,  4,  1, ""),
-            newJump( 61, 12700, 59, 2011,  4,  1, ""),
-            newJump( 62, 12460, 55, 2011,  4,  1, ""),
-            newJump( 63, 12680, 59, 2011,  4,  2, ""),
-            newJump( 64, 12690, 59, 2011,  4,  2, ""),
-            newJump( 65, 12700, 58, 2011,  4,  2, ""),
-            newJump( 66, 12740, 58, 2011,  4,  2, ""),
-            newJump( 67, 12520, 55, 2011,  4,  2, ""),
-            newJump( 68,  5260, 19, 2011,  4,  3, ""),
-            newJump( 69,  6890, 25, 2011,  4,  4, ""),
-            newJump( 70, 12770, 61, 2011,  4,  4, ""),
-            newJump( 71, 12850, 59, 2011,  4,  4, ""),
-            newJump( 72, 12690, 60, 2011,  4,  4, ""),
-            newJump( 73, 12650, 60, 2011,  4,  5, ""),
-            newJump( 74, 12780, 59, 2011,  4,  5, ""),
-            newJump( 75, 12460, 59, 2011,  4,  5, ""),
-            newJump( 76, 12640, 59, 2011,  4,  5, ""),
-            newJump( 77, 12850, 60, 2011,  4,  5, ""),
-            newJump( 78, 13200, 62, 2011,  4,  9, ""),
-            newJump( 79, 12620, 52, 2011,  4,  9, ""),
-            newJump( 80, 12880, 60, 2011,  4,  9, ""),
-            newJump( 81, 12560, 63, 2011,  4, 10, ""),
-            newJump( 82, 12370, 59, 2011,  4, 10, ""),
-            newJump( 83, 12470, 57, 2011,  4, 10, ""),
-            newJump( 84, 12660, 61, 2011,  4, 10, ""),
-            newJump( 85, 12700, 59, 2011,  4, 11, ""),
-            newJump( 86, 12640, 58, 2011,  4, 11, ""),
-            newJump( 87, 12780, 59, 2011,  4, 11, ""),
-            newJump( 88, 12690, 61, 2011,  4, 11, ""),
-            newJump( 89, 13920, 64, 2011,  4, 11, ""),
-            newJump( 90, 12740, 58, 2011,  4, 12, ""),
-            newJump( 91, 12680, 55, 2011,  4, 12, ""),
-            newJump( 92, 18720, 90, 2011,  4, 14, ""),
-            newJump( 93, 12820, 59, 2011,  4, 12, ""),
-            newJump( 94, 12450, 58, 2011,  4, 12, ""),
-            newJump( 95, 12590, 59, 2011,  4, 13, ""),
-            newJump( 96, 12320, 56, 2011,  4, 13, ""),
-            newJump( 97, 12760, 59, 2011,  4, 13, ""),
-            newJump( 98,  4710, 16, 2011,  4, 24, ""),
+            newJump( 31,  8000, 25, 2010,  8,  5, "Student exit, followed out by instructor. Right 360 turn, left 360 turn.\nUnder canopy did CH1 exercises extending range & flat turns"),
+            newJump( 32,  6000, 15, 2010,  8,  7, "Student exit. Straight 10 second delay. Throwaway pilot chute deployed OK. Conversion complete."),
+            newJump( 33, 10000, 35, 2010,  8,  7, "Dive exit. Tracked twice but went into both tracks too quickly and lost bit of stability. Need to go into tracks more slowly."),
+            newJump( 34, 13000, 60, 2010,  8, 17, "Dive exit. Backloops. 360 turns left & right"),
+            newJump( 35, 13000, 60, 2010,  8, 18, "Dive exit. Backloops. 360 turns left & right"),
+            newJump( 36, 13000, 60, 2010,  8, 19, "Good exit. Good neutral body position. Good response to signals.\nTwo good forward movements.\nPoints to improve: alti awareness - check alti before & after every manouvre!!\nfast & slow fall next"),
+            newJump( 37,  7800, 29, 2010, 10,  2, "Dive eixt. 3 backloops"),
+            newJump( 38,  2500,  3, 2010, 10, 10, "hop'n'pop"),
+            newJump( 39,  4580, 15, 2010, 10, 16, "goggles weren't tight enough and slipped up my head a bit, so straight fell most of jump after sorting them out"),
+            newJump( 40,  4820, 16, 2010, 10, 16, "exit was bad, spent majority of jump getting stable"),
+            newJump( 41,  4860, 17, 2010, 10, 23, "Jump started off well with KB making a quick  ascent to altitude. Did a dive exit and was pleased to spot the people that exited before. Then did two backloops before deploying. Terrible deployment which hurt quite a bit, mjor twists which made me quite dizzy. N.B watch for kit packed by McQueen"),
+            newJump( 42,  5080, 18, 2010, 11, 27, "Student exit, backloop, freezing cold, landed in pit"),
+            newJump( 43,  4860, 15, 2011,  1, 22, "Dived out, chilled out. Played about under canopy. Landed close to pit"),
+            newJump( 44,  6230, 22, 2011,  1, 23, "Dive exit, backloop, short track. Didn't land as close to pit as I would have liked"),
+            newJump( 45,  4860, 15, 2011,  1, 23, "Dive exit. Concentrated on what my body position was like in freefall"),
+            newJump( 46,  4500, 11, 2011,  1, 29, "Dive eixt. Chilled, watched jumpers before hand. Landed in pit"),
+            newJump( 47,  3210,  7, 2011,  1, 29, "Dive exit. Relaxed jump. Landed a bit in front of the pit. Don't always use same approach as jump earlier in the day. Always land in or before the pit"),
+            newJump( 48,  4900, 18, 2011,  2,  5, "Dive exit. Backloop. Landed good bit away from pit"),
+            newJump( 49,  4370, 16, 2011,  2, 12, "Dive exit. Some turns. Followed person in front most of the way under canopy. Landed close to pit"),
+            newJump( 50,  8910, 34, 2011,  2, 26, "Dive exit. Did few 360 turns as quick as possible trying to stop controlled on heading. Played with risers for first time."),
+            newJump( 51,  7000, 24, 2011,  2, 26, "FS: Fast & Slow fall.\n- good exit from rear dive position\n- good slow fall 'in place'\n- good fast fall although slight increased in seperation\n- good A/A & deployment\nPoints for improvement: tracking -  make slower transition & track less steeply\n360 turns next"),
+            newJump( 52, 10000, 35, 2011,  2, 27, "FS: 360 turns\n- good exit (AFF student position)\n- 1st turn wasn't in place - too much arm input\n- 2nd turn much better\nneed to make sure arm & leg inputs are symmetrical\nrepeat jump"),
+            newJump( 53,  3140,  8, 2011,  3, 26, "hop'n'pop\nextended range of canopy with rear risers\nturns with rear risers"),
+            newJump( 54,  4270, 13, 2011,  3, 26, "hop'n'pop\nextended range of canopy with rear risers\nturns with rear risers"),
+            newJump( 55,  4990, 18, 2011,  3, 26, "Student exit. Backloop.\nextended range of canopy with rear risers\nturns with rear risers"),
+            newJump( 56,  2500,  3, 2011,  3, 26, "Dive exit. Went quite unstable. Relaxed into rest of jump"),
+            newJump( 57,  9480, 38, 2011,  3, 27, "Dive exit. Practice a couple of turns in place and backloops.\nPulled high to play under canopy"),
+            newJump( 58, 10240, 44, 2011,  3, 27, "Student exit.\nShort track, practice turn in place, short track again"),
+            newJump( 59,  9730, 45, 2011,  3, 27, "FS: 360 turns\nExit: Good float-dive exit from float position. Push off more to improve\nF/F: Right 360 turn OK but fall rate & proximity flucuating. Bring knees closer together & hips down to improve body position.\nBreak-off: Broke off @ 4, rather than 5 as planned. Good track. Deployed at 3, rather than 3.5. Be super aware of altitude.\nNext: repeat"),
+            newJump( 60, 12520, 57, 2011,  4,  1, "FS: 360 & 180 turns\nGood exit from float position\ngood 360 turn left - not completed in place. excellent 360 turn right.\ngood 180 turns in both directions\ngood AA & track\nremember - follow pattern & land into wind"),
+            newJump( 61, 12700, 59, 2011,  4,  1, "FS: 90 turns & side sliding\ngood exit from dive position\nfirst 3 attempts weren't great, too much arm input not enough leg.\nnext 2 attempts were much better. good AA, track & deployment"),
+            newJump( 62, 12460, 55, 2011,  4,  1, "FS: Swoop to pin\nexit & transition to swoop wasn't perfect, recovered and adapted good swoop position\ngood controlled approach\npractised 180 turns\ngood jump"),
+            newJump( 63, 12680, 59, 2011,  4,  2, "FS: 5 pt 2 way\nGood level, exit perfect. Got 6 pts easy. Well done. 3 pt 3 way next"),
+            newJump( 64, 12690, 59, 2011,  4,  2, "FS: 3 pt 3 way\ngot 3 points - a little bit scrappy. suit is too fast - work on levels. 4 pt 3 way next"),
+            newJump( 65, 12700, 58, 2011,  4,  2, "FS: 4 pt 3 way\ngood exit. only managed 1 point, need to improve levels. Proximity, AA, tracking all good"),
+            newJump( 66, 12740, 58, 2011,  4,  2, "FS: 4 pt 3 way\ngood exit, only managed 2 points. still work on levels. Proximity, AA, tracking all good"),
+            newJump( 67, 12520, 55, 2011,  4,  2, "2 way fs\nwith john, random instructor filming, got seven points"),
+            newJump( 68,  5260, 19, 2011,  4,  3, "spun about the place, hit foot on door wich was quite sore. note to self, get foot all the way out the door"),
+            newJump( 69,  6890, 25, 2011,  4,  4, "jumped straight off into a backloop\ntracked towards intended landing area away from high ground"),
+            newJump( 70, 12770, 61, 2011,  4,  4, "FS: 4 pt 3 way: new suit, much better, 7 points. 4 pt 4 way next"),
+            newJump( 71, 12850, 59, 2011,  4,  4, "2 way fs\nwith scott. both hung off skyvan door. didn't hang very long as scott let go very quickly. scott filmed on back, dropped below, dove towards him. did that a few times"),
+            newJump( 72, 12690, 60, 2011,  4,  4, "FS: 4 pt 4 way\nbad exit, 1 point. loast AA - focused too much on points. repeat"),
+            newJump( 73, 12650, 60, 2011,  4,  5, "FS: 4 pt 4 way\nbad exit, 1 point. experienced jumpers fault"),
+            newJump( 74, 12780, 59, 2011,  4,  5, "FS: 4 pt 4 way\nbad exit, 1 point. experienced jumpers fault"),
+            newJump( 75, 12460, 59, 2011,  4,  5, "FS: 4 pt 4 way\ngood exit. formation broke, managed 2 points. good flying"),
+            newJump( 76, 12640, 59, 2011,  4,  5, "FS: 4 pt 4 way\ngood exit. managed 3 points. repeat\n- check levels\n- only move within your own quadrant"),
+            newJump( 77, 12850, 60, 2011,  4,  5, "FS: 4 pt 4 way\ngood exit. went wobbly transitioning to the second point went low then never recovered to everyone else. great flying up to second transition.\nremember: levels first, then slot, then dock"),
+            newJump( 78, 13200, 62, 2011,  4,  9, "FS: 4 pt 4 way\nstairstep diamond exit. good transition to star then snowflake, then zipper. did 4 good points well done FS1!"),
+            newJump( 79, 12620, 52, 2011,  4,  9, "3 way fs\nwith john & scott\nhorney gorilla exit with john then created a base with scott for john to hybrid"),
+            newJump( 80, 12880, 60, 2011,  4,  9, "4 way fs\nwith john, scott, nick\ngreg filmed unlinked exit in a row along skyvan door, then dive after eachother to create a star"),
+            newJump( 81, 12560, 63, 2011,  4, 10, "3 way tracking\nwith john & scott\nseperation varied"),
+            newJump( 82, 12370, 59, 2011,  4, 10, "2 way fs\nwith dave\nme float, him dive. we both spun really fast was quite difficult to stop cause of momentum. then he went in to sit holding my arms to fling me away"),
+            newJump( 83, 12470, 57, 2011,  4, 10, "5 way fs\nwith greg, john, scott, dave\ngreg on inflatable dolphin, me & john holding sides to attempt to keep him stable. very unstable lots of spinning"),
+            newJump( 84, 12660, 61, 2011,  4, 10, "dive exit, backlooped, spun really fast one way, tried to stop quick as possible, then same other way. tracked away from no one"),
+            newJump( 85, 12700, 59, 2011,  4, 11, "2 way fs\nwith nick\ndid backloops and docks\nsome backloops were bit unstable, others much better"),
+            newJump( 86, 12640, 58, 2011,  4, 11, "solo practiced backloop. declared landing"),
+            newJump( 87, 12780, 59, 2011,  4, 11, "2 way fs\nrodeoed john. worked for few seconds then I slipped to the left which ended up putting it into a mad spin. declared landing"),
+            newJump( 88, 12690, 61, 2011,  4, 11, "2 way fs\nwith john\n aliwyn filming round about us. got bunch of points then played rock, paper, scissors before tracking away. declared landing. increaed range & turns on risers"),
+            newJump( 89, 13920, 64, 2011,  4, 11, "2 way fs\nwith john\nswooped out after him while he was on his back going very fast, quite difficult to get down to him. declared landing. increased range & turns on risers"),
+            newJump( 90, 12740, 58, 2011,  4, 12, "declared landing. increased range & turns on risers"),
+            newJump( 91, 12680, 55, 2011,  4, 12, "5 way trackings\nwith bcpa'ers\nexit went well. found slot but was bit high. good jump"),
+            newJump( 92, 18720, 90, 2011,  4, 14, "3 way fs\nwith john & scott\nfun jump"),
+            newJump( 93, 12820, 59, 2011,  4, 12, "3 way fs\nwith james & friend\nexit flew upside down but recovered quickly. got next two points before seperation got best of us"),
+            newJump( 94, 12450, 58, 2011,  4, 12, "exited in reverse with arms by side to go into a flip. tried going as steep as possible. went well, never flipped, was very steep"),
+            newJump( 95, 12590, 59, 2011,  4, 13, "2 way fs\nwith scott\nfloated with scott holding my legs\ntried flipping each other about"),
+            newJump( 96, 12320, 56, 2011,  4, 13, "did lots of 360 turns as quick as possible with backloops in between"),
+            newJump( 97, 12760, 59, 2011,  4, 13, "4 way fs\nwith scott, john, rich\nexit went very badly, built together and 3 points"),
+            newJump( 98,  4710, 16, 2011,  4, 24, "sick last few days so did streaight flat fall and relaxed (after not getting enough altitude to perform a carnage of a 5 way, thank god)"),
             newJump( 99,  4160,  8, 2011,  4, 25, "chilled out"),
             newJump(100,  8060, 30, 2011,  5,  1, "few barrol rolls & backloops & turns\npuled high to try out new canopy\nlots of fun\nlanded in pit"),
             newJump(101,  9570, 40, 2011,  5,  1, "same as #100\nlanded hanger side of pit\nmake sure not to"),
@@ -185,7 +193,77 @@ public class TestData {
             newJump(140, 10140, 47, 2011,  8,  6, "Carols 4 way attempt"),
             newJump(141, 10360, 49, 2011,  8,  6, "Carols second 4 way attempt. Exit funnelled"),
             newJump(142, 12930, 59, 2011,  9,  3, "2 way fs with john\nUnlinked exit, john floating, me diving\nDid alternate 90, 180, 360 turns and backloop"),
-            newJump(143, 13110, 59, 2011,  9,  3, "2 way fs with john\nUnlinked exit, john diving, me floating\nSpun each other about\nTried back tracking")
+            newJump(143, 13110, 59, 2011,  9,  3, "2 way fs with john\nUnlinked exit, john diving, me floating\nSpun each other about\nTried back tracking"),
+            newJump(144,  5000, 16, 2011,  9, 17, "reverse back loop exit, small turns"),
+            newJump(145,  8000, 30, 2011,  9, 24, "2 way tracking with sandy\nraced a long side\nlooped around each other"),
+            newJump(146,  2100,  5, 2011,  9, 25, "hop'n'pop"),
+            newJump(147,  3310,  9, 2011, 10,  2, "reverse back loop exit"),
+            newJump(148,  2570,  6, 2011, 10, 30, "stable exits are now the preferred method of removing ones self from an aircraft"),
+            newJump(149,  9500, 41, 2011, 11,  5, "2 way fs with john\nhim floating, me sitting\npracticed bcpa 3 way points without third person"),
+            newJump(150, 10000, 47, 2011, 11,  5, "4 way fs\nAntonis got 4 points and FS1!"),
+            newJump(151, 10000, 42, 2011, 11,  6, "5 way fs\nunlinked speed star\nfour in, john sank"),
+            newJump(152, 10500, 50, 2011, 11,  6, "4 way fs\nMike got 6 points and FS1!"),
+            newJump(153, 10500,  5, 2011, 11,  6, "4 way fs\ngreat exit, lovely canopy ride"),
+            newJump(154, 15200, 75, 2011, 11, 13, "7 way fs\nspeed star built quickly\nbit wobbly, fell apart and rebuilt couple of times"),
+            newJump(155, 14900, 70, 2011, 11, 13, "9 way fs\nfloated on back step with john\bbuilt 6 star"),
+            newJump(156,  8400, 33, 2011, 11, 19, "tracking\nspiralled, back tracked"),
+            newJump(157,  9800, 41, 2011, 12, 10, "tracking\nwith sandy"),
+            newJump(158,  4700, 14, 2011, 12, 11, "backlooped"),
+            newJump(159,  9700, 39, 2011, 12, 17, "3 way\nwith kelly & caesar for his 300th"),
+            newJump(160,  5000, 18, 2011, 12, 18, "2 way\nwith john"),
+            newJump(161,  7800, 32, 2011, 12, 18, "3 way fs\nwith chris & santa john\nspun around in star"),
+            newJump(162,  5000, 18, 2012,  1,  7, "2 way fs\nwith scott swooping down"),
+            newJump(163,  2700,  6, 2012,  1, 14, "hop'n'pop"),
+            newJump(164,  2900,  8, 2012,  1, 14, "hop'n'pop"),
+            newJump(165,  2700,  4, 2012,  1, 14, "4 way crew\nwith steve, gus, scott"),
+            newJump(166,  7400, 29, 2012,  1, 15, "2 way fs\nwith danks"),
+            newJump(167,  3100,  6, 2012,  1, 15, "hop'n'pop"),
+            newJump(168, 10000, 45, 2012,  1, 22, "4 way fs\nwith sandy, gus, mike\nme in gus base\nsandy jumped on to rodeo"),
+            newJump(169, 10400, 46, 2012,  1, 22, "3 way fs\nwith sandy & mike\n360s"),
+            newJump(170, 10800, 53, 2012,  1, 22, "3 way tracking\nwith sandy & gus"),
+            newJump(171,  5000, 15, 2012,  1, 28, "backloops"),
+            newJump(172,  9700, 40, 2012,  1, 28, "2 way fs\nwith mike, lots of turns"),
+            newJump(173, 10100, 44, 2012,  1, 28, "3 way fs\nstewards 3 way, 2 points"),
+            newJump(174,  5000, 17, 2012,  1, 29, "5 way fs\njonny, john, gus, scott"),
+            newJump(175,  8200, 37, 2012,  2,  5, "3 way fs\nwith sandy & carol"),
+            newJump(176,  9900, 48, 2012,  2,  5, "3 way fs\nwith sandy & mike"),
+            newJump(177,  5300, 20, 2012,  2,  5, "3 way fs\nwith sandy & mike\nexit worked with sandy floating on CN"),
+            newJump(178, 11500, 52, 2012,  2, 12, "3 way fs\nstewards 3 point 3 way attempt"),
+            newJump(179,  9700, 45, 2012,  2, 12, "3 way fs\nwith jonny & antonis, john on camera\nBCPA strathclyde february"),
+            newJump(180,  8800, 38, 2012,  3,  4, "2 way tracking\nwith antonis"),
+            newJump(181,  5200, 16, 2012,  3,  4, "tried sit"),
+            newJump(182,  3100,  7, 2012,  3, 10, "hop'n'pop"),
+            newJump(183,  3000,  7, 2012,  3, 10, "hop'n'pop"),
+            newJump(184,  2800,  8, 2012,  3, 10, "hop'n'pop"),
+            newJump(185,  4100, 13, 2012,  3, 10, "2 way fs\nwith sandy, double dive\ntracked away"),
+            newJump(186,  4000, 12, 2012,  3, 10, "2 way fs\nwith sandy, double dive\ntracked away"),
+            newJump(187, 10000, 41, 2012,  3, 11, "attempted free fly"),
+            newJump(188,  9800, 47, 2012,  3, 11, "4 way fs\njames FS1"),
+            newJump(189, 10000, 46, 2012,  3, 17, "3 way fs\nwith sandy & carol\ntits up from exit"),
+            newJump(190,  9600, 45, 2012,  3, 24, "3 way fs\nwith john & antonis\nBCPA strathclyde 3 way march\n3 points"),
+            newJump(191,  2300,  4, 2012,  3, 25, "hop'n'pop"),
+            newJump(192,  4500, 13, 2012,  6,  2, "hop'n'pop"),
+            newJump(193,  5100, 18, 2012,  6,  2, "2 way fs\nwith mike\nsit dive, out, track away"),
+            newJump(194,  9600, 45, 2012,  6,  2, "3 way fs\nwith dave & carol\nunlinked exit, dive, total zoo"),
+            newJump(195,  6000,  3, 2012,  6,  2, "2 way cf\nwith gus\ntook while to get back into it. got dock on gus, then gus docked on me"),
+            newJump(196,  5000,  4, 2012,  6,  2, "2 way cf\nwith sandy\ndocked once"),
+            newJump(197,  5500, 17, 2012,  6,  3, "2 way fs\nwith caesar\nhe floated, I held his shorts. he went on his back"),
+            newJump(198,  7300, 31, 2012,  6,  3, "2 way tracking\nwith mike\ntracked along side"),
+            newJump(199,  6000,  3, 2012,  6,  3, "3 way cf\nwith sandy & greg\npiloted with sandy second, greg third. went into pendulum and downplane soon after"),
+            newJump(200,  4500,  3, 2012,  6, 17, "hop'n'pop"),
+            newJump(201,  3500,  5, 2012,  6, 17, "hop'n'pop"),
+            newJump(202, 13000, 61, 2012,  6, 18, "2 way fs\nwith sandy\nflew about as he tried out his camera"),
+            newJump(203, 13000, 53, 2012,  6, 19, "3 way hybrid\ngreg on me & sandys cheststraps\nmark flying about us"),
+            newJump(204, 13000, 49, 2012,  6, 19, "4 way fs\ndouble rodeo\nme on paul, beiber on greg"),
+            newJump(205, 12700, 54, 2012,  6, 19, "2 way tracking\nwith sandy\nstill can't track on back"),
+            newJump(206, 12900, 62, 2012,  6, 19, "6 way tracking\ngreg needs to learn left from right on back\ndocked on him"),
+            newJump(207, 13100, 52, 2012,  6, 20, "2 way ff\nwith greg\nback flew ok"),
+            newJump(208, 13700, 56, 2012,  6, 20, "solo ff\nstarted to get sit"),
+            newJump(209, 13280, 50, 2012,  6, 20, "solo ff\nmuch more confident sit"),
+            newJump(210, 13000, 66, 2012,  6, 21, "9 way fs\nstar, zipper, turns"),
+            newJump(211, 13700, 58, 2012,  6, 21, "6 way hybrid\nzooo"),
+            newJump(212, 12700, 58, 2012,  6, 21, "6 way fs"),
+            newJump(213, 13500, 66, 2012,  6, 22, "8 way fs\nturning blocks, to star")
     };
 
     private static ContentValues newJump(int number, int altitude, int delay, int jYear, int jMonth, int jDay, String description) {
@@ -216,6 +294,8 @@ public class TestData {
         Uri BKPC   = res.insert(Places.CONTENT_URI, PLACES[1].getContentValues());
         Uri Geese  = res.insert(Places.CONTENT_URI, PLACES[2].getContentValues());
         Uri Perris = res.insert(Places.CONTENT_URI, PLACES[3].getContentValues());
+        Uri Hib    = res.insert(Places.CONTENT_URI, PLACES[4].getContentValues());
+        Uri Prost  = res.insert(Places.CONTENT_URI, PLACES[5].getContentValues());
 
         Uri C206   = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[0].getContentValues());
         Uri Porter = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[1].getContentValues());
@@ -223,6 +303,10 @@ public class TestData {
         Uri TwinOt = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[3].getContentValues());
         Uri Skyvan = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[4].getContentValues());
         Uri Baloon = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[5].getContentValues());
+        Uri Dornr  = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[6].getContentValues());
+        Uri Finist = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[7].getContentValues());
+        Uri Let    = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[8].getContentValues());
+        Uri MI8    = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[9].getContentValues());
 
         Uri Manta   = res.insert(Equipment.CONTENT_URI, EQUIPMENT[0].getContentValues());
         Uri Maveron = res.insert(Equipment.CONTENT_URI, EQUIPMENT[1].getContentValues());
@@ -232,6 +316,8 @@ public class TestData {
         Uri Spectre = res.insert(Equipment.CONTENT_URI, EQUIPMENT[5].getContentValues());
         Uri Triatha = res.insert(Equipment.CONTENT_URI, EQUIPMENT[6].getContentValues());
         Uri Sabre2  = res.insert(Equipment.CONTENT_URI, EQUIPMENT[7].getContentValues());
+        Uri Quadra  = res.insert(Equipment.CONTENT_URI, EQUIPMENT[8].getContentValues());
+        Uri Sabre1  = res.insert(Equipment.CONTENT_URI, EQUIPMENT[9].getContentValues());
 
         setJump(JUMPS[1  ], SPC,    C206,   Manta);
         setJump(JUMPS[2  ], SPC,    C206,   Manta);
@@ -377,6 +463,76 @@ public class TestData {
         setJump(JUMPS[141], SPC,    C206,   Spectre);
         setJump(JUMPS[142], Geese,  C208,   Sabre2);
         setJump(JUMPS[143], Geese,  C208,   Sabre2);
+        setJump(JUMPS[144], SPC,    C206,   Balance);
+        setJump(JUMPS[145], SPC,    C206,   Spectre);
+        setJump(JUMPS[146], SPC,    C206,   Quadra);
+        setJump(JUMPS[147], SPC,    C206,   Spectre);
+        setJump(JUMPS[148], SPC,    C206,   Spectre);
+        setJump(JUMPS[149], SPC,    C206,   Spectre);
+        setJump(JUMPS[150], SPC,    C206,   Spectre);
+        setJump(JUMPS[151], SPC,    C206,   Balance);
+        setJump(JUMPS[152], SPC,    C206,   Spectre);
+        setJump(JUMPS[153], SPC,    C206,   Spectre);
+        setJump(JUMPS[154], Hib,    Dornr,  Spectre);
+        setJump(JUMPS[155], Hib,    Finist, Spectre);
+        setJump(JUMPS[156], SPC,    C206,   Fury);
+        setJump(JUMPS[157], SPC,    C206,   Fury);
+        setJump(JUMPS[158], SPC,    C206,   Spectre);
+        setJump(JUMPS[159], SPC,    C206,   Fury);
+        setJump(JUMPS[160], SPC,    C206,   Spectre);
+        setJump(JUMPS[161], SPC,    C206,   Balance);
+        setJump(JUMPS[162], SPC,    C206,   Spectre);
+        setJump(JUMPS[163], SPC,    C206,   Spectre);
+        setJump(JUMPS[164], SPC,    C206,   Spectre);
+        setJump(JUMPS[165], SPC,    C206,   Balance);
+        setJump(JUMPS[166], SPC,    C206,   Spectre);
+        setJump(JUMPS[167], SPC,    C206,   Spectre);
+        setJump(JUMPS[168], SPC,    C206,   Spectre);
+        setJump(JUMPS[169], SPC,    C206,   Spectre);
+        setJump(JUMPS[170], SPC,    C206,   Spectre);
+        setJump(JUMPS[171], SPC,    C206,   Spectre);
+        setJump(JUMPS[172], SPC,    C206,   Balance);
+        setJump(JUMPS[173], SPC,    C206,   Spectre);
+        setJump(JUMPS[174], SPC,    C206,   Spectre);
+        setJump(JUMPS[175], SPC,    C206,   Spectre);
+        setJump(JUMPS[176], SPC,    C206,   Spectre);
+        setJump(JUMPS[177], SPC,    C206,   Spectre);
+        setJump(JUMPS[178], SPC,    C206,   Spectre);
+        setJump(JUMPS[179], SPC,    C206,   Spectre);
+        setJump(JUMPS[180], SPC,    C206,   Spectre);
+        setJump(JUMPS[181], SPC,    C206,   Spectre);
+        setJump(JUMPS[182], SPC,    C206,   Spectre);
+        setJump(JUMPS[183], SPC,    C206,   Quadra);
+        setJump(JUMPS[184], SPC,    C206,   Quadra);
+        setJump(JUMPS[185], SPC,    C206,   Quadra);
+        setJump(JUMPS[186], SPC,    C206,   Quadra);
+        setJump(JUMPS[187], SPC,    C206,   Quadra);
+        setJump(JUMPS[188], SPC,    C206,   Balance);
+        setJump(JUMPS[189], SPC,    C206,   Spectre);
+        setJump(JUMPS[190], SPC,    C206,   Spectre);
+        setJump(JUMPS[191], SPC,    C206,   Spectre);
+        setJump(JUMPS[192], SPC,    C206,   Spectre);
+        setJump(JUMPS[193], SPC,    C206,   Spectre);
+        setJump(JUMPS[194], SPC,    C206,   Spectre);
+        setJump(JUMPS[195], SPC,    C206,   Triatha);
+        setJump(JUMPS[196], SPC,    C206,   Spectre);
+        setJump(JUMPS[197], SPC,    C206,   Spectre);
+        setJump(JUMPS[198], SPC,    C206,   Spectre);
+        setJump(JUMPS[199], SPC,    C206,   Triatha);
+        setJump(JUMPS[200], SPC,    C206,   Sabre1);
+        setJump(JUMPS[201], SPC,    C206,   Sabre1);
+        setJump(JUMPS[202], Prost,  Let,    Sabre1);
+        setJump(JUMPS[203], Prost,  MI8,    Sabre1);
+        setJump(JUMPS[204], Prost,  C208,   Sabre1);
+        setJump(JUMPS[205], Prost,  Dornr,  Sabre1);
+        setJump(JUMPS[206], Prost,  MI8,    Sabre1);
+        setJump(JUMPS[207], Prost,  MI8,    Sabre1);
+        setJump(JUMPS[208], Prost,  C208,   Sabre1);
+        setJump(JUMPS[209], Prost,  MI8,    Sabre1);
+        setJump(JUMPS[210], Prost,  Let,    Sabre1);
+        setJump(JUMPS[211], Prost,  MI8,    Sabre1);
+        setJump(JUMPS[212], Prost,  MI8,    Sabre1);
+        setJump(JUMPS[213], Prost,  Let,    Sabre1);
 
         res.bulkInsert(Jumps.CONTENT_URI, JUMPS);
     }
