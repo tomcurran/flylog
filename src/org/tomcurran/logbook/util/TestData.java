@@ -20,7 +20,9 @@ public class TestData {
             new PlaceInfo("Wild Geese"),
             new PlaceInfo("Perris"),
             new PlaceInfo("Hibalstow"),
-            new PlaceInfo("Prostejov")
+            new PlaceInfo("Prostejov"),
+            new PlaceInfo("Sibson"),
+            new PlaceInfo("Chatteris")
     };
 
     private static final AircraftInfo[] AIRCRAFTS = {
@@ -46,7 +48,9 @@ public class TestData {
             new EquipmentInfo("Triathalon",  175),
             new EquipmentInfo("Sabre 2",     190),
             new EquipmentInfo("Quadra Vtec", 190),
-            new EquipmentInfo("Sabre 1",     170)
+            new EquipmentInfo("Sabre 1",     170),
+            new EquipmentInfo("Sabre 2",     150),
+            new EquipmentInfo("Sabre 1",     190)
     };
 
     private static final ContentValues[] JUMPS = {
@@ -263,7 +267,37 @@ public class TestData {
             newJump(210, 13000, 66, 2012,  6, 21, "9 way fs\nstar, zipper, turns"),
             newJump(211, 13700, 58, 2012,  6, 21, "6 way hybrid\nzooo"),
             newJump(212, 12700, 58, 2012,  6, 21, "6 way fs"),
-            newJump(213, 13500, 66, 2012,  6, 22, "8 way fs\nturning blocks, to star")
+            newJump(213, 13500, 66, 2012,  6, 22, "8 way fs\nturning blocks, to star"),
+            newJump(214, 14330, 63, 2012,  7,  7, "3 way fs\nwith john & lucy"),
+            newJump(215, 10480, 48, 2012,  7, 21, "4 way fs\nhib cup round 1"),
+            newJump(216, 10240, 46, 2012,  7, 21, "4 way fs\nhib cup round 2"),
+            newJump(217, 10330, 47, 2012,  7, 21, "4 way fs\nhib cup round 3"),
+            newJump(218, 10330, 47, 2012,  7, 21, "4 way fs\nhib cup round 4"),
+            newJump(219, 10490, 46, 2012,  7, 21, "4 way fs\nhib cup round 5"),
+            newJump(220, 10460, 47, 2012,  7, 21, "4 way fs\nhib cup round 6"),
+            newJump(221, 14870, 74, 2012,  7, 21, "12 way fs\n3 points"),
+            newJump(222, 14620, 73, 2012,  7, 22, "12 way fs"),
+            newJump(223, 15040, 73, 2012,  7, 10, "3 way fs"),
+            newJump(224, 10500, 48, 2012,  8, 11, "4 way fs\nBPA nationals round 1\nBLE\n3 points"),
+            newJump(225, 10550, 48, 2012,  8, 11, "4 way fs\nBPA nationals round 2\nMFO\n2 points"),
+            newJump(226, 10410, 45, 2012,  8, 11, "4 way fs\nBPA nationals round 3\nKAJ\n0 points"),
+            newJump(227, 10720, 48, 2012,  8, 11, "4 way fs\nBPA nationals round 4\nQCP\n4 points"),
+            newJump(228, 10540, 49, 2012,  8, 12, "4 way fs\nBPA nationals round 5\nGHN\n3 points"),
+            newJump(229, 10440, 49, 2012,  8, 12, "4 way fs\nBPA nationals round 6\nJCO\n4 points"),
+            newJump(230, 10590, 50, 2012,  8, 12, "4 way fs\nBPA nationals round 7\nLMD\n5 points"),
+            newJump(231, 10620, 46, 2012,  8, 12, "4 way fs\nBPA nationals round 8\nPHQ\n6 points"),
+            newJump(232,  7050,  3, 2012,  8, 25, "3 way cf\nwith sandy & greg\npendulum to down-plane attempt"),
+            newJump(233,  6000,  3, 2012,  8, 25, "3 way cf\nwith sandy & greg\npendulum to down-plane attempt"),
+            newJump(234,  5000,  3, 2012,  8, 25, "3 way cf\nwith sandy & greg\npendulum to down-plane attempt"),
+            newJump(235,  2230,  3, 2012,  8, 26, "2 way cf\nwith greg\ndownplane"),
+            newJump(236,  4000,  3, 2012,  8, 26, "3 way cf\nwith sandy & greg\nptri-plane attempt"),
+            newJump(237,  5000,  3, 2012,  8, 26, "3 way cf\nwith sandy & greg\nptri-plane attempt"),
+            newJump(238, 12900, 56, 2012,  9,  8, "solo"),
+            newJump(239,  9880, 41, 2012,  9, 22, "solo ff"),
+            newJump(240,  9460, 41, 2012,  9, 22, "3 way fs\nolwyns 3 way, sandy coaching"),
+            newJump(241,  9730, 40, 2012, 10, 13, "3 way fs\nwith carol & anna\njim filming"),
+            newJump(242,  6120, 20, 2012, 11,  4, "solo ff\nsit good"),
+            newJump(243,  2500,  3, 2013,  1,  5, "hop'n'pop")
     };
 
     private static ContentValues newJump(int number, int altitude, int delay, int jYear, int jMonth, int jDay, String description) {
@@ -296,6 +330,8 @@ public class TestData {
         Uri Perris = res.insert(Places.CONTENT_URI, PLACES[3].getContentValues());
         Uri Hib    = res.insert(Places.CONTENT_URI, PLACES[4].getContentValues());
         Uri Prost  = res.insert(Places.CONTENT_URI, PLACES[5].getContentValues());
+        Uri Sibson = res.insert(Places.CONTENT_URI, PLACES[6].getContentValues());
+        Uri Chatrs = res.insert(Places.CONTENT_URI, PLACES[7].getContentValues());
 
         Uri C206   = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[0].getContentValues());
         Uri Porter = res.insert(Aircrafts.CONTENT_URI, AIRCRAFTS[1].getContentValues());
@@ -315,9 +351,11 @@ public class TestData {
         Uri Fury    = res.insert(Equipment.CONTENT_URI, EQUIPMENT[4].getContentValues());
         Uri Spectre = res.insert(Equipment.CONTENT_URI, EQUIPMENT[5].getContentValues());
         Uri Triatha = res.insert(Equipment.CONTENT_URI, EQUIPMENT[6].getContentValues());
-        Uri Sabre2  = res.insert(Equipment.CONTENT_URI, EQUIPMENT[7].getContentValues());
+        Uri Sbr2190 = res.insert(Equipment.CONTENT_URI, EQUIPMENT[7].getContentValues());
         Uri Quadra  = res.insert(Equipment.CONTENT_URI, EQUIPMENT[8].getContentValues());
-        Uri Sabre1  = res.insert(Equipment.CONTENT_URI, EQUIPMENT[9].getContentValues());
+        Uri Sbr1170 = res.insert(Equipment.CONTENT_URI, EQUIPMENT[9].getContentValues());
+        Uri Sbr2150 = res.insert(Equipment.CONTENT_URI, EQUIPMENT[10].getContentValues());
+        Uri Sbr1190 = res.insert(Equipment.CONTENT_URI, EQUIPMENT[11].getContentValues());
 
         setJump(JUMPS[1  ], SPC,    C206,   Manta);
         setJump(JUMPS[2  ], SPC,    C206,   Manta);
@@ -461,8 +499,8 @@ public class TestData {
         setJump(JUMPS[139], SPC,    Porter, Spectre);
         setJump(JUMPS[140], SPC,    C206,   Spectre);
         setJump(JUMPS[141], SPC,    C206,   Spectre);
-        setJump(JUMPS[142], Geese,  C208,   Sabre2);
-        setJump(JUMPS[143], Geese,  C208,   Sabre2);
+        setJump(JUMPS[142], Geese,  C208,   Sbr2190);
+        setJump(JUMPS[143], Geese,  C208,   Sbr2190);
         setJump(JUMPS[144], SPC,    C206,   Balance);
         setJump(JUMPS[145], SPC,    C206,   Spectre);
         setJump(JUMPS[146], SPC,    C206,   Quadra);
@@ -519,20 +557,50 @@ public class TestData {
         setJump(JUMPS[197], SPC,    C206,   Spectre);
         setJump(JUMPS[198], SPC,    C206,   Spectre);
         setJump(JUMPS[199], SPC,    C206,   Triatha);
-        setJump(JUMPS[200], SPC,    C206,   Sabre1);
-        setJump(JUMPS[201], SPC,    C206,   Sabre1);
-        setJump(JUMPS[202], Prost,  Let,    Sabre1);
-        setJump(JUMPS[203], Prost,  MI8,    Sabre1);
-        setJump(JUMPS[204], Prost,  C208,   Sabre1);
-        setJump(JUMPS[205], Prost,  Dornr,  Sabre1);
-        setJump(JUMPS[206], Prost,  MI8,    Sabre1);
-        setJump(JUMPS[207], Prost,  MI8,    Sabre1);
-        setJump(JUMPS[208], Prost,  C208,   Sabre1);
-        setJump(JUMPS[209], Prost,  MI8,    Sabre1);
-        setJump(JUMPS[210], Prost,  Let,    Sabre1);
-        setJump(JUMPS[211], Prost,  MI8,    Sabre1);
-        setJump(JUMPS[212], Prost,  MI8,    Sabre1);
-        setJump(JUMPS[213], Prost,  Let,    Sabre1);
+        setJump(JUMPS[200], SPC,    C206,   Sbr1170);
+        setJump(JUMPS[201], SPC,    C206,   Sbr1170);
+        setJump(JUMPS[202], Prost,  Let,    Sbr1170);
+        setJump(JUMPS[203], Prost,  MI8,    Sbr1170);
+        setJump(JUMPS[204], Prost,  C208,   Sbr1170);
+        setJump(JUMPS[205], Prost,  Dornr,  Sbr1170);
+        setJump(JUMPS[206], Prost,  MI8,    Sbr1170);
+        setJump(JUMPS[207], Prost,  MI8,    Sbr1170);
+        setJump(JUMPS[208], Prost,  C208,   Sbr1170);
+        setJump(JUMPS[209], Prost,  MI8,    Sbr1170);
+        setJump(JUMPS[210], Prost,  Let,    Sbr1170);
+        setJump(JUMPS[211], Prost,  MI8,    Sbr1170);
+        setJump(JUMPS[212], Prost,  MI8,    Sbr1170);
+        setJump(JUMPS[213], Prost,  Let,    Sbr1170);
+        setJump(JUMPS[214], Sibson, C208,   Sbr1170);
+        setJump(JUMPS[215], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[216], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[217], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[218], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[219], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[220], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[221], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[222], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[223], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[224], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[225], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[226], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[227], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[228], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[229], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[230], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[231], Hib,    Dornr,  Sbr1170);
+        setJump(JUMPS[232], SPC,    C206,   Triatha);
+        setJump(JUMPS[233], SPC,    C206,   Triatha);
+        setJump(JUMPS[234], SPC,    C206,   Triatha);
+        setJump(JUMPS[235], SPC,    C206,   Triatha);
+        setJump(JUMPS[236], SPC,    C206,   Triatha);
+        setJump(JUMPS[237], SPC,    C206,   Triatha);
+        setJump(JUMPS[238], Chatrs, TwinOt, Sbr1190);
+        setJump(JUMPS[239], SPC,    C206,   Sbr2150);
+        setJump(JUMPS[240], SPC,    C206,   Sbr1190);
+        setJump(JUMPS[241], SPC,    C206,   Quadra);
+        setJump(JUMPS[242], SPC,    C206,   Sbr2150);
+        setJump(JUMPS[243], SPC,    C206,   Sbr2150);
 
         res.bulkInsert(Jumps.CONTENT_URI, JUMPS);
     }
